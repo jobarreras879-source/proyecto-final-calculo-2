@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Subir y ver videos</title>
+<title>Cálculo 2 · Ejercicios resueltos</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <style>
   :root {
     --bg: #0f0f10;
     --card: #1a1a1c;
-    --card-hover: #232326;
+    --card-2: #222226;
     --border: #2b2b2f;
     --text: #f1f1f3;
     --muted: #9a9aa3;
     --accent: #3b82f6;
     --accent-hover: #2f6fe0;
+    --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
     --ok: #34d399;
     --error: #f87171;
     --shadow: 0 8px 30px rgba(0, 0, 0, .35);
@@ -21,7 +23,7 @@
   [data-theme="light"] {
     --bg: #f4f5f7;
     --card: #ffffff;
-    --card-hover: #f0f2f6;
+    --card-2: #f0f2f6;
     --border: #dfe2e8;
     --text: #17171a;
     --muted: #6b6f7a;
@@ -33,179 +35,205 @@
   }
 
   * { box-sizing: border-box; }
-  html { color-scheme: dark; }
+  html { color-scheme: dark; scroll-behavior: smooth; }
   [data-theme="light"] { color-scheme: light; }
 
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
+    margin: 0; background: var(--bg); color: var(--text);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.5;
-    transition: background .3s, color .3s;
+    line-height: 1.7; transition: background .3s, color .3s;
   }
+  .container { max-width: 780px; margin: 0 auto; padding: 24px 16px 80px; }
 
-  .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
-
-  header {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; margin-bottom: 24px;
+  /* Cabecera */
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+  .brand .logo {
+    width: 34px; height: 34px; border-radius: 10px; background: var(--accent); color: #fff;
+    display: grid; place-items: center; font-size: 18px;
   }
-  h1 { font-size: 1.4rem; margin: 0; display: flex; align-items: center; gap: 10px; }
-  h1 .logo {
-    width: 34px; height: 34px; border-radius: 10px; background: var(--accent);
-    display: grid; place-items: center; color: #fff; font-size: 16px;
-  }
-  h2 { font-size: 1.05rem; margin: 0 0 14px; }
-
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    transition: background .3s, border-color .3s;
-  }
-
-  button {
-    font: inherit; cursor: pointer; border: 0; border-radius: 10px;
-    transition: background .2s, transform .15s, opacity .2s;
-  }
+  button { font: inherit; cursor: pointer; border: 0; border-radius: 10px; transition: background .2s, transform .15s, opacity .2s; }
   button:active:not(:disabled) { transform: scale(.97); }
   button:disabled { opacity: .5; cursor: not-allowed; }
-
-  .btn-primary { background: var(--accent); color: #fff; padding: 11px 22px; font-weight: 600; }
+  .btn-primary { background: var(--accent); color: #fff; padding: 10px 20px; font-weight: 600; }
   .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
-  .btn-icon {
-    background: var(--card); color: var(--text); border: 1px solid var(--border);
-    padding: 8px 14px; font-size: .9rem;
-  }
-  .btn-icon:hover { background: var(--card-hover); }
+  .btn-ghost { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; font-size: .9rem; }
+  .btn-ghost:hover { background: var(--card-2); }
 
-  /* Reproductor */
-  .player-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; }
-  .player-box { width: 100%; max-width: 860px; }
-  video#player {
-    width: 100%; max-height: 70vh; background: #000; border-radius: 14px;
-    display: block; box-shadow: var(--shadow);
+  .hero { margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 10px; }
+  .hero p { color: var(--muted); margin: 0; max-width: 60ch; }
+
+  .index { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 36px; }
+  .index a {
+    text-decoration: none; color: var(--text); background: var(--card); border: 1px solid var(--border);
+    padding: 6px 14px; border-radius: 999px; font-size: .88rem; transition: border-color .2s, background .2s;
   }
-  .player-title {
-    text-align: center; color: var(--muted); font-size: .9rem; margin-top: 10px;
-    word-break: break-all;
+  .index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+  .autor-banner {
+    background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 12px;
+    padding: 10px 14px; margin-bottom: 24px; font-size: .9rem;
   }
-  .player-empty {
-    aspect-ratio: 16 / 9; width: 100%; border-radius: 14px;
-    border: 1px dashed var(--border); background: var(--card);
-    display: grid; place-items: center; color: var(--muted); text-align: center; padding: 16px;
+
+  /* Entradas */
+  .post {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: clamp(18px, 4vw, 32px); margin-bottom: 28px; box-shadow: var(--shadow);
+    scroll-margin-top: 16px; transition: background .3s, border-color .3s;
   }
-  .hidden { display: none !important; }
+  .tag {
+    display: inline-block; font-size: .75rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-soft); padding: 3px 10px; border-radius: 999px;
+  }
+  .post h2 { margin: 10px 0 14px; font-size: 1.45rem; line-height: 1.3; }
+  .post h3 { margin: 24px 0 8px; font-size: 1rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .statement { background: var(--card-2); border-left: 4px solid var(--accent); border-radius: 8px; padding: 12px 16px; margin: 8px 0; }
+  ol.steps { padding-left: 1.3em; margin: 8px 0; }
+  ol.steps li { margin-bottom: 10px; padding-left: 4px; }
+  ol.steps li::marker { color: var(--accent); font-weight: 700; }
+  .result {
+    margin-top: 18px; padding: 14px 18px; border-radius: 12px; border: 1px solid var(--ok);
+    background: color-mix(in srgb, var(--ok) 10%, transparent);
+  }
+  .result strong { color: var(--ok); }
+  .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+
+  /* Recuadro del video (al final de cada entrada) */
+  .video-box { margin-top: 28px; border: 1px solid var(--border); border-radius: 14px; background: var(--card-2); overflow: hidden; }
+  .video-box > header { padding: 10px 16px; font-weight: 600; font-size: .92rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .video-box video { width: 100%; max-height: 70vh; background: #000; display: block; }
+  .video-box .placeholder { padding: 34px 16px; text-align: center; color: var(--muted); font-size: .92rem; }
   .fade-in { animation: fadeIn .4s ease both; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-  /* Subida */
-  .upload { margin-bottom: 28px; }
+  /* Subida (solo modo autor) */
+  .uploader { padding: 14px 16px; border-top: 1px dashed var(--border); }
   .dropzone {
-    display: block;
-    border: 2px dashed var(--border); border-radius: 14px; padding: 30px 16px;
-    text-align: center; cursor: pointer; color: var(--muted);
-    transition: border-color .2s, background .2s, transform .2s;
+    display: block; border: 2px dashed var(--border); border-radius: 12px; padding: 16px; text-align: center;
+    color: var(--muted); cursor: pointer; font-size: .9rem; transition: border-color .2s, background .2s;
   }
-  .dropzone:hover, .dropzone.drag { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
-  .dropzone.drag { transform: scale(1.01); }
-  .dropzone .icon { font-size: 2rem; display: block; margin-bottom: 6px; }
-  .dropzone strong { color: var(--text); }
-  .dropzone .file-name { color: var(--accent); font-weight: 600; margin-top: 8px; word-break: break-all; }
+  .dropzone:hover, .dropzone.drag { border-color: var(--accent); background: var(--accent-soft); }
   .dropzone input { display: none; }
-
-  .upload-row { display: flex; align-items: center; gap: 14px; margin-top: 16px; flex-wrap: wrap; }
-  #status { font-size: .95rem; min-height: 1.4em; }
-  #status.ok { color: var(--ok); }
-  #status.error { color: var(--error); }
-  #status.loading { color: var(--muted); }
-  #status.loading::after {
+  .dropzone .fname { color: var(--accent); font-weight: 600; display: block; margin-top: 4px; word-break: break-all; }
+  .up-row { display: flex; align-items: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+  .status { font-size: .9rem; }
+  .status.ok { color: var(--ok); }
+  .status.error { color: var(--error); }
+  .status.loading { color: var(--muted); }
+  .status.loading::after {
     content: ""; display: inline-block; width: 12px; height: 12px; margin-left: 8px;
     border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%;
     animation: spin .8s linear infinite; vertical-align: -2px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+  .hidden { display: none !important; }
 
-  /* Lista */
-  .list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-  .list-header h2 { margin: 0; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-  .item {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    overflow: hidden; cursor: pointer; text-align: left; padding: 0; color: var(--text);
-    transition: transform .2s, border-color .2s, box-shadow .2s;
-    animation: fadeIn .4s ease both;
-  }
-  .item:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--shadow); }
-  .item.active { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent); }
-  .thumb { position: relative; aspect-ratio: 16 / 9; background: #000; }
-  .thumb video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-  .thumb .play {
-    position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 2rem;
-    background: rgba(0, 0, 0, .25); opacity: 0; transition: opacity .2s;
-  }
-  .item:hover .play, .item.active .play { opacity: 1; }
-  .meta { padding: 10px 12px; }
-  .meta .name { font-size: .88rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .meta .info { font-size: .78rem; color: var(--muted); }
-  .empty, .list-msg { color: var(--muted); text-align: center; padding: 30px 0; grid-column: 1 / -1; }
-
-  @media (max-width: 520px) {
-    .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-    h1 { font-size: 1.15rem; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
-  }
+  footer { text-align: center; color: var(--muted); font-size: .85rem; margin-top: 40px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
 <div class="container">
-  <header>
-    <h1><span class="logo">▶</span> Mis videos</h1>
-    <button id="themeBtn" class="btn-icon" type="button">☀️ Modo claro</button>
-  </header>
+  <div class="topbar">
+    <div class="brand"><span class="logo">∫</span> Cálculo 2</div>
+    <button id="themeBtn" class="btn-ghost" type="button">☀️ Modo claro</button>
+  </div>
 
-  <!-- Reproductor grande y centrado -->
-  <section class="player-wrap">
-    <div class="player-box">
-      <div id="playerEmpty" class="player-empty">Sube un video o elige uno de la lista para reproducirlo aquí.</div>
-      <video id="player" class="hidden" controls playsinline></video>
-      <div id="playerTitle" class="player-title"></div>
-    </div>
+  <section class="hero">
+    <h1>Ejercicios resueltos de Cálculo 2</h1>
+    <p>Cada entrada trae el enunciado y la solución paso a paso. Al final encontrarás el video donde resuelvo el ejercicio explicándolo en voz alta.</p>
   </section>
 
-  <!-- Formulario de subida -->
-  <section class="card upload">
-    <h2>Subir un video</h2>
-    <form id="uploadForm">
-      <label class="dropzone" id="dropzone" for="fileInput">
-        <span class="icon">🎬</span>
-        <div><strong>Arrastra y suelta un video aquí</strong> o haz clic para elegirlo</div>
-        <div>Máximo 50 MB · MP4, WebM, MOV…</div>
-        <div class="file-name" id="fileName"></div>
-        <input type="file" id="fileInput" accept="video/*">
-      </label>
-      <div class="upload-row">
-        <button type="submit" id="uploadBtn" class="btn-primary">Subir</button>
-        <span id="status" role="status" aria-live="polite"></span>
-      </div>
-    </form>
-  </section>
+  <nav class="index" aria-label="Índice de ejercicios">
+    <a href="#integracion-por-partes">Integración por partes</a>
+    <a href="#sustitucion-trigonometrica">Sustitución trigonométrica</a>
+    <a href="#fracciones-parciales">Fracciones parciales</a>
+    <a href="#criterio-de-la-razon">Criterio de la razón</a>
+  </nav>
 
-  <!-- Lista de videos del bucket -->
-  <section>
-    <div class="list-header">
-      <h2>Videos en el bucket</h2>
-      <button id="refreshBtn" class="btn-icon" type="button">↻ Actualizar</button>
-    </div>
-    <div id="grid" class="grid"></div>
-  </section>
+  <div id="autorBanner" class="autor-banner hidden">
+    ✏️ <strong>Modo autor activo.</strong> En cada entrada puedes subir el video del ejercicio (máx. 50 MB). Para salir, quita <code>?autor</code> de la dirección.
+  </div>
+
+  <!-- ===================== ENTRADAS =====================
+       Para añadir un ejercicio nuevo, copia un <article>, cambia el data-slug
+       (único, sin espacios ni acentos) y el contenido. El video se enlaza solo. -->
+
+  <article class="post" id="integracion-por-partes" data-slug="integracion-por-partes">
+    <span class="tag">Técnicas de integración</span>
+    <h2>Integración por partes</h2>
+    <h3>Enunciado</h3>
+    <div class="statement">Calcula \( \displaystyle\int x\,e^{2x}\,dx \).</div>
+    <h3>Idea clave</h3>
+    <p>\[ \int u\,dv = uv - \int v\,du \]</p>
+    <h3>Solución</h3>
+    <ol class="steps">
+      <li>Elegimos \( u = x \) (se simplifica al derivar) y \( dv = e^{2x}\,dx \).</li>
+      <li>Entonces \( du = dx \) y \( v = \tfrac{1}{2}e^{2x} \).</li>
+      <li>Aplicamos la fórmula: \[ \int x e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{2}\int e^{2x}\,dx \]</li>
+      <li>Integramos lo que queda: \( \displaystyle\frac12\int e^{2x}dx = \frac14 e^{2x} \).</li>
+    </ol>
+    <div class="result"><strong>Resultado:</strong> \[ \int x e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{4}e^{2x} + C \]</div>
+    <div class="video-box"></div>
+  </article>
+
+  <article class="post" id="sustitucion-trigonometrica" data-slug="sustitucion-trigonometrica">
+    <span class="tag">Técnicas de integración</span>
+    <h2>Sustitución trigonométrica</h2>
+    <h3>Enunciado</h3>
+    <div class="statement">Calcula \( \displaystyle\int \frac{dx}{x^2\sqrt{x^2+4}} \).</div>
+    <h3>Solución</h3>
+    <ol class="steps">
+      <li>Aparece \( \sqrt{x^2+a^2} \) con \( a=2 \), así que usamos \( x = 2\tan\theta \). Entonces \( dx = 2\sec^2\theta\,d\theta \) y \( \sqrt{x^2+4} = 2\sec\theta \).</li>
+      <li>Sustituimos: \[ \int \frac{2\sec^2\theta}{4\tan^2\theta\cdot 2\sec\theta}\,d\theta = \frac14\int \frac{\sec\theta}{\tan^2\theta}\,d\theta \]</li>
+      <li>Como \( \dfrac{\sec\theta}{\tan^2\theta} = \dfrac{\cos\theta}{\sin^2\theta} \), la integral queda \( \dfrac14\displaystyle\int \dfrac{\cos\theta}{\sin^2\theta}\,d\theta \).</li>
+      <li>Con \( w = \sin\theta \), \( dw = \cos\theta\,d\theta \): \[ \frac14\int w^{-2}\,dw = -\frac{1}{4\sin\theta} + C \]</li>
+      <li>Volvemos a \( x \) con el triángulo: \( \tan\theta = \dfrac{x}{2} \), hipotenusa \( \sqrt{x^2+4} \), por lo que \( \sin\theta = \dfrac{x}{\sqrt{x^2+4}} \).</li>
+    </ol>
+    <div class="result"><strong>Resultado:</strong> \[ \int \frac{dx}{x^2\sqrt{x^2+4}} = -\frac{\sqrt{x^2+4}}{4x} + C \]</div>
+    <div class="video-box"></div>
+  </article>
+
+  <article class="post" id="fracciones-parciales" data-slug="fracciones-parciales">
+    <span class="tag">Técnicas de integración</span>
+    <h2>Fracciones parciales</h2>
+    <h3>Enunciado</h3>
+    <div class="statement">Calcula \( \displaystyle\int \frac{x+5}{x^2-x-2}\,dx \).</div>
+    <h3>Solución</h3>
+    <ol class="steps">
+      <li>Factorizamos el denominador: \( x^2-x-2 = (x-2)(x+1) \).</li>
+      <li>Descomponemos: \[ \frac{x+5}{(x-2)(x+1)} = \frac{A}{x-2} + \frac{B}{x+1} \]</li>
+      <li>Multiplicamos por el denominador: \( x+5 = A(x+1) + B(x-2) \).</li>
+      <li>Si \( x=2 \): \( 7 = 3A \Rightarrow A = \tfrac{7}{3} \). Si \( x=-1 \): \( 4 = -3B \Rightarrow B = -\tfrac{4}{3} \).</li>
+      <li>Integramos cada fracción por separado: \[ \frac73\int\frac{dx}{x-2} - \frac43\int\frac{dx}{x+1} \]</li>
+    </ol>
+    <div class="result"><strong>Resultado:</strong> \[ \frac{7}{3}\ln|x-2| - \frac{4}{3}\ln|x+1| + C \]</div>
+    <div class="video-box"></div>
+  </article>
+
+  <article class="post" id="criterio-de-la-razon" data-slug="criterio-de-la-razon">
+    <span class="tag">Series</span>
+    <h2>Criterio de la razón</h2>
+    <h3>Enunciado</h3>
+    <div class="statement">Determina si la serie \( \displaystyle\sum_{n=1}^{\infty} \frac{n}{2^n} \) converge o diverge.</div>
+    <h3>Idea clave</h3>
+    <p>Si \( L = \displaystyle\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right| \): converge si \( L<1 \), diverge si \( L>1 \) y no concluye si \( L=1 \).</p>
+    <h3>Solución</h3>
+    <ol class="steps">
+      <li>Tomamos \( a_n = \dfrac{n}{2^n} \), entonces \( a_{n+1} = \dfrac{n+1}{2^{n+1}} \).</li>
+      <li>Calculamos el cociente: \[ \frac{a_{n+1}}{a_n} = \frac{n+1}{2^{n+1}}\cdot\frac{2^n}{n} = \frac{n+1}{2n} \]</li>
+      <li>Tomamos el límite: \[ L = \lim_{n\to\infty}\frac{n+1}{2n} = \frac12 \]</li>
+    </ol>
+    <div class="result"><strong>Conclusión:</strong> como \( L = \tfrac12 < 1 \), la serie <strong>converge</strong>.</div>
+    <div class="video-box"></div>
+  </article>
+
+  <footer>Proyecto universitario · Cálculo 2</footer>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   // ====== CONFIGURA AQUÍ ======
@@ -215,17 +243,22 @@
 
   const BUCKET = "videos";
   const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
+  const AUTOR = new URLSearchParams(location.search).has("autor");
 
   const $ = (id) => document.getElementById(id);
-  const form = $("uploadForm"), fileInput = $("fileInput"), dropzone = $("dropzone");
-  const fileName = $("fileName"), statusEl = $("status"), uploadBtn = $("uploadBtn");
-  const player = $("player"), playerEmpty = $("playerEmpty"), playerTitle = $("playerTitle");
-  const grid = $("grid");
-
   const configured = !SUPABASE_URL.includes("TU-PROYECTO") && !SUPABASE_ANON_KEY.startsWith("TU_");
   const sb = configured ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-  let selectedFile = null;
+  /* ---------- Fórmulas ---------- */
+  window.addEventListener("load", () => {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+      ],
+      throwOnError: false,
+    });
+  });
 
   /* ---------- Tema ---------- */
   function applyTheme(theme) {
@@ -236,163 +269,145 @@
   let savedTheme = "dark";
   try { savedTheme = localStorage.getItem("theme") || "dark"; } catch (e) {}
   applyTheme(savedTheme);
-  $("themeBtn").addEventListener("click", () => {
-    applyTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
-  });
+  $("themeBtn").addEventListener("click", () =>
+    applyTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light"));
 
-  /* ---------- Estado ---------- */
-  function setStatus(text, type = "") {
-    statusEl.textContent = text;
-    statusEl.className = type;
+  if (AUTOR) $("autorBanner").classList.remove("hidden");
+
+  /* ---------- Videos: un recuadro por entrada ---------- */
+  // Los videos se guardan como "<slug>-<fecha>.<ext>"; se muestra el más reciente de cada entrada.
+  async function fetchVideoNames() {
+    if (!configured) return null;
+    const { data, error } = await sb.storage.from(BUCKET).list("", {
+      limit: 1000, sortBy: { column: "created_at", order: "desc" },
+    });
+    if (error) throw error;
+    return (data || []).filter((f) => f.id).map((f) => f.name);
   }
 
-  /* ---------- Selección de archivo ---------- */
+  function latestFor(slug, names) {
+    const re = new RegExp("^" + slug.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "-\\d+\\.");
+    return names.find((n) => re.test(n)) || null; // names ya viene ordenado: el más nuevo primero
+  }
+
+  function buildBox(box, slug) {
+    box.innerHTML = "";
+    const head = document.createElement("header");
+    head.textContent = "🎥 Video del ejercicio";
+    const body = document.createElement("div");
+    body.className = "vb-body";
+    box.append(head, body);
+    if (AUTOR) box.appendChild(buildUploader(box, slug));
+    return body;
+  }
+
+  function showVideo(body, slug, name) {
+    body.innerHTML = "";
+    if (!name) {
+      const p = document.createElement("div");
+      p.className = "placeholder";
+      p.textContent = "El video de este ejercicio estará disponible pronto.";
+      body.appendChild(p);
+      return;
+    }
+    const v = document.createElement("video");
+    v.controls = true; v.playsInline = true; v.preload = "metadata";
+    v.className = "fade-in";
+    v.src = sb.storage.from(BUCKET).getPublicUrl(name).data.publicUrl;
+    body.appendChild(v);
+  }
+
+  async function loadAll() {
+    const boxes = [...document.querySelectorAll(".post")].map((post) => ({
+      slug: post.dataset.slug, box: post.querySelector(".video-box"),
+    }));
+    const bodies = boxes.map(({ slug, box }) => ({ slug, box, body: buildBox(box, slug) }));
+    let names = [];
+    try {
+      names = await fetchVideoNames();
+      if (names === null) throw new Error("Falta configurar Supabase en index.html.");
+    } catch (e) {
+      bodies.forEach(({ body }) => {
+        body.innerHTML = "";
+        const p = document.createElement("div");
+        p.className = "placeholder";
+        p.textContent = "No se pudo cargar el video: " + (e.message || e);
+        body.appendChild(p);
+      });
+      return;
+    }
+    bodies.forEach(({ slug, body }) => showVideo(body, slug, latestFor(slug, names)));
+  }
+
+  /* ---------- Subida (solo modo autor) ---------- */
   function validate(file) {
     if (!file) return "Primero elige un archivo de video.";
     if (!file.type.startsWith("video/")) return "El archivo no es un video. Elige un archivo de video válido.";
-    if (file.size > MAX_SIZE) {
+    if (file.size > MAX_SIZE)
       return `El video pesa ${(file.size / 1024 / 1024).toFixed(1)} MB y el máximo permitido es 50 MB.`;
-    }
     return null;
   }
 
-  function selectFile(file) {
-    selectedFile = file || null;
-    fileName.textContent = file ? `${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB)` : "";
-    const err = file ? validate(file) : null;
-    if (err) setStatus(err, "error"); else setStatus("");
-  }
+  function buildUploader(box, slug) {
+    const wrap = document.createElement("div");
+    wrap.className = "uploader";
+    wrap.innerHTML = `
+      <label class="dropzone">
+        <div><strong>Arrastra tu video aquí</strong> o haz clic para elegirlo (máx. 50 MB)</div>
+        <span class="fname"></span>
+        <input type="file" accept="video/*">
+      </label>
+      <div class="up-row">
+        <button type="button" class="btn-primary">Subir</button>
+        <span class="status" role="status" aria-live="polite"></span>
+      </div>`;
+    const dz = wrap.querySelector(".dropzone");
+    const input = wrap.querySelector("input");
+    const fname = wrap.querySelector(".fname");
+    const btn = wrap.querySelector("button");
+    const status = wrap.querySelector(".status");
+    let file = null;
 
-  fileInput.addEventListener("change", () => selectFile(fileInput.files[0]));
+    const setStatus = (t, c = "") => { status.textContent = t; status.className = "status " + c; };
+    const pick = (f) => {
+      file = f || null;
+      fname.textContent = f ? `${f.name} (${(f.size / 1024 / 1024).toFixed(1)} MB)` : "";
+      const err = f ? validate(f) : null;
+      err ? setStatus(err, "error") : setStatus("");
+    };
 
-  ["dragenter", "dragover"].forEach((ev) =>
-    dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.add("drag"); }));
-  ["dragleave", "drop"].forEach((ev) =>
-    dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.remove("drag"); }));
-  dropzone.addEventListener("drop", (e) => {
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      try { // sincroniza el input para mantener coherencia
-        const dt = new DataTransfer(); dt.items.add(file); fileInput.files = dt.files;
-      } catch (err) {}
-      selectFile(file);
-    }
-  });
-
-  /* ---------- Reproducir ---------- */
-  function playVideo(url, name, card) {
-    playerEmpty.classList.add("hidden");
-    player.classList.remove("hidden");
-    player.classList.remove("fade-in"); void player.offsetWidth; player.classList.add("fade-in");
-    player.src = url;
-    player.play().catch(() => {});
-    playerTitle.textContent = name;
-    document.querySelectorAll(".item.active").forEach((el) => el.classList.remove("active"));
-    if (card) card.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  const publicUrl = (path) => sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
-
-  /* ---------- Subida ---------- */
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!configured) return setStatus("Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY en index.html.", "error");
-    const err = validate(selectedFile);
-    if (err) return setStatus(err, "error");
-
-    // Nombre único y seguro para la clave del objeto
-    const safeName = selectedFile.name
-      .normalize("NFD").replace(/[̀-ͯ]/g, "")
-      .replace(/[^a-zA-Z0-9._-]/g, "_");
-    const path = `${Date.now()}-${safeName}`;
-
-    uploadBtn.disabled = true;
-    setStatus("Subiendo...", "loading");
-    try {
-      const { error } = await sb.storage.from(BUCKET).upload(path, selectedFile, {
-        contentType: selectedFile.type, upsert: false,
-      });
-      if (error) throw error;
-      setStatus("Listo", "ok");
-      playVideo(publicUrl(path), selectedFile.name);
-      selectFile(null);
-      fileInput.value = "";
-      loadList();
-    } catch (error) {
-      setStatus("Error al subir: " + (error.message || error), "error");
-    } finally {
-      uploadBtn.disabled = false;
-    }
-  });
-
-  /* ---------- Lista ---------- */
-  function formatSize(bytes) {
-    return bytes ? (bytes / 1024 / 1024).toFixed(1) + " MB" : "";
-  }
-
-  function displayName(storedName) {
-    return storedName.replace(/^\d+-/, "");
-  }
-
-  async function loadList() {
-    grid.innerHTML = "";
-    if (!configured) {
-      grid.innerHTML = '<div class="list-msg">Configura SUPABASE_URL y SUPABASE_ANON_KEY para ver tus videos.</div>';
-      return;
-    }
-    grid.innerHTML = '<div class="list-msg">Cargando videos...</div>';
-    const { data, error } = await sb.storage.from(BUCKET).list("", {
-      limit: 100, sortBy: { column: "created_at", order: "desc" },
+    input.addEventListener("change", () => pick(input.files[0]));
+    ["dragenter", "dragover"].forEach((ev) => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.add("drag"); }));
+    ["dragleave", "drop"].forEach((ev) => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.remove("drag"); }));
+    dz.addEventListener("drop", (e) => {
+      const f = e.dataTransfer.files[0];
+      if (f) { try { const dt = new DataTransfer(); dt.items.add(f); input.files = dt.files; } catch (err) {} pick(f); }
     });
-    grid.innerHTML = "";
-    if (error) {
-      grid.innerHTML = "";
-      const m = document.createElement("div");
-      m.className = "list-msg"; m.style.color = "var(--error)";
-      m.textContent = "No se pudo cargar la lista: " + error.message;
-      grid.appendChild(m);
-      return;
-    }
-    const files = (data || []).filter((f) => f.id && f.name !== ".emptyFolderPlaceholder");
-    if (!files.length) {
-      grid.innerHTML = '<div class="empty">Aún no hay videos. ¡Sube el primero!</div>';
-      return;
-    }
-    files.forEach((f, i) => {
-      const url = publicUrl(f.name);
-      const card = document.createElement("button");
-      card.type = "button";
-      card.className = "item";
-      card.style.animationDelay = Math.min(i * 40, 400) + "ms";
 
-      const thumb = document.createElement("div");
-      thumb.className = "thumb";
-      const v = document.createElement("video");
-      v.src = url + "#t=0.5"; v.preload = "metadata"; v.muted = true;
-      const play = document.createElement("div");
-      play.className = "play"; play.textContent = "▶";
-      thumb.append(v, play);
-
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      const n = document.createElement("div");
-      n.className = "name"; n.textContent = displayName(f.name); n.title = displayName(f.name);
-      const info = document.createElement("div");
-      info.className = "info";
-      const date = f.created_at ? new Date(f.created_at).toLocaleDateString("es") : "";
-      info.textContent = [formatSize(f.metadata && f.metadata.size), date].filter(Boolean).join(" · ");
-      meta.append(n, info);
-
-      card.append(thumb, meta);
-      card.addEventListener("click", () => playVideo(url, displayName(f.name), card));
-      grid.appendChild(card);
+    btn.addEventListener("click", async () => {
+      if (!configured) return setStatus("Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY.", "error");
+      const err = validate(file);
+      if (err) return setStatus(err, "error");
+      const ext = (file.name.split(".").pop() || "mp4").toLowerCase().replace(/[^a-z0-9]/g, "") || "mp4";
+      const path = `${slug}-${Date.now()}.${ext}`;
+      btn.disabled = true;
+      setStatus("Subiendo...", "loading");
+      try {
+        const { error } = await sb.storage.from(BUCKET).upload(path, file, { contentType: file.type, upsert: false });
+        if (error) throw error;
+        setStatus("Listo", "ok");
+        showVideo(box.querySelector(".vb-body"), slug, path);
+        pick(null); input.value = "";
+      } catch (e) {
+        setStatus("Error al subir: " + (e.message || e), "error");
+      } finally {
+        btn.disabled = false;
+      }
     });
+    return wrap;
   }
 
-  $("refreshBtn").addEventListener("click", loadList);
-  if (!configured) setStatus("Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY en index.html.", "error");
-  loadList();
+  loadAll();
 </script>
 </body>
 </html>
