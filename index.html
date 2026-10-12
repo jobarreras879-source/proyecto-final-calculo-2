@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subir y ver videos</title>
+<style>
+  :root {
+    --bg: #0f0f10;
+    --card: #1a1a1c;
+    --card-hover: #232326;
+    --border: #2b2b2f;
+    --text: #f1f1f3;
+    --muted: #9a9aa3;
+    --accent: #3b82f6;
+    --accent-hover: #2f6fe0;
+    --ok: #34d399;
+    --error: #f87171;
+    --shadow: 0 8px 30px rgba(0, 0, 0, .35);
+  }
+  [data-theme="light"] {
+    --bg: #f4f5f7;
+    --card: #ffffff;
+    --card-hover: #f0f2f6;
+    --border: #dfe2e8;
+    --text: #17171a;
+    --muted: #6b6f7a;
+    --accent: #2563eb;
+    --accent-hover: #1d4fc4;
+    --ok: #059669;
+    --error: #dc2626;
+    --shadow: 0 8px 30px rgba(20, 30, 60, .08);
+  }
+
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; }
+  [data-theme="light"] { color-scheme: light; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    transition: background .3s, color .3s;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
+
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 24px;
+  }
+  h1 { font-size: 1.4rem; margin: 0; display: flex; align-items: center; gap: 10px; }
+  h1 .logo {
+    width: 34px; height: 34px; border-radius: 10px; background: var(--accent);
+    display: grid; place-items: center; color: #fff; font-size: 16px;
+  }
+  h2 { font-size: 1.05rem; margin: 0 0 14px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: background .3s, border-color .3s;
+  }
+
+  button {
+    font: inherit; cursor: pointer; border: 0; border-radius: 10px;
+    transition: background .2s, transform .15s, opacity .2s;
+  }
+  button:active:not(:disabled) { transform: scale(.97); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+
+  .btn-primary { background: var(--accent); color: #fff; padding: 11px 22px; font-weight: 600; }
+  .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+  .btn-icon {
+    background: var(--card); color: var(--text); border: 1px solid var(--border);
+    padding: 8px 14px; font-size: .9rem;
+  }
+  .btn-icon:hover { background: var(--card-hover); }
+
+  /* Reproductor */
+  .player-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; }
+  .player-box { width: 100%; max-width: 860px; }
+  video#player {
+    width: 100%; max-height: 70vh; background: #000; border-radius: 14px;
+    display: block; box-shadow: var(--shadow);
+  }
+  .player-title {
+    text-align: center; color: var(--muted); font-size: .9rem; margin-top: 10px;
+    word-break: break-all;
+  }
+  .player-empty {
+    aspect-ratio: 16 / 9; width: 100%; border-radius: 14px;
+    border: 1px dashed var(--border); background: var(--card);
+    display: grid; place-items: center; color: var(--muted); text-align: center; padding: 16px;
+  }
+  .hidden { display: none !important; }
+  .fade-in { animation: fadeIn .4s ease both; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* Subida */
+  .upload { margin-bottom: 28px; }
+  .dropzone {
+    border: 2px dashed var(--border); border-radius: 14px; padding: 30px 16px;
+    text-align: center; cursor: pointer; color: var(--muted);
+    transition: border-color .2s, background .2s, transform .2s;
+  }
+  .dropzone:hover, .dropzone.drag { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .dropzone.drag { transform: scale(1.01); }
+  .dropzone .icon { font-size: 2rem; display: block; margin-bottom: 6px; }
+  .dropzone strong { color: var(--text); }
+  .dropzone .file-name { color: var(--accent); font-weight: 600; margin-top: 8px; word-break: break-all; }
+  .dropzone input { display: none; }
+
+  .upload-row { display: flex; align-items: center; gap: 14px; margin-top: 16px; flex-wrap: wrap; }
+  #status { font-size: .95rem; min-height: 1.4em; }
+  #status.ok { color: var(--ok); }
+  #status.error { color: var(--error); }
+  #status.loading { color: var(--muted); }
+  #status.loading::after {
+    content: ""; display: inline-block; width: 12px; height: 12px; margin-left: 8px;
+    border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%;
+    animation: spin .8s linear infinite; vertical-align: -2px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Lista */
+  .list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .list-header h2 { margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+  .item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; cursor: pointer; text-align: left; padding: 0; color: var(--text);
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    animation: fadeIn .4s ease both;
+  }
+  .item:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--shadow); }
+  .item.active { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent); }
+  .thumb { position: relative; aspect-ratio: 16 / 9; background: #000; }
+  .thumb video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .thumb .play {
+    position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 2rem;
+    background: rgba(0, 0, 0, .25); opacity: 0; transition: opacity .2s;
+  }
+  .item:hover .play, .item.active .play { opacity: 1; }
+  .meta { padding: 10px 12px; }
+  .meta .name { font-size: .88rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .meta .info { font-size: .78rem; color: var(--muted); }
+  .empty, .list-msg { color: var(--muted); text-align: center; padding: 30px 0; grid-column: 1 / -1; }
+
+  @media (max-width: 520px) {
+    .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    h1 { font-size: 1.15rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1><span class="logo">▶</span> Mis videos</h1>
+    <button id="themeBtn" class="btn-icon" type="button">☀️ Modo claro</button>
+  </header>
+
+  <!-- Reproductor grande y centrado -->
+  <section class="player-wrap">
+    <div class="player-box">
+      <div id="playerEmpty" class="player-empty">Sube un video o elige uno de la lista para reproducirlo aquí.</div>
+      <video id="player" class="hidden" controls playsinline></video>
+      <div id="playerTitle" class="player-title"></div>
+    </div>
+  </section>
+
+  <!-- Formulario de subida -->
+  <section class="card upload">
+    <h2>Subir un video</h2>
+    <form id="uploadForm">
+      <label class="dropzone" id="dropzone" for="fileInput">
+        <span class="icon">🎬</span>
+        <div><strong>Arrastra y suelta un video aquí</strong> o haz clic para elegirlo</div>
+        <div>Máximo 50 MB · MP4, WebM, MOV…</div>
+        <div class="file-name" id="fileName"></div>
+        <input type="file" id="fileInput" accept="video/*">
+      </label>
+      <div class="upload-row">
+        <button type="submit" id="uploadBtn" class="btn-primary">Subir</button>
+        <span id="status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+  </section>
+
+  <!-- Lista de videos del bucket -->
+  <section>
+    <div class="list-header">
+      <h2>Videos en el bucket</h2>
+      <button id="refreshBtn" class="btn-icon" type="button">↻ Actualizar</button>
+    </div>
+    <div id="grid" class="grid"></div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ====== CONFIGURA AQUÍ ======
+  const SUPABASE_URL = "https://TU-PROYECTO.supabase.co";
+  const SUPABASE_ANON_KEY = "TU_ANON_KEY"; // solo la anon key, NUNCA la service_role
+  // ============================
+
+  const BUCKET = "videos";
+  const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
+
+  const $ = (id) => document.getElementById(id);
+  const form = $("uploadForm"), fileInput = $("fileInput"), dropzone = $("dropzone");
+  const fileName = $("fileName"), statusEl = $("status"), uploadBtn = $("uploadBtn");
+  const player = $("player"), playerEmpty = $("playerEmpty"), playerTitle = $("playerTitle");
+  const grid = $("grid");
+
+  const configured = !SUPABASE_URL.includes("TU-PROYECTO") && !SUPABASE_ANON_KEY.startsWith("TU_");
+  const sb = configured ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+  let selectedFile = null;
+
+  /* ---------- Tema ---------- */
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    $("themeBtn").textContent = theme === "light" ? "🌙 Modo oscuro" : "☀️ Modo claro";
+    try { localStorage.setItem("theme", theme); } catch (e) {}
+  }
+  let savedTheme = "dark";
+  try { savedTheme = localStorage.getItem("theme") || "dark"; } catch (e) {}
+  applyTheme(savedTheme);
+  $("themeBtn").addEventListener("click", () => {
+    applyTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+  });
+
+  /* ---------- Estado ---------- */
+  function setStatus(text, type = "") {
+    statusEl.textContent = text;
+    statusEl.className = type;
+  }
+
+  /* ---------- Selección de archivo ---------- */
+  function validate(file) {
+    if (!file) return "Primero elige un archivo de video.";
+    if (!file.type.startsWith("video/")) return "El archivo no es un video. Elige un archivo de video válido.";
+    if (file.size > MAX_SIZE) {
+      return `El video pesa ${(file.size / 1024 / 1024).toFixed(1)} MB y el máximo permitido es 50 MB.`;
+    }
+    return null;
+  }
+
+  function selectFile(file) {
+    selectedFile = file || null;
+    fileName.textContent = file ? `${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB)` : "";
+    const err = file ? validate(file) : null;
+    if (err) setStatus(err, "error"); else setStatus("");
+  }
+
+  fileInput.addEventListener("change", () => selectFile(fileInput.files[0]));
+
+  ["dragenter", "dragover"].forEach((ev) =>
+    dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.add("drag"); }));
+  ["dragleave", "drop"].forEach((ev) =>
+    dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.remove("drag"); }));
+  dropzone.addEventListener("drop", (e) => {
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      try { // sincroniza el input para mantener coherencia
+        const dt = new DataTransfer(); dt.items.add(file); fileInput.files = dt.files;
+      } catch (err) {}
+      selectFile(file);
+    }
+  });
+
+  /* ---------- Reproducir ---------- */
+  function playVideo(url, name, card) {
+    playerEmpty.classList.add("hidden");
+    player.classList.remove("hidden");
+    player.classList.remove("fade-in"); void player.offsetWidth; player.classList.add("fade-in");
+    player.src = url;
+    player.play().catch(() => {});
+    playerTitle.textContent = name;
+    document.querySelectorAll(".item.active").forEach((el) => el.classList.remove("active"));
+    if (card) card.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  const publicUrl = (path) => sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+
+  /* ---------- Subida ---------- */
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!configured) return setStatus("Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY en index.html.", "error");
+    const err = validate(selectedFile);
+    if (err) return setStatus(err, "error");
+
+    // Nombre único y seguro para la clave del objeto
+    const safeName = selectedFile.name
+      .normalize("NFD").replace(/[̀-ͯ]/g, "")
+      .replace(/[^a-zA-Z0-9._-]/g, "_");
+    const path = `${Date.now()}-${safeName}`;
+
+    uploadBtn.disabled = true;
+    setStatus("Subiendo...", "loading");
+    try {
+      const { error } = await sb.storage.from(BUCKET).upload(path, selectedFile, {
+        contentType: selectedFile.type, upsert: false,
+      });
+      if (error) throw error;
+      setStatus("Listo", "ok");
+      playVideo(publicUrl(path), selectedFile.name);
+      selectFile(null);
+      fileInput.value = "";
+      loadList();
+    } catch (error) {
+      setStatus("Error al subir: " + (error.message || error), "error");
+    } finally {
+      uploadBtn.disabled = false;
+    }
+  });
+
+  /* ---------- Lista ---------- */
+  function formatSize(bytes) {
+    return bytes ? (bytes / 1024 / 1024).toFixed(1) + " MB" : "";
+  }
+
+  function displayName(storedName) {
+    return storedName.replace(/^\d+-/, "");
+  }
+
+  async function loadList() {
+    grid.innerHTML = "";
+    if (!configured) {
+      grid.innerHTML = '<div class="list-msg">Configura SUPABASE_URL y SUPABASE_ANON_KEY para ver tus videos.</div>';
+      return;
+    }
+    grid.innerHTML = '<div class="list-msg">Cargando videos...</div>';
+    const { data, error } = await sb.storage.from(BUCKET).list("", {
+      limit: 100, sortBy: { column: "created_at", order: "desc" },
+    });
+    grid.innerHTML = "";
+    if (error) {
+      grid.innerHTML = "";
+      const m = document.createElement("div");
+      m.className = "list-msg"; m.style.color = "var(--error)";
+      m.textContent = "No se pudo cargar la lista: " + error.message;
+      grid.appendChild(m);
+      return;
+    }
+    const files = (data || []).filter((f) => f.id && f.name !== ".emptyFolderPlaceholder");
+    if (!files.length) {
+      grid.innerHTML = '<div class="empty">Aún no hay videos. ¡Sube el primero!</div>';
+      return;
+    }
+    files.forEach((f, i) => {
+      const url = publicUrl(f.name);
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "item";
+      card.style.animationDelay = Math.min(i * 40, 400) + "ms";
+
+      const thumb = document.createElement("div");
+      thumb.className = "thumb";
+      const v = document.createElement("video");
+      v.src = url + "#t=0.5"; v.preload = "metadata"; v.muted = true;
+      const play = document.createElement("div");
+      play.className = "play"; play.textContent = "▶";
+      thumb.append(v, play);
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      const n = document.createElement("div");
+      n.className = "name"; n.textContent = displayName(f.name); n.title = displayName(f.name);
+      const info = document.createElement("div");
+      info.className = "info";
+      const date = f.created_at ? new Date(f.created_at).toLocaleDateString("es") : "";
+      info.textContent = [formatSize(f.metadata && f.metadata.size), date].filter(Boolean).join(" · ");
+      meta.append(n, info);
+
+      card.append(thumb, meta);
+      card.addEventListener("click", () => playVideo(url, displayName(f.name), card));
+      grid.appendChild(card);
+    });
+  }
+
+  $("refreshBtn").addEventListener("click", loadList);
+  if (!configured) setStatus("Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY en index.html.", "error");
+  loadList();
+</script>
+</body>
+</html>
