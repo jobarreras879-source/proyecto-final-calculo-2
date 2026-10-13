@@ -4,276 +4,297 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cálculo 2 · Ejercicios resueltos</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script>document.documentElement.classList.add('js')</script>
 <style>
+  /* ===== Hoja de cuaderno cuadriculado ===== */
   :root {
-    --bg: #0d0e11;
-    --card: #15171c;
-    --card-2: #1b1e25;
-    --border: #272b34;
-    --text: #eef0f4;
-    --muted: #8f96a3;
-    --accent: #4f8cff;
-    --accent-2: #5eead4;
-    --accent-hover: #3b78ee;
-    --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
-    --amber: #fbbf24;
-    --ok: #34d399;
-    --error: #f87171;
-    --grid: rgba(120, 150, 220, .07);
-    --shadow: 0 18px 50px rgba(0, 0, 0, .45);
-    --serif: "Fraunces", Georgia, serif;
-    --sans: "Hanken Grotesk", system-ui, sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --paper: #fdfdf9;
+    --desk: #dfe6ee;
+    --grid: rgba(70, 140, 215, .20);
+    --grid-major: rgba(50, 115, 200, .32);
+    --ink: #1c2a6b;
+    --pencil: #4b5163;
+    --blue: #2459d6;
+    --red: #d9363e;
+    --hl: rgba(255, 224, 70, .75);
+    --ok: #168a4a;
+    --error: #d9363e;
+    --note-text: #262b45;
+    --hand: "Caveat", "Segoe Script", cursive;
+    --body: "Patrick Hand", "Comic Sans MS", cursive;
   }
-  [data-theme="light"] {
-    --bg: #f6f2e9;
-    --card: #fffdf8;
-    --card-2: #f1ece0;
-    --border: #ddd6c5;
-    --text: #1a2030;
-    --muted: #667085;
-    --accent: #1d4ed8;
-    --accent-2: #0d9488;
-    --accent-hover: #1a43b8;
-    --amber: #b45309;
-    --ok: #047857;
-    --error: #dc2626;
-    --grid: rgba(29, 78, 216, .09);
-    --shadow: 0 18px 50px rgba(60, 50, 20, .12);
+  [data-theme="dark"] {
+    --paper: #0f1114;
+    --desk: #05060a;
+    --grid: rgba(140, 175, 255, .07);
+    --grid-major: rgba(140, 175, 255, .14);
+    --ink: #e4e9ff;
+    --pencil: #9aa3b8;
+    --blue: #7da7ff;
+    --red: #ff7b80;
+    --hl: rgba(250, 204, 21, .32);
+    --ok: #4ade80;
+    --error: #ff7b80;
   }
 
   * { box-sizing: border-box; }
-  html { color-scheme: dark; scroll-behavior: smooth; }
-  [data-theme="light"] { color-scheme: light; }
+  html { scroll-behavior: smooth; color-scheme: light; }
+  [data-theme="dark"] { color-scheme: dark; }
 
   body {
-    margin: 0; color: var(--text); font-family: var(--sans); font-size: 1.04rem; line-height: 1.7;
-    background:
-      radial-gradient(900px 520px at 88% -8%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 62%),
-      radial-gradient(700px 420px at -10% 28%, color-mix(in srgb, var(--accent-2) 9%, transparent), transparent 62%),
-      var(--bg);
-    background-attachment: fixed;
-    transition: background-color .3s, color .3s;
-    overflow-x: hidden;
-  }
-  /* cuadrícula de papel milimetrado */
-  body::before {
-    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size: 34px 34px;
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 25%, transparent 78%);
-            mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 25%, transparent 78%);
-  }
-  /* grano */
-  body::after {
-    content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    margin: 0; min-height: 100vh; overflow-x: hidden;
+    font-family: var(--body); font-size: 1.28rem; line-height: 1.55; color: var(--ink);
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid-major) 1.5px, transparent 1.5px),
+      linear-gradient(90deg, var(--grid-major) 1.5px, transparent 1.5px),
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 140px 140px, 140px 140px, 28px 28px, 28px 28px;
+    transition: background-color .4s, color .4s;
   }
 
-  .container { max-width: 840px; margin: 0 auto; padding: 22px 16px 90px; counter-reset: post; }
+  /* margen rojo y perforaciones */
+  .margin-line { position: fixed; top: 0; bottom: 0; left: 92px; width: 5px; border-left: 2px solid var(--red); border-right: 1px solid var(--red); opacity: .5; z-index: 1; pointer-events: none; }
+  .hole { position: fixed; left: 28px; width: 32px; height: 32px; border-radius: 50%; background: var(--desk); box-shadow: inset 3px 4px 8px rgba(0, 0, 0, .35), 0 1px 0 rgba(255, 255, 255, .6); z-index: 2; pointer-events: none; }
+  .hole:nth-of-type(1) { top: 13%; } .hole:nth-of-type(2) { top: 49%; } .hole:nth-of-type(3) { top: 85%; }
 
-  .progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 70; }
-  .progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); box-shadow: 0 0 14px var(--accent); }
-
-  /* Barra superior */
-  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 44px; }
-  .brand { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-  .brand .logo {
-    width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
-    font: italic 700 1.5rem var(--serif); color: #fff;
-    background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 55%, #7c3aed));
-    box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 45%, transparent);
+  /* símbolos flotantes por toda la hoja */
+  .symbols { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .symbols span {
+    position: absolute; left: var(--x); top: var(--y); font-family: var(--hand); font-weight: 700; font-size: var(--s);
+    color: var(--blue); opacity: .16; line-height: 1; will-change: translate;
   }
-  button { font: inherit; cursor: pointer; border: 0; border-radius: 12px; transition: background .2s, transform .15s, opacity .2s, border-color .2s; }
-  button:active:not(:disabled) { transform: scale(.97); }
+  .symbols span i { display: block; font-style: normal; animation: floaty 9s ease-in-out infinite; animation-delay: var(--d, 0s); }
+  @keyframes floaty { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-18px) rotate(5deg); } }
+
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 80; }
+  .progress i { display: block; height: 100%; width: 0; background: var(--red); box-shadow: 0 0 10px var(--red); border-radius: 0 4px 4px 0; }
+
+  .container { position: relative; z-index: 3; max-width: 1700px; margin: 0 auto; padding: 22px clamp(20px, 4vw, 70px) 90px clamp(124px, 11vw, 190px); counter-reset: post; }
+
+  /* ===== barra superior ===== */
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 30px; }
+  .brand { font-family: var(--hand); font-weight: 700; font-size: 1.9rem; color: var(--ink); display: flex; align-items: center; gap: 10px; }
+  .brand .logo { display: inline-grid; place-items: center; width: 46px; height: 46px; font-size: 1.9rem; color: var(--red); border: 3px solid var(--red); border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px; transform: rotate(-6deg); }
+  button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
   button:disabled { opacity: .5; cursor: not-allowed; }
-  .btn-primary { background: var(--accent); color: #fff; padding: 10px 22px; font-weight: 600; box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 35%, transparent); }
-  .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
-  .btn-ghost { background: color-mix(in srgb, var(--card) 80%, transparent); color: var(--text); border: 1px solid var(--border); padding: 8px 16px; font-size: .88rem; backdrop-filter: blur(8px); }
-  .btn-ghost:hover { border-color: var(--accent); }
+  .btn-ghost { font-family: var(--hand); font-weight: 700; font-size: 1.3rem; padding: 4px 18px; color: var(--ink); background: color-mix(in srgb, var(--paper) 85%, transparent); border: 2.5px solid var(--ink); border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px; transition: transform .2s; }
+  .btn-ghost:hover { transform: rotate(-2deg) scale(1.05); }
+  .btn-primary { font-family: var(--hand); font-weight: 700; font-size: 1.4rem; padding: 4px 26px; color: #fff; background: var(--blue); border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px; box-shadow: 3px 4px 0 var(--ink); transition: transform .15s, box-shadow .15s; }
+  .btn-primary:hover:not(:disabled) { transform: translate(-1px, -1px) rotate(-1deg); box-shadow: 5px 6px 0 var(--ink); }
+  .btn-primary:active:not(:disabled) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
 
-  /* Portada */
-  .hero { position: relative; margin-bottom: 56px; }
-  .hero > * { animation: rise .9s cubic-bezier(.2, .7, .2, 1) both; }
-  .hero > *:nth-child(2) { animation-delay: .08s; }
-  .hero > *:nth-child(3) { animation-delay: .16s; }
-  .hero > *:nth-child(4) { animation-delay: .24s; }
-  .hero > *:nth-child(5) { animation-delay: .32s; }
-  @keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
-  .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 18px; font: 600 .74rem var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
-  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent); animation: ping 2s infinite; }
-  @keyframes ping { 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
-  .hero h1 { margin: 0 0 18px; font-family: var(--serif); font-weight: 700; font-size: clamp(2.6rem, 8vw, 4.7rem); line-height: 1.02; letter-spacing: -.025em; }
-  .hero h1 em { font-style: italic; font-weight: 500; background: linear-gradient(100deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .hero .lede { max-width: 54ch; margin: 0 0 24px; color: var(--muted); font-size: 1.12rem; }
-  .stats { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
-  .stat { font: 500 .8rem var(--mono); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--border); background: color-mix(in srgb, var(--card) 75%, transparent); backdrop-filter: blur(6px); }
-  .stat b { color: var(--accent); font-weight: 600; }
-  .curve { display: block; width: 100%; max-width: 640px; height: auto; margin-top: 26px; overflow: visible; }
-  .curve .axis { stroke: var(--border); stroke-width: 1; }
-  .curve .tick { fill: var(--muted); font: 10px var(--mono); }
-  .curve .fn { fill: none; stroke: url(#grad); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.6s .5s cubic-bezier(.5, 0, .2, 1) forwards; filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 60%, transparent)); }
-  .curve .area { fill: url(#fill); opacity: 0; animation: fadeArea 1.2s 2.4s forwards; }
-  .curve .pt { fill: var(--accent-2); opacity: 0; animation: fadeArea .6s 2.8s forwards; }
+  /* ===== portada ===== */
+  .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 20px 50px; align-items: center; min-height: 62vh; margin-bottom: 40px; }
+  .hero-text > * { animation: rise .9s cubic-bezier(.2, .7, .2, 1) both; }
+  .hero-text > *:nth-child(2) { animation-delay: .1s; } .hero-text > *:nth-child(3) { animation-delay: .2s; } .hero-text > *:nth-child(4) { animation-delay: .3s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+  .eyebrow { display: inline-block; margin: 0 0 6px; font-family: var(--hand); font-weight: 700; font-size: 1.5rem; color: var(--red); transform: rotate(-2deg); }
+  .hero h1 { margin: 0 0 16px; font-family: var(--hand); font-weight: 700; font-size: clamp(4rem, 10.5vw, 9rem); line-height: .92; color: var(--ink); }
+  .hero h1 .hl { display: inline-block; position: relative; transform: rotate(-2deg); padding: 0 .12em; background: linear-gradient(transparent 52%, var(--hl) 52% 90%, transparent 90%); }
+  .hero h1 .squiggle { display: block; width: min(420px, 80%); height: 24px; margin-top: 4px; }
+  .squiggle path { fill: none; stroke: var(--red); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw 1.4s .8s ease forwards; }
+  .lede { max-width: 38ch; margin: 0 0 22px; font-size: 1.5rem; color: var(--pencil); }
+  .stats { display: flex; flex-wrap: wrap; gap: 14px; }
+  .stat { position: relative; padding: 4px 18px; font-family: var(--hand); font-weight: 700; font-size: 1.4rem; color: var(--note-text);
+    background: repeating-linear-gradient(115deg, #ffd6e0 0 10px, #ffeaf0 10px 20px); box-shadow: 0 3px 8px rgba(0, 0, 0, .15); }
+  .stat:nth-child(1) { transform: rotate(-2deg); }
+  .stat:nth-child(2) { transform: rotate(1.5deg); background: repeating-linear-gradient(115deg, #cfe8ff 0 10px, #e7f3ff 10px 20px); }
+  .stat:nth-child(3) { transform: rotate(-1deg); background: repeating-linear-gradient(115deg, #d3f5c9 0 10px, #e9fbe3 10px 20px); }
+  .stat b { color: var(--red); }
+
+  .graph { width: 100%; height: auto; overflow: visible; }
+  .graph .axis { stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; fill: none; }
+  .graph .dash { stroke: var(--pencil); stroke-width: 1.8; stroke-dasharray: 6 6; }
+  .graph .fn { fill: none; stroke: var(--blue); stroke-width: 4.5; stroke-linecap: round; stroke-dasharray: 1500; stroke-dashoffset: 1500; animation: draw 2.8s .6s cubic-bezier(.5, 0, .2, 1) forwards; }
+  .graph .area { opacity: 0; animation: fade 1.2s 3s forwards; }
+  .graph .hatch-line { stroke: var(--red); stroke-width: 1.6; opacity: .7; }
+  .graph text { font-family: var(--hand); font-weight: 700; fill: var(--ink); }
+  .graph .lbl-red { fill: var(--red); }
+  .graph .late { opacity: 0; animation: fade .8s 3.2s forwards; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
-  @keyframes fadeArea { to { opacity: 1; } }
-  .glyphs { position: absolute; inset: -10px -10px auto auto; width: 55%; height: 100%; pointer-events: none; z-index: -1; }
-  .glyphs span { position: absolute; font-family: var(--serif); font-style: italic; color: color-mix(in srgb, var(--accent) 22%, transparent); animation: floaty 9s ease-in-out infinite; }
-  .glyphs span:nth-child(1) { top: -2%; right: 4%; font-size: 9rem; }
-  .glyphs span:nth-child(2) { top: 38%; right: 38%; font-size: 4rem; animation-delay: -2s; }
-  .glyphs span:nth-child(3) { top: 86%; right: 4%; font-size: 3rem; animation-delay: -4s; }
-  .glyphs span:nth-child(4) { top: 56%; right: 6%; font-size: 5.5rem; animation-delay: -1s; }
-  .glyphs span:nth-child(5) { top: 78%; right: 30%; font-size: 2.4rem; animation-delay: -5s; }
-  .glyphs span:nth-child(6) { top: 24%; right: 20%; font-size: 2.2rem; animation-delay: -3s; }
-  @keyframes floaty { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-16px) rotate(3deg); } }
+  @keyframes fade { to { opacity: 1; } }
 
-  /* Índice */
-  .section-label { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; font: 600 .74rem var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-  .section-label::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
-  .index { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 60px; counter-reset: ix; }
+  .hint { display: flex; align-items: center; gap: 8px; margin: 0 0 4px 6px; font-family: var(--hand); font-weight: 700; font-size: 1.6rem; color: var(--red); transform: rotate(-2deg); }
+  .hint svg { width: 46px; height: 46px; }
+  .hint path { fill: none; stroke: var(--red); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ===== índice: notas adhesivas ===== */
+  .section-title { margin: 0 0 18px; font-family: var(--hand); font-weight: 700; font-size: 2.6rem; line-height: 1; display: inline-block; text-decoration: underline wavy var(--red) 2px; text-underline-offset: 10px; }
+  .index { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 34px; margin: 10px 0 90px; counter-reset: ix; }
   .index a {
-    counter-increment: ix; position: relative; display: flex; flex-direction: column; gap: 4px; padding: 16px 18px 18px;
-    text-decoration: none; color: var(--text); font-weight: 600; line-height: 1.3;
-    background: color-mix(in srgb, var(--card) 85%, transparent); border: 1px solid var(--border); border-radius: 16px; backdrop-filter: blur(6px);
-    transition: transform .3s cubic-bezier(.2, .7, .2, 1), border-color .25s, box-shadow .25s;
+    counter-increment: ix; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 150px; padding: 22px 22px 18px;
+    text-decoration: none; color: var(--note-text); font-family: var(--hand); font-weight: 700; font-size: 1.7rem; line-height: 1.1;
+    background: #fff3a3; box-shadow: 0 12px 20px rgba(0, 0, 0, .18), inset 0 -22px 30px -24px rgba(0, 0, 0, .18);
+    transform: rotate(var(--r, -2deg)); transition: transform .3s cubic-bezier(.2, .7, .2, 1), box-shadow .3s;
   }
-  .index a::before { content: counter(ix, decimal-leading-zero); font: 600 .74rem var(--mono); color: var(--accent); letter-spacing: .1em; }
-  .index a::after { content: "→"; position: absolute; right: 16px; bottom: 14px; color: var(--accent); opacity: 0; transform: translateX(-8px); transition: .25s; }
-  .index a:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 18%, transparent); }
-  .index a:hover::after { opacity: 1; transform: none; }
+  .index a:nth-child(1) { --r: -2.5deg; } .index a:nth-child(2) { --r: 1.8deg; background: #ffd1dc; } .index a:nth-child(3) { --r: -1.2deg; background: #cfe8ff; } .index a:nth-child(4) { --r: 2.4deg; background: #d3f5c9; }
+  .index a::before { content: counter(ix, decimal-leading-zero); font-size: 2.6rem; color: var(--red); line-height: 1; }
+  .index a::after { content: ""; position: absolute; top: -13px; left: 50%; width: 92px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgba(255, 255, 255, .6); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); }
+  .index a:hover { transform: rotate(0) translateY(-8px) scale(1.04); box-shadow: 0 22px 30px rgba(0, 0, 0, .25); }
 
-  .autor-banner { background: var(--accent-soft); border: 1px dashed var(--accent); border-radius: 14px; padding: 12px 16px; margin-bottom: 28px; font-size: .92rem; }
+  .autor-banner { margin-bottom: 30px; padding: 12px 18px; border: 2.5px dashed var(--red); border-radius: 12px; background: color-mix(in srgb, var(--paper) 88%, transparent); font-size: 1.15rem; }
+  .autor-banner code { font-family: ui-monospace, monospace; font-size: .9em; }
 
-  /* Entradas */
-  .post {
-    counter-increment: post; position: relative; margin-bottom: 36px; scroll-margin-top: 20px;
-    padding: clamp(22px, 4.5vw, 38px) clamp(20px, 4.5vw, 40px) clamp(22px, 4.5vw, 36px);
-    background: color-mix(in srgb, var(--card) 92%, transparent); border: 1px solid var(--border); border-radius: 22px;
-    box-shadow: var(--shadow); transition: border-color .3s;
-  }
-  .post:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
-  .post::before {
-    content: counter(post, decimal-leading-zero); position: absolute; top: 12px; right: 24px; z-index: 0;
-    font: italic 500 clamp(3.4rem, 9vw, 5.6rem)/1 var(--serif); color: transparent;
-    -webkit-text-stroke: 1.2px color-mix(in srgb, var(--accent) 55%, transparent); opacity: .55; pointer-events: none;
-  }
-  .post::after { content: ""; position: absolute; left: -1px; top: 34px; bottom: 34px; width: 4px; border-radius: 4px; background: linear-gradient(var(--accent), var(--accent-2)); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 60%, transparent); }
-  .post > * { position: relative; z-index: 1; }
-  .tag { display: inline-block; font: 600 .7rem var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); padding: 4px 12px; border-radius: 999px; }
-  .post h2 { margin: 14px 0 6px; padding-right: 3.6em; font-family: var(--serif); font-weight: 700; font-size: clamp(1.7rem, 4.5vw, 2.3rem); line-height: 1.12; letter-spacing: -.015em; }
-  .post h3 { display: flex; align-items: center; gap: 10px; margin: 30px 0 10px; font: 600 .72rem var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-  .post h3::before { content: ""; width: 22px; height: 1px; background: var(--accent); }
+  /* ===== entradas: escritas directamente sobre la hoja ===== */
+  .post { counter-increment: post; position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 30px clamp(30px, 5vw, 90px); margin: 0 0 40px; padding-bottom: 70px; scroll-margin-top: 20px; }
+  .post::after { content: "✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"; position: absolute; left: 0; right: 0; bottom: 14px; overflow: hidden; white-space: nowrap; color: var(--pencil); opacity: .6; font-size: 1.3rem; }
+  .post-side, .post-main { min-width: 0; }
+  .post-side { align-self: start; position: sticky; top: 24px; }
+  .tag { display: inline-block; padding: 2px 18px; font-family: var(--hand); font-weight: 700; font-size: 1.3rem; color: var(--note-text); background: repeating-linear-gradient(115deg, #ffd6e0 0 10px, #ffeaf0 10px 20px); box-shadow: 0 3px 8px rgba(0, 0, 0, .15); transform: rotate(-2deg); }
+  .post h2 { display: flex; align-items: center; gap: 16px; margin: 18px 0 20px; font-family: var(--hand); font-weight: 700; font-size: clamp(2.5rem, 4.2vw, 3.8rem); line-height: 1; }
+  .post h2::before { content: counter(post, decimal-leading-zero); flex: none; display: inline-grid; place-items: center; width: 74px; height: 60px; font-size: 2.1rem; color: var(--red); border: 3.5px solid var(--red); border-radius: 255px 22px 225px 22px / 22px 225px 22px 255px; transform: rotate(-7deg); }
+  .post h3 { margin: 26px 0 10px; font-family: var(--hand); font-weight: 700; font-size: 1.9rem; line-height: 1; color: var(--pencil); text-decoration: underline wavy var(--red) 1.5px; text-underline-offset: 8px; }
+  .post-side h3:first-of-type { margin-top: 0; }
   .post p { margin: 8px 0; }
-  .statement {
-    margin: 8px 0; padding: 18px 22px; font: 500 1.2rem/1.6 var(--serif); border-radius: 14px;
-    background: linear-gradient(135deg, var(--accent-soft), transparent 70%); border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
-  }
-  .key { padding: 12px 18px; border-radius: 12px; border: 1px dashed color-mix(in srgb, var(--amber) 55%, transparent); background: color-mix(in srgb, var(--amber) 7%, transparent); }
-  .key .katex-display { margin: .4em 0; }
 
-  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 10px 0; }
-  ol.steps li { counter-increment: s; position: relative; padding: 2px 0 18px 48px; margin: 0; }
-  ol.steps li::before {
-    content: counter(s); position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
-    font: 600 .82rem var(--mono); color: var(--accent); background: var(--card-2); border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
-    box-shadow: 0 0 0 4px var(--card);
-  }
-  ol.steps li:not(:last-child)::after { content: ""; position: absolute; left: 15.5px; top: 36px; bottom: 2px; width: 1px; background: linear-gradient(color-mix(in srgb, var(--accent) 55%, transparent), transparent); }
+  .statement, .key { position: relative; padding: 22px 24px 20px; color: var(--note-text); box-shadow: 0 10px 18px rgba(0, 0, 0, .16); }
+  .statement { background: #fff3a3; transform: rotate(-1.2deg); font-size: 1.45rem; line-height: 1.7; }
+  .statement::before, .key::before { content: ""; position: absolute; top: -13px; left: 40px; width: 86px; height: 24px; transform: rotate(-4deg); background: rgba(255, 255, 255, .6); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); }
+  .key { background: #cfe8ff; transform: rotate(1deg); }
+  .statement .katex, .key .katex { color: #1c2a6b; }
+  .key .katex-display { margin: .3em 0; }
 
-  .result {
-    position: relative; margin-top: 14px; padding: 16px 22px; border-radius: 16px; border: 1px solid color-mix(in srgb, var(--ok) 60%, transparent);
-    background: linear-gradient(135deg, color-mix(in srgb, var(--ok) 13%, transparent), transparent 80%);
-    box-shadow: 0 0 40px color-mix(in srgb, var(--ok) 8%, transparent);
-  }
-  .result strong:first-child { display: inline-block; font: 600 .72rem var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ok); }
-  .result::after { content: "∎"; position: absolute; right: 16px; bottom: 8px; color: var(--ok); opacity: .7; }
+  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 14px 0 0; }
+  ol.steps li { counter-increment: s; position: relative; padding: 4px 0 24px 66px; margin: 0; font-size: 1.35rem; }
+  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 44px; height: 40px; display: grid; place-items: center; font-family: var(--hand); font-weight: 700; font-size: 1.7rem; line-height: 1; color: var(--red); border: 3px solid var(--red); border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px; transform: rotate(4deg); }
+  ol.steps li:nth-child(even)::before { transform: rotate(-5deg); }
+  .katex { font-size: 1.12em; color: var(--ink); }
   .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
-  .katex { font-size: 1.1em; }
 
-  /* Recuadro del video */
-  .video-box { margin-top: 34px; border: 1px solid var(--border); border-radius: 18px; background: var(--card-2); overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .04); }
-  .video-box > header { display: flex; align-items: center; gap: 10px; padding: 11px 18px; font: 600 .74rem var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); background: color-mix(in srgb, var(--card) 70%, transparent); }
-  .rec { width: 9px; height: 9px; border-radius: 50%; background: #ef4444; animation: blink 1.6s ease-in-out infinite; }
-  @keyframes blink { 50% { opacity: .25; } }
-  .video-box video { width: 100%; max-height: 70vh; background: #000; display: block; }
-  .video-box .placeholder { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 44px 16px; text-align: center; color: var(--muted); font-size: .95rem; }
-  .placeholder .ico { width: 54px; height: 54px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--accent) 60%, transparent); position: relative; background: var(--accent-soft); }
-  .placeholder .ico::after { content: ""; position: absolute; left: 21px; top: 16px; border-left: 16px solid var(--accent); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
+  .result { position: relative; margin-top: 8px; padding: 18px 26px 16px; border: 4px solid var(--red); border-radius: 255px 24px 225px 24px / 24px 225px 24px 255px; transform: rotate(-.7deg); background: color-mix(in srgb, var(--red) 6%, transparent); }
+  .result strong:first-child { display: inline-block; font-family: var(--hand); font-size: 2rem; line-height: 1; color: var(--red); text-decoration: underline 3px var(--red); text-underline-offset: 6px; }
+  .result::after { content: "★"; position: absolute; right: 20px; top: 8px; font-size: 1.8rem; color: #f5b800; transform: rotate(14deg); }
+
+  /* ===== video: foto polaroid pegada con cinta ===== */
+  .video-box { grid-column: 1 / -1; justify-self: center; width: min(100%, 900px); position: relative; margin-top: 20px; padding: 18px 18px 14px; background: #fff; color: #2d3142; border-radius: 4px; box-shadow: 0 22px 44px rgba(0, 0, 0, .28); transform: rotate(-.9deg); transition: transform .4s; }
+  .video-box:hover { transform: rotate(0) scale(1.01); }
+  .video-box::before, .video-box::after { content: ""; position: absolute; top: -16px; width: 110px; height: 30px; background: rgba(255, 224, 120, .72); box-shadow: 0 1px 3px rgba(0, 0, 0, .2); }
+  .video-box::before { left: 40px; transform: rotate(-6deg); } .video-box::after { right: 40px; transform: rotate(5deg); }
+  .video-box > header { display: flex; align-items: center; gap: 10px; padding: 0 2px 10px; font-family: var(--hand); font-weight: 700; font-size: 1.6rem; line-height: 1; color: #2d3142; }
+  .rec { width: 13px; height: 13px; border-radius: 50%; background: #ef4444; animation: blink 1.5s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .2; } }
+  .video-box video { width: 100%; max-height: 72vh; display: block; background: #000; }
+  .video-box .placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 260px; padding: 30px 16px; text-align: center; color: #5b6070; font-size: 1.3rem; background: #f4f2ea; border: 2.5px dashed #b9b6a8; }
+  .placeholder .ico { width: 64px; height: 64px; border: 3.5px solid var(--red); border-radius: 50%; position: relative; }
+  .placeholder .ico::after { content: ""; position: absolute; left: 24px; top: 16px; border-left: 20px solid var(--red); border-top: 13px solid transparent; border-bottom: 13px solid transparent; }
   .fade-in { animation: fadeIn .5s ease both; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-  /* Subida (solo modo autor) */
-  .uploader { padding: 16px 18px; border-top: 1px dashed var(--border); }
-  .dropzone { display: block; border: 2px dashed var(--border); border-radius: 14px; padding: 18px; text-align: center; color: var(--muted); cursor: pointer; font-size: .92rem; transition: border-color .2s, background .2s, transform .2s; }
-  .dropzone:hover, .dropzone.drag { border-color: var(--accent); background: var(--accent-soft); }
+  /* subida (modo autor) */
+  .uploader { padding: 14px 4px 4px; margin-top: 12px; border-top: 2px dashed #c9c6b8; }
+  .dropzone { display: block; border: 3px dashed #aeb4c4; border-radius: 12px; padding: 16px; text-align: center; color: #5b6070; cursor: pointer; font-size: 1.2rem; transition: border-color .2s, background .2s, transform .2s; }
+  .dropzone:hover, .dropzone.drag { border-color: var(--blue); background: #eaf2ff; }
   .dropzone.drag { transform: scale(1.01); }
   .dropzone input { display: none; }
-  .dropzone .fname { color: var(--accent); font-weight: 600; display: block; margin-top: 4px; word-break: break-all; }
-  .up-row { display: flex; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
-  .status { font-size: .92rem; }
-  .status.ok { color: var(--ok); }
-  .status.error { color: var(--error); }
-  .status.loading { color: var(--muted); }
-  .status.loading::after { content: ""; display: inline-block; width: 12px; height: 12px; margin-left: 8px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -2px; }
+  .dropzone .fname { color: var(--blue); font-weight: 700; display: block; margin-top: 4px; word-break: break-all; }
+  .up-row { display: flex; align-items: center; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
+  .status { font-size: 1.15rem; color: #2d3142; }
+  .status.ok { color: #168a4a; } .status.error { color: #d9363e; } .status.loading { color: #5b6070; }
+  .status.loading::after { content: ""; display: inline-block; width: 13px; height: 13px; margin-left: 8px; border: 3px solid #d0d3dc; border-top-color: var(--blue); border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -2px; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .hidden { display: none !important; }
 
-  footer { margin-top: 50px; text-align: center; color: var(--muted); font: 500 .76rem var(--mono); letter-spacing: .14em; text-transform: uppercase; }
-  footer span { color: var(--accent); }
+  footer { margin-top: 10px; text-align: center; font-family: var(--hand); font-weight: 700; font-size: 1.8rem; color: var(--pencil); }
 
   /* aparición al hacer scroll */
-  .js .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .2, 1); }
+  .js .reveal { opacity: 0; transform: translateY(40px); transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .2, 1); }
   .js .reveal.in { opacity: 1; transform: none; }
 
-  @media (max-width: 560px) {
-    .glyphs { opacity: .5; }
-    .post h2 { padding-right: 2.4em; }
-    .topbar { margin-bottom: 30px; }
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; min-height: 0; }
+    .post { grid-template-columns: 1fr; }
+    .post-side { position: static; }
+  }
+  @media (max-width: 700px) {
+    body { font-size: 1.15rem; }
+    .margin-line { left: 14px; } .hole { display: none; }
+    .container { padding-left: 34px; padding-right: 16px; }
+    .post h2::before { width: 58px; height: 48px; font-size: 1.7rem; }
+    ol.steps li { padding-left: 56px; }
+    .symbols span { opacity: .1; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-    .curve .fn { stroke-dashoffset: 0; } .curve .area, .curve .pt { opacity: 1; }
+    .graph .fn, .squiggle path { stroke-dashoffset: 0; } .graph .area, .graph .late { opacity: 1; }
     .js .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
 <div class="progress"><i id="progressBar"></i></div>
+<div class="margin-line"></div>
+<div class="hole"></div><div class="hole"></div><div class="hole"></div>
+
+<!-- símbolos flotando por toda la hoja -->
+<div class="symbols" id="symbols" aria-hidden="true">
+  <span style="--x:7%;--y:10%;--s:7.5rem;--d:0s"><i>∫</i></span>
+  <span style="--x:86%;--y:14%;--s:6.5rem;--d:-2s"><i>∑</i></span>
+  <span style="--x:76%;--y:56%;--s:5.5rem;--d:-4s"><i>π</i></span>
+  <span style="--x:15%;--y:68%;--s:6.5rem;--d:-1s"><i>∞</i></span>
+  <span style="--x:46%;--y:6%;--s:3.8rem;--d:-3s"><i>dx</i></span>
+  <span style="--x:91%;--y:82%;--s:6rem;--d:-5s"><i>√</i></span>
+  <span style="--x:31%;--y:38%;--s:4.4rem;--d:-6s"><i>θ</i></span>
+  <span style="--x:62%;--y:28%;--s:4.6rem;--d:-2.5s"><i>Δ</i></span>
+  <span style="--x:3%;--y:42%;--s:3.4rem;--d:-4.5s"><i>lím</i></span>
+  <span style="--x:69%;--y:87%;--s:4.8rem;--d:-1.5s"><i>∂</i></span>
+  <span style="--x:52%;--y:70%;--s:4rem;--d:-3.5s"><i>eˣ</i></span>
+  <span style="--x:21%;--y:90%;--s:3.6rem;--d:-5.5s"><i>sen</i></span>
+  <span style="--x:94%;--y:46%;--s:5rem;--d:-0.5s"><i>∮</i></span>
+  <span style="--x:39%;--y:92%;--s:3.8rem;--d:-2.2s"><i>f(x)</i></span>
+  <span style="--x:80%;--y:4%;--s:3.6rem;--d:-4.2s"><i>≈</i></span>
+  <span style="--x:57%;--y:48%;--s:3.4rem;--d:-6.5s"><i>dy/dx</i></span>
+</div>
+
 <div class="container">
   <div class="topbar">
-    <div class="brand"><span class="logo">∫</span> Cuaderno · Cálculo 2</div>
-    <button id="themeBtn" class="btn-ghost" type="button">☀️ Modo claro</button>
+    <div class="brand"><span class="logo">∫</span> Mi cuaderno de Cálculo 2</div>
+    <button id="themeBtn" class="btn-ghost" type="button">🌙 Modo noche</button>
   </div>
 
   <section class="hero">
-    <div class="glyphs" aria-hidden="true"><span>∫</span><span>∑</span><span>π</span><span>∞</span><span>dx</span><span>√</span></div>
-    <p class="eyebrow"><span class="dot"></span> Ejercicios resueltos</p>
-    <h1>Cálculo 2, <em>paso a paso</em></h1>
-    <p class="lede">Cada entrada trae el enunciado y la solución explicada con calma. Al final encontrarás el video donde resuelvo el ejercicio en voz alta.</p>
-    <div class="stats">
-      <span class="stat"><b id="statEj">4</b> ejercicios</span>
-      <span class="stat"><b id="statVid">0</b> videos</span>
-      <span class="stat">integrales · series</span>
+    <div class="hero-text">
+      <p class="eyebrow">✎ ejercicios resueltos</p>
+      <h1>Cálculo 2,<br><span class="hl">paso a paso</span>
+        <svg class="squiggle" viewBox="0 0 420 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 30 2, 50 24, 80 12 S 130 2, 160 14 S 210 24, 240 12 S 290 2, 320 14 S 380 22, 416 8"/></svg>
+      </h1>
+      <p class="lede">Cada entrada trae el enunciado y la solución explicada con calma. Al final está el video donde resuelvo el ejercicio en voz alta.</p>
+      <div class="stats">
+        <span class="stat"><b id="statEj">4</b> ejercicios</span>
+        <span class="stat"><b id="statVid">0</b> videos</span>
+        <span class="stat">integrales y series</span>
+      </div>
     </div>
-    <svg class="curve" viewBox="0 0 640 170" role="img" aria-label="Gráfica decorativa de una función">
+
+    <svg class="graph" viewBox="0 0 580 380" role="img" aria-label="Gráfica decorativa: área bajo una curva entre a y b">
       <defs>
-        <linearGradient id="grad" x1="0" x2="1"><stop offset="0" stop-color="#4f8cff"/><stop offset="1" stop-color="#5eead4"/></linearGradient>
-        <linearGradient id="fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4f8cff" stop-opacity=".28"/><stop offset="1" stop-color="#4f8cff" stop-opacity="0"/></linearGradient>
+        <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="hatch-line" x1="0" y1="0" x2="0" y2="9"/></pattern>
+        <clipPath id="ab"><rect x="150" y="0" width="260" height="310"/></clipPath>
       </defs>
-      <line class="axis" x1="0" y1="135" x2="640" y2="135"/><line class="axis" x1="40" y1="0" x2="40" y2="170"/>
-      <text class="tick" x="632" y="152" text-anchor="end">x</text><text class="tick" x="48" y="10">y</text>
-      <path class="area" d="M40 135 C 110 135, 130 30, 210 30 S 320 128, 390 118 S 500 18, 560 48 S 610 110, 630 96 L 630 135 Z"/>
-      <path class="fn" d="M40 135 C 110 135, 130 30, 210 30 S 320 128, 390 118 S 500 18, 560 48 S 610 110, 630 96"/>
-      <circle class="pt" cx="210" cy="30" r="5"/><circle class="pt" cx="535" cy="44" r="5"/>
+      <path class="axis" d="M50 310 H 560 M 548 300 L 562 310 L 548 320"/>
+      <path class="axis" d="M50 310 V 22 M 40 36 L 50 20 L 60 36"/>
+      <path class="area" clip-path="url(#ab)" fill="url(#hatch)" d="M50 290 C 120 290, 150 90, 270 90 S 400 270, 470 220 S 520 150, 550 130 L 550 310 L 50 310 Z"/>
+      <path class="fn" d="M50 290 C 120 290, 150 90, 270 90 S 400 270, 470 220 S 520 150, 550 130"/>
+      <path class="dash late" d="M150 310 V 140 M 410 310 V 205"/>
+      <text class="late" x="144" y="346" font-size="34">a</text>
+      <text class="late" x="404" y="346" font-size="34">b</text>
+      <text class="late" x="548" y="352" font-size="30">x</text>
+      <text class="late" x="64" y="36" font-size="30">y</text>
+      <text class="late" x="470" y="118" font-size="36" transform="rotate(-8 470 118)">f(x)</text>
+      <text class="late lbl-red" x="196" y="262" font-size="46">∫ f(x) dx</text>
+      <text class="late lbl-red" x="196" y="294" font-size="26">= área</text>
     </svg>
   </section>
 
-  <p class="section-label">Índice</p>
+  <div class="hint"><span>elige un ejercicio</span>
+    <svg viewBox="0 0 46 46" aria-hidden="true"><path d="M8 6 C 6 24, 18 34, 36 36 M 28 28 L 37 36 L 26 40"/></svg>
+  </div>
+  <h2 class="section-title">Índice</h2>
   <nav class="index reveal" aria-label="Índice de ejercicios">
     <a href="#integracion-por-partes">Integración por partes</a>
     <a href="#sustitucion-trigonometrica">Sustitución trigonométrica</a>
@@ -287,78 +308,95 @@
 
   <!-- ===================== ENTRADAS =====================
        Para añadir un ejercicio nuevo, copia un <article>, cambia el data-slug
-       (único, sin espacios ni acentos) y el contenido. El video se enlaza solo. -->
+       (único, sin espacios ni acentos) y el contenido. El video se enlaza solo.
+       post-side = enunciado (izquierda) · post-main = solución (derecha) -->
 
   <article class="post reveal" id="integracion-por-partes" data-slug="integracion-por-partes">
-    <span class="tag">Técnicas de integración</span>
-    <h2>Integración por partes</h2>
-    <h3>Enunciado</h3>
-    <div class="statement">Calcula \( \displaystyle\int x\,e^{2x}\,dx \).</div>
-    <h3>Idea clave</h3>
-    <p class="key">\[ \int u\,dv = uv - \int v\,du \]</p>
-    <h3>Solución</h3>
-    <ol class="steps">
-      <li>Elegimos \( u = x \) (se simplifica al derivar) y \( dv = e^{2x}\,dx \).</li>
-      <li>Entonces \( du = dx \) y \( v = \tfrac{1}{2}e^{2x} \).</li>
-      <li>Aplicamos la fórmula: \[ \int x e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{2}\int e^{2x}\,dx \]</li>
-      <li>Integramos lo que queda: \( \displaystyle\frac12\int e^{2x}dx = \frac14 e^{2x} \).</li>
-    </ol>
-    <div class="result"><strong>Resultado:</strong> \[ \int x e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{4}e^{2x} + C \]</div>
+    <div class="post-side">
+      <span class="tag">Técnicas de integración</span>
+      <h2>Integración por partes</h2>
+      <h3>Enunciado</h3>
+      <div class="statement">Calcula \( \displaystyle\int x\,e^{2x}\,dx \).</div>
+      <h3>Idea clave</h3>
+      <p class="key">\[ \int u\,dv = uv - \int v\,du \]</p>
+    </div>
+    <div class="post-main">
+      <h3>Solución</h3>
+      <ol class="steps">
+        <li>Elegimos \( u = x \) (se simplifica al derivar) y \( dv = e^{2x}\,dx \).</li>
+        <li>Entonces \( du = dx \) y \( v = \tfrac{1}{2}e^{2x} \).</li>
+        <li>Aplicamos la fórmula: \[ \int x e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{2}\int e^{2x}\,dx \]</li>
+        <li>Integramos lo que queda: \( \displaystyle\frac12\int e^{2x}dx = \frac14 e^{2x} \).</li>
+      </ol>
+      <div class="result"><strong>Resultado:</strong> \[ \int x e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{4}e^{2x} + C \]</div>
+    </div>
     <div class="video-box"></div>
   </article>
 
   <article class="post reveal" id="sustitucion-trigonometrica" data-slug="sustitucion-trigonometrica">
-    <span class="tag">Técnicas de integración</span>
-    <h2>Sustitución trigonométrica</h2>
-    <h3>Enunciado</h3>
-    <div class="statement">Calcula \( \displaystyle\int \frac{dx}{x^2\sqrt{x^2+4}} \).</div>
-    <h3>Solución</h3>
-    <ol class="steps">
-      <li>Aparece \( \sqrt{x^2+a^2} \) con \( a=2 \), así que usamos \( x = 2\tan\theta \). Entonces \( dx = 2\sec^2\theta\,d\theta \) y \( \sqrt{x^2+4} = 2\sec\theta \).</li>
-      <li>Sustituimos: \[ \int \frac{2\sec^2\theta}{4\tan^2\theta\cdot 2\sec\theta}\,d\theta = \frac14\int \frac{\sec\theta}{\tan^2\theta}\,d\theta \]</li>
-      <li>Como \( \dfrac{\sec\theta}{\tan^2\theta} = \dfrac{\cos\theta}{\sin^2\theta} \), la integral queda \( \dfrac14\displaystyle\int \dfrac{\cos\theta}{\sin^2\theta}\,d\theta \).</li>
-      <li>Con \( w = \sin\theta \), \( dw = \cos\theta\,d\theta \): \[ \frac14\int w^{-2}\,dw = -\frac{1}{4\sin\theta} + C \]</li>
-      <li>Volvemos a \( x \) con el triángulo: \( \tan\theta = \dfrac{x}{2} \), hipotenusa \( \sqrt{x^2+4} \), por lo que \( \sin\theta = \dfrac{x}{\sqrt{x^2+4}} \).</li>
-    </ol>
-    <div class="result"><strong>Resultado:</strong> \[ \int \frac{dx}{x^2\sqrt{x^2+4}} = -\frac{\sqrt{x^2+4}}{4x} + C \]</div>
+    <div class="post-side">
+      <span class="tag">Técnicas de integración</span>
+      <h2>Sustitución trigonométrica</h2>
+      <h3>Enunciado</h3>
+      <div class="statement">Calcula \( \displaystyle\int \frac{dx}{x^2\sqrt{x^2+4}} \).</div>
+    </div>
+    <div class="post-main">
+      <h3>Solución</h3>
+      <ol class="steps">
+        <li>Aparece \( \sqrt{x^2+a^2} \) con \( a=2 \), así que usamos \( x = 2\tan\theta \). Entonces \( dx = 2\sec^2\theta\,d\theta \) y \( \sqrt{x^2+4} = 2\sec\theta \).</li>
+        <li>Sustituimos: \[ \int \frac{2\sec^2\theta}{4\tan^2\theta\cdot 2\sec\theta}\,d\theta = \frac14\int \frac{\sec\theta}{\tan^2\theta}\,d\theta \]</li>
+        <li>Como \( \dfrac{\sec\theta}{\tan^2\theta} = \dfrac{\cos\theta}{\sin^2\theta} \), la integral queda \( \dfrac14\displaystyle\int \dfrac{\cos\theta}{\sin^2\theta}\,d\theta \).</li>
+        <li>Con \( w = \sin\theta \), \( dw = \cos\theta\,d\theta \): \[ \frac14\int w^{-2}\,dw = -\frac{1}{4\sin\theta} + C \]</li>
+        <li>Volvemos a \( x \) con el triángulo: \( \tan\theta = \dfrac{x}{2} \), hipotenusa \( \sqrt{x^2+4} \), por lo que \( \sin\theta = \dfrac{x}{\sqrt{x^2+4}} \).</li>
+      </ol>
+      <div class="result"><strong>Resultado:</strong> \[ \int \frac{dx}{x^2\sqrt{x^2+4}} = -\frac{\sqrt{x^2+4}}{4x} + C \]</div>
+    </div>
     <div class="video-box"></div>
   </article>
 
   <article class="post reveal" id="fracciones-parciales" data-slug="fracciones-parciales">
-    <span class="tag">Técnicas de integración</span>
-    <h2>Fracciones parciales</h2>
-    <h3>Enunciado</h3>
-    <div class="statement">Calcula \( \displaystyle\int \frac{x+5}{x^2-x-2}\,dx \).</div>
-    <h3>Solución</h3>
-    <ol class="steps">
-      <li>Factorizamos el denominador: \( x^2-x-2 = (x-2)(x+1) \).</li>
-      <li>Descomponemos: \[ \frac{x+5}{(x-2)(x+1)} = \frac{A}{x-2} + \frac{B}{x+1} \]</li>
-      <li>Multiplicamos por el denominador: \( x+5 = A(x+1) + B(x-2) \).</li>
-      <li>Si \( x=2 \): \( 7 = 3A \Rightarrow A = \tfrac{7}{3} \). Si \( x=-1 \): \( 4 = -3B \Rightarrow B = -\tfrac{4}{3} \).</li>
-      <li>Integramos cada fracción por separado: \[ \frac73\int\frac{dx}{x-2} - \frac43\int\frac{dx}{x+1} \]</li>
-    </ol>
-    <div class="result"><strong>Resultado:</strong> \[ \frac{7}{3}\ln|x-2| - \frac{4}{3}\ln|x+1| + C \]</div>
+    <div class="post-side">
+      <span class="tag">Técnicas de integración</span>
+      <h2>Fracciones parciales</h2>
+      <h3>Enunciado</h3>
+      <div class="statement">Calcula \( \displaystyle\int \frac{x+5}{x^2-x-2}\,dx \).</div>
+    </div>
+    <div class="post-main">
+      <h3>Solución</h3>
+      <ol class="steps">
+        <li>Factorizamos el denominador: \( x^2-x-2 = (x-2)(x+1) \).</li>
+        <li>Descomponemos: \[ \frac{x+5}{(x-2)(x+1)} = \frac{A}{x-2} + \frac{B}{x+1} \]</li>
+        <li>Multiplicamos por el denominador: \( x+5 = A(x+1) + B(x-2) \).</li>
+        <li>Si \( x=2 \): \( 7 = 3A \Rightarrow A = \tfrac{7}{3} \). Si \( x=-1 \): \( 4 = -3B \Rightarrow B = -\tfrac{4}{3} \).</li>
+        <li>Integramos cada fracción por separado: \[ \frac73\int\frac{dx}{x-2} - \frac43\int\frac{dx}{x+1} \]</li>
+      </ol>
+      <div class="result"><strong>Resultado:</strong> \[ \frac{7}{3}\ln|x-2| - \frac{4}{3}\ln|x+1| + C \]</div>
+    </div>
     <div class="video-box"></div>
   </article>
 
   <article class="post reveal" id="criterio-de-la-razon" data-slug="criterio-de-la-razon">
-    <span class="tag">Series</span>
-    <h2>Criterio de la razón</h2>
-    <h3>Enunciado</h3>
-    <div class="statement">Determina si la serie \( \displaystyle\sum_{n=1}^{\infty} \frac{n}{2^n} \) converge o diverge.</div>
-    <h3>Idea clave</h3>
-    <p class="key">Si \( L = \displaystyle\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right| \): converge si \( L<1 \), diverge si \( L>1 \) y no concluye si \( L=1 \).</p>
-    <h3>Solución</h3>
-    <ol class="steps">
-      <li>Tomamos \( a_n = \dfrac{n}{2^n} \), entonces \( a_{n+1} = \dfrac{n+1}{2^{n+1}} \).</li>
-      <li>Calculamos el cociente: \[ \frac{a_{n+1}}{a_n} = \frac{n+1}{2^{n+1}}\cdot\frac{2^n}{n} = \frac{n+1}{2n} \]</li>
-      <li>Tomamos el límite: \[ L = \lim_{n\to\infty}\frac{n+1}{2n} = \frac12 \]</li>
-    </ol>
-    <div class="result"><strong>Conclusión:</strong> como \( L = \tfrac12 < 1 \), la serie <strong>converge</strong>.</div>
+    <div class="post-side">
+      <span class="tag">Series</span>
+      <h2>Criterio de la razón</h2>
+      <h3>Enunciado</h3>
+      <div class="statement">Determina si la serie \( \displaystyle\sum_{n=1}^{\infty} \frac{n}{2^n} \) converge o diverge.</div>
+      <h3>Idea clave</h3>
+      <p class="key">Si \( L = \displaystyle\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right| \): converge si \( L<1 \), diverge si \( L>1 \) y no concluye si \( L=1 \).</p>
+    </div>
+    <div class="post-main">
+      <h3>Solución</h3>
+      <ol class="steps">
+        <li>Tomamos \( a_n = \dfrac{n}{2^n} \), entonces \( a_{n+1} = \dfrac{n+1}{2^{n+1}} \).</li>
+        <li>Calculamos el cociente: \[ \frac{a_{n+1}}{a_n} = \frac{n+1}{2^{n+1}}\cdot\frac{2^n}{n} = \frac{n+1}{2n} \]</li>
+        <li>Tomamos el límite: \[ L = \lim_{n\to\infty}\frac{n+1}{2n} = \frac12 \]</li>
+      </ol>
+      <div class="result"><strong>Conclusión:</strong> como \( L = \tfrac12 < 1 \), la serie <strong>converge</strong>.</div>
+    </div>
     <div class="video-box"></div>
   </article>
 
-  <footer><span>∎</span> Proyecto universitario · Cálculo 2</footer>
+  <footer>✎ fin de la hoja · proyecto universitario · Cálculo 2</footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -389,17 +427,17 @@
     });
   });
 
-  /* ---------- Tema ---------- */
+  /* ---------- Tema (hoja blanca por defecto, "modo noche" opcional) ---------- */
   function applyTheme(theme) {
     document.documentElement.dataset.theme = theme;
-    $("themeBtn").textContent = theme === "light" ? "🌙 Modo oscuro" : "☀️ Modo claro";
-    try { localStorage.setItem("theme", theme); } catch (e) {}
+    $("themeBtn").textContent = theme === "dark" ? "☀️ Modo hoja" : "🌙 Modo noche";
+    try { localStorage.setItem("hoja-theme", theme); } catch (e) {}
   }
-  let savedTheme = "dark";
-  try { savedTheme = localStorage.getItem("theme") || "dark"; } catch (e) {}
+  let savedTheme = "light";
+  try { savedTheme = localStorage.getItem("hoja-theme") || "light"; } catch (e) {}
   applyTheme(savedTheme);
   $("themeBtn").addEventListener("click", () =>
-    applyTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light"));
+    applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
 
   if (AUTOR) $("autorBanner").classList.remove("hidden");
 
@@ -422,7 +460,7 @@
   function buildBox(box, slug) {
     box.innerHTML = "";
     const head = document.createElement("header");
-    head.innerHTML = '<span class="rec"></span> Video del ejercicio';
+    head.innerHTML = '<span class="rec"></span> Mira cómo lo resuelvo';
     const body = document.createElement("div");
     body.className = "vb-body";
     box.append(head, body);
@@ -542,24 +580,31 @@
     return wrap;
   }
 
-  /* ---------- Estadísticas, progreso de lectura y aparición al hacer scroll ---------- */
+  /* ---------- Estadísticas, progreso, símbolos y aparición al hacer scroll ---------- */
   $("statEj").textContent = document.querySelectorAll(".post").length;
 
   const bar = $("progressBar");
-  function onScroll() {
+  const syms = [...document.querySelectorAll("#symbols > span")];
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let ticking = false;
+  function frame() {
+    ticking = false;
     const max = document.documentElement.scrollHeight - innerHeight;
     bar.style.width = (max > 0 ? Math.min(100, (scrollY / max) * 100) : 0) + "%";
+    if (!reduced) {
+      // los símbolos "respiran" al hacer scroll, cada uno a su ritmo, sin salirse de la pantalla
+      syms.forEach((el, i) => { el.style.translate = "0 " + Math.sin(scrollY / 420 + i * 1.3) * (18 + (i % 5) * 9) + "px"; });
+    }
   }
-  addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
+  frame();
 
   const reveals = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+    }, { threshold: 0.06, rootMargin: "0px 0px -40px 0px" });
     reveals.forEach((el) => io.observe(el));
-    document.querySelectorAll(".index a").forEach((a, i) => { a.style.transitionDelay = i * 60 + "ms"; });
   } else {
     reveals.forEach((el) => el.classList.add("in"));
   }
