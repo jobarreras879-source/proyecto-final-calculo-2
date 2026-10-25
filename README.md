@@ -1,4 +1,4 @@
-# Cálculo 2 · Ejercicios resueltos
+# Proyecto final · Cálculo 2
 
 Blog de una sola página (`index.html`, HTML, CSS y JavaScript puro, sin frameworks) con ejercicios de Cálculo 2 resueltos paso a paso. Al final de cada entrada hay un recuadro con el **video** donde se explica el ejercicio, guardado en **Supabase Storage**.
 
