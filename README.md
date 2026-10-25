@@ -1,26 +1,32 @@
 # Proyecto final · Cálculo 2
 
-Blog de una sola página (`index.html`, HTML, CSS y JavaScript puro, sin frameworks) con ejercicios de Cálculo 2 resueltos paso a paso. Al final de cada entrada hay un recuadro con el **video** donde se explica el ejercicio, guardado en **Supabase Storage**.
+Minicurso de una sola página (`index.html`, HTML, CSS y JavaScript puro, sin frameworks) sobre **Integración por partes**, tema de Cálculo II. Incluye tres videos explicativos de máximo 1 minuto, guardados en **Supabase Storage**, además de problemas resueltos y propuestos.
 
 🔗 **Web:** https://jobarreras879-source.github.io/proyecto-final-calculo-2/
 
 ## Qué incluye
 
-- Diseño de **hoja de cuaderno cuadriculado** que ocupa toda la pantalla: margen rojo, perforaciones, símbolos matemáticos flotantes, notas adhesivas y letra manuscrita.
-- Cada ejercicio con enunciado, idea clave, solución numerada paso a paso y resultado destacado.
+Estructura pedida en la guía del proyecto:
+
+1. **Carátula**: título, estudiante, institución, curso, sección y fecha de entrega.
+2. **Introducción y objetivos** de aprendizaje, con conocimientos previos.
+3. **Conceptos y fórmulas**: regla del producto, fórmula de integración por partes, condiciones y regla LIATE, con un esquema.
+4. **Tres videos** de máximo 1 minuto, cada uno con un ejemplo distinto.
+5. **Tres problemas resueltos por escrito**, distintos a los de los videos, con comprobación.
+6. **Seis problemas propuestos** ordenados de menor a mayor dificultad, con respuestas en desplegable.
+7. **Fuentes consultadas**.
+
+Otros detalles:
+
+- Diseño de **hoja de cuaderno cuadriculado**, con modo noche opcional (botón de arriba a la derecha).
 - Fórmulas escritas con [KaTeX](https://katex.org/).
-- El video de cada ejercicio aparece al final, como una foto pegada con cinta.
-- **Modo hoja** (blanco) por defecto y **modo noche** opcional con el botón de arriba a la derecha.
 - Diseño responsive y animaciones que respetan la opción "reducir movimiento" del sistema.
 
-## Añadir o editar ejercicios
+## Editar el contenido
 
-En `index.html` cada ejercicio es un `<article class="post reveal" data-slug="...">` con dos columnas:
-
-- `post-side`: título, enunciado e idea clave (izquierda).
-- `post-main`: solución paso a paso y resultado (derecha).
-
-Para añadir uno nuevo, copia un `<article>`, cambia el `data-slug` (único, sin espacios ni acentos), el contenido y agrega su enlace en el índice (`<nav class="index">`). El video se enlaza solo con ese `data-slug`.
+- Los datos de la carátula y las fuentes están marcados con `<span class="fill">[...]</span>`: reemplázalos con tus datos reales.
+- Cada video es un `<div class="video-box" data-slug="video-1">` (también `video-2` y `video-3`). Esa clave es la que usa la subida; no la cambies sin cambiar también los archivos ya subidos.
+- Los problemas resueltos son `<article class="post">` y los propuestos son `<div class="card prop">` con su `<details>` para la respuesta.
 
 Las fórmulas se escriben con `\( ... \)` (en línea) y `\[ ... \]` (en bloque).
 
@@ -29,7 +35,7 @@ Las fórmulas se escriben con `\( ... \)` (en línea) y `\[ ... \]` (en bloque).
 1. Abre la web con `?autor` al final de la dirección:
    `https://jobarreras879-source.github.io/proyecto-final-calculo-2/?autor`
 2. En cada entrada aparece una zona para arrastrar tu video y el botón **Subir**.
-3. Se guarda en Supabase como `<slug>-<fecha>.<ext>` y la web muestra siempre el más reciente de cada ejercicio.
+3. Se guarda en Supabase como `<slug>-<fecha>.<ext>` y la web muestra siempre el más reciente de cada video.
 
 Los visitantes sin `?autor` solo ven los videos.
 

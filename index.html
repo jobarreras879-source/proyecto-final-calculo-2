@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Proyecto final · Cálculo 2</title>
+<title>Integración por partes · Proyecto final Cálculo II</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -78,101 +78,98 @@
   .container { position: relative; z-index: 3; max-width: 1700px; margin: 0 auto; padding: 22px clamp(20px, 4vw, 70px) 90px clamp(124px, 11vw, 190px); counter-reset: post; }
 
   /* ===== barra superior ===== */
-  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 30px; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-bottom: 30px; flex-wrap: wrap; }
   .brand { font-family: var(--hand); font-weight: 700; font-size: 2.2rem; color: var(--ink); display: flex; align-items: center; gap: 10px; }
   .brand .logo { display: inline-grid; place-items: center; width: 46px; height: 46px; font-size: 1.9rem; color: var(--red); border: 3px solid var(--red); border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px; transform: rotate(-6deg); }
   button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
-  button:disabled { opacity: .5; cursor: not-allowed; }
   .btn-ghost { font-family: var(--hand); font-weight: 700; font-size: 1.6rem; padding: 4px 20px; color: var(--ink); background: color-mix(in srgb, var(--paper) 85%, transparent); border: 2.5px solid var(--ink); border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px; transition: transform .2s; }
   .btn-ghost:hover { transform: rotate(-2deg) scale(1.05); }
   .btn-primary { font-family: var(--hand); font-weight: 700; font-size: 1.4rem; padding: 4px 26px; color: #fff; background: var(--blue); border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px; box-shadow: 3px 4px 0 var(--ink); transition: transform .15s, box-shadow .15s; }
   .btn-primary:hover:not(:disabled) { transform: translate(-1px, -1px) rotate(-1deg); box-shadow: 5px 6px 0 var(--ink); }
   .btn-primary:active:not(:disabled) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
 
-  /* ===== portada ===== */
-  .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 20px 50px; align-items: center; min-height: 62vh; margin-bottom: 40px; }
+  /* ===== portada / carátula ===== */
+  .hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 20px 50px; align-items: center; margin-bottom: 40px; }
   .hero-text > * { animation: rise .9s cubic-bezier(.2, .7, .2, 1) both; }
   .hero-text > *:nth-child(2) { animation-delay: .1s; } .hero-text > *:nth-child(3) { animation-delay: .2s; } .hero-text > *:nth-child(4) { animation-delay: .3s; }
   @keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
   .eyebrow { display: inline-block; margin: 0 0 6px; font-family: var(--hand); font-weight: 700; font-size: 1.5rem; color: var(--red); transform: rotate(-2deg); }
-  .hero h1 { margin: 0 0 16px; font-family: var(--hand); font-weight: 700; font-size: clamp(4rem, 10.5vw, 9rem); line-height: .92; color: var(--ink); }
+  .hero h1 { margin: 0 0 16px; font-family: var(--hand); font-weight: 700; font-size: clamp(4rem, 10vw, 8.5rem); line-height: .92; color: var(--ink); }
   .hero h1 .hl { display: inline-block; position: relative; transform: rotate(-2deg); padding: 0 .12em; background: linear-gradient(transparent 52%, var(--hl) 52% 90%, transparent 90%); }
   .hero h1 .squiggle { display: block; width: min(420px, 80%); height: 24px; margin-top: 4px; }
   .squiggle path { fill: none; stroke: var(--red); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw 1.4s .8s ease forwards; }
-  .lede { max-width: 36ch; margin: 0 0 26px; font-size: 1.8rem; line-height: 1.4; color: var(--pencil); }
-  .stats { display: flex; flex-wrap: wrap; gap: 14px; }
-  .stat { position: relative; padding: 5px 20px; font-family: var(--hand); font-weight: 700; font-size: 1.8rem; color: var(--note-text);
-    background: repeating-linear-gradient(115deg, #ffd6e0 0 10px, #ffeaf0 10px 20px); box-shadow: 0 3px 8px rgba(0, 0, 0, .15); }
-  .stat:nth-child(1) { transform: rotate(-2deg); }
-  .stat:nth-child(2) { transform: rotate(1.5deg); background: repeating-linear-gradient(115deg, #cfe8ff 0 10px, #e7f3ff 10px 20px); }
-  .stat:nth-child(3) { transform: rotate(-1deg); background: repeating-linear-gradient(115deg, #d3f5c9 0 10px, #e9fbe3 10px 20px); }
-  .stat b { color: var(--red); }
+  .lede { max-width: 40ch; margin: 0 0 26px; font-size: 1.8rem; line-height: 1.4; color: var(--pencil); }
+
+  .cover { max-width: 600px; padding: 22px 26px; background: #fff; color: #2d3142; transform: rotate(-1deg); box-shadow: 0 16px 28px rgba(0, 0, 0, .22); font-family: var(--hand); font-size: 1.85rem; line-height: 1.4; }
+  .cover .cover-title { margin: 0 0 12px; font-weight: 700; font-size: 2.3rem; color: #1c2a6b; text-decoration: underline wavy #d9363e 1.5px; text-underline-offset: 8px; }
+  .cover dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
+  .cover dt { font-weight: 700; color: #4b5163; }
+  .cover dd { margin: 0; }
+  .fill { padding: 0 6px; border-radius: 3px; background: var(--hl); color: #262b45; }
 
   .graph { width: 100%; height: auto; overflow: visible; }
   .graph .axis { stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; fill: none; }
-  .graph .dash { stroke: var(--pencil); stroke-width: 1.8; stroke-dasharray: 6 6; }
   .graph .fn { fill: none; stroke: var(--blue); stroke-width: 4.5; stroke-linecap: round; stroke-dasharray: 1500; stroke-dashoffset: 1500; animation: draw 2.8s .6s cubic-bezier(.5, 0, .2, 1) forwards; }
   .graph .area { opacity: 0; animation: fade 1.2s 3s forwards; }
   .graph .hatch-line { stroke: var(--red); stroke-width: 1.6; opacity: .7; }
   .graph text { font-family: var(--hand); font-weight: 700; fill: var(--ink); }
   .graph .lbl-red { fill: var(--red); }
+  .graph .dash { stroke: var(--pencil); stroke-width: 1.8; stroke-dasharray: 6 6; }
   .graph .late { opacity: 0; animation: fade .8s 3.2s forwards; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
   @keyframes fade { to { opacity: 1; } }
 
-  .hint { display: flex; align-items: center; gap: 8px; margin: 0 0 22px 6px; font-family: var(--hand); font-weight: 700; font-size: 2rem; color: var(--red); transform: rotate(-2deg); }
-  .hint svg { width: 46px; height: 46px; }
-  .hint path { fill: none; stroke: var(--red); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  /* ===== títulos de sección ===== */
+  .sec { margin: 0 0 90px; scroll-margin-top: 24px; }
+  .section-title { margin: 0 0 18px; font-family: var(--hand); font-weight: 700; font-size: 2.8rem; line-height: 1; display: inline-block; text-decoration: underline wavy var(--red) 2px; text-underline-offset: 10px; }
+  .sec-lede { max-width: 72ch; margin: 0 0 24px; font-size: 1.65rem; }
+  .sec h3 { margin: 26px 0 10px; font-family: var(--hand); font-weight: 700; font-size: 2.2rem; line-height: 1; color: var(--pencil); text-decoration: underline wavy var(--red) 1.5px; text-underline-offset: 8px; }
 
   /* ===== índice: notas adhesivas ===== */
-  .section-title { margin: 0 0 18px; font-family: var(--hand); font-weight: 700; font-size: 2.6rem; line-height: 1; display: inline-block; text-decoration: underline wavy var(--red) 2px; text-underline-offset: 10px; }
-  .index { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 34px; margin: 10px 0 90px; counter-reset: ix; }
+  .index { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 14px 0 90px; counter-reset: ix; }
   .index a {
-    counter-increment: ix; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 150px; padding: 22px 22px 18px;
-    text-decoration: none; color: var(--note-text); font-family: var(--hand); font-weight: 700; font-size: 2.1rem; line-height: 1.1;
+    counter-increment: ix; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 130px; padding: 22px 22px 18px;
+    text-decoration: none; color: var(--note-text); font-family: var(--hand); font-weight: 700; font-size: 2rem; line-height: 1.1;
     background: #fff3a3; box-shadow: 0 12px 20px rgba(0, 0, 0, .18), inset 0 -22px 30px -24px rgba(0, 0, 0, .18);
     transform: rotate(var(--r, -2deg)); transition: transform .3s cubic-bezier(.2, .7, .2, 1), box-shadow .3s;
   }
-  .index a:nth-child(1) { --r: -2.5deg; } .index a:nth-child(2) { --r: 1.8deg; background: #ffd1dc; } .index a:nth-child(3) { --r: -1.2deg; background: #cfe8ff; } .index a:nth-child(4) { --r: 2.4deg; background: #d3f5c9; }
-  .index a::before { content: counter(ix, decimal-leading-zero); font-size: 2.6rem; color: var(--red); line-height: 1; }
+  .index a:nth-child(odd) { --r: -2deg; } .index a:nth-child(even) { --r: 2deg; background: #ffd1dc; }
+  .index a:nth-child(3n) { background: #cfe8ff; } .index a:nth-child(4n) { background: #d3f5c9; }
+  .index a::before { content: counter(ix, decimal-leading-zero); font-size: 2.4rem; color: var(--red); line-height: 1; }
   .index a::after { content: ""; position: absolute; top: -13px; left: 50%; width: 92px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgba(255, 255, 255, .6); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); }
   .index a:hover { transform: rotate(0) translateY(-8px) scale(1.04); box-shadow: 0 22px 30px rgba(0, 0, 0, .25); }
 
-  .autor-banner { margin-bottom: 30px; padding: 12px 18px; border: 2.5px dashed var(--red); border-radius: 12px; background: color-mix(in srgb, var(--paper) 88%, transparent); font-size: 1.15rem; }
-  .autor-banner code { font-family: ui-monospace, monospace; font-size: .9em; }
+  /* ===== introducción y conceptos ===== */
+  .card { position: relative; margin: 0 0 26px; padding: 22px 26px 20px; color: var(--note-text); box-shadow: 0 10px 18px rgba(0, 0, 0, .16); font-size: 1.7rem; line-height: 1.6; }
+  .card::before { content: ""; position: absolute; top: -13px; left: 40px; width: 86px; height: 24px; transform: rotate(-4deg); background: rgba(255, 255, 255, .6); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); }
+  .card.yellow { background: #fff3a3; transform: rotate(-.6deg); }
+  .card.blue { background: #cfe8ff; transform: rotate(.6deg); }
+  .card.green { background: #d3f5c9; transform: rotate(-.4deg); }
+  .card .katex { color: #1c2a6b; }
+  .card .katex-display { margin: .4em 0; }
+  .card h3 { margin-top: 0 !important; }
+  .card ul, .card ol { margin: 6px 0 0; padding-left: 1.2em; }
+  .card li { margin: 4px 0; }
 
-  /* ===== entradas: escritas directamente sobre la hoja ===== */
-  .post { counter-increment: post; position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 30px clamp(30px, 5vw, 90px); margin: 0 0 40px; padding-bottom: 70px; scroll-margin-top: 20px; }
-  .post::after { content: "✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"; position: absolute; left: 0; right: 0; bottom: 14px; overflow: hidden; white-space: nowrap; color: var(--pencil); opacity: .6; font-size: 1.3rem; }
-  .post-side, .post-main { min-width: 0; }
-  .post-side { align-self: start; }
-  .tag { display: inline-block; padding: 3px 20px; font-family: var(--hand); font-weight: 700; font-size: 1.65rem; color: var(--note-text); background: repeating-linear-gradient(115deg, #ffd6e0 0 10px, #ffeaf0 10px 20px); box-shadow: 0 3px 8px rgba(0, 0, 0, .15); transform: rotate(-2deg); }
-  .post h2 { display: flex; align-items: center; gap: 16px; margin: 18px 0 20px; font-family: var(--hand); font-weight: 700; font-size: clamp(2.5rem, 4.2vw, 3.8rem); line-height: 1; }
-  .post h2::before { content: counter(post, decimal-leading-zero); flex: none; display: inline-grid; place-items: center; width: 74px; height: 60px; font-size: 2.1rem; color: var(--red); border: 3.5px solid var(--red); border-radius: 255px 22px 225px 22px / 22px 225px 22px 255px; transform: rotate(-7deg); }
-  .post h3 { margin: 26px 0 10px; font-family: var(--hand); font-weight: 700; font-size: 2.3rem; line-height: 1; color: var(--pencil); text-decoration: underline wavy var(--red) 1.5px; text-underline-offset: 8px; }
-  .post-side h3:first-of-type { margin-top: 0; }
-  .post p { margin: 8px 0; }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; }
 
-  .statement, .key { position: relative; padding: 22px 24px 20px; color: var(--note-text); box-shadow: 0 10px 18px rgba(0, 0, 0, .16); }
-  .statement { background: #fff3a3; transform: rotate(-1.2deg); font-size: 1.7rem; line-height: 1.7; }
-  .statement::before, .key::before { content: ""; position: absolute; top: -13px; left: 40px; width: 86px; height: 24px; transform: rotate(-4deg); background: rgba(255, 255, 255, .6); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); }
-  .key { background: #cfe8ff; transform: rotate(1deg); }
-  .statement .katex, .key .katex { color: #1c2a6b; }
-  .key .katex-display { margin: .3em 0; }
+  table.liate { width: 100%; border-collapse: collapse; font-size: 1.5rem; background: #fff; color: #262b45; }
+  table.liate th, table.liate td { border: 2px solid #1c2a6b; padding: 6px 10px; text-align: left; vertical-align: top; }
+  table.liate th { background: #cfe8ff; }
 
-  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 14px 0 0; }
-  ol.steps li { counter-increment: s; position: relative; padding: 4px 0 26px 72px; margin: 0; font-size: 1.6rem; }
-  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 50px; height: 44px; display: grid; place-items: center; font-family: var(--hand); font-weight: 700; font-size: 2rem; line-height: 1; color: var(--red); border: 3px solid var(--red); border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px; transform: rotate(4deg); }
-  ol.steps li:nth-child(even)::before { transform: rotate(-5deg); }
-  .katex { font-size: 1.15em; color: var(--ink); }
-  .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 10px 0 0; }
+  .flow .box { padding: 10px 16px; font-size: 1.6rem; color: #262b45; background: #fff; box-shadow: 0 6px 12px rgba(0, 0, 0, .18); border: 2.5px solid #1c2a6b; border-radius: 10px; }
+  .flow .arr { font-family: var(--hand); font-weight: 700; font-size: 2.4rem; color: var(--red); }
 
-  .result { position: relative; margin-top: 8px; padding: 18px 26px 16px; border: 4px solid var(--red); border-radius: 255px 24px 225px 24px / 24px 225px 24px 255px; transform: rotate(-.7deg); background: color-mix(in srgb, var(--red) 6%, transparent); }
-  .result strong:first-child { display: inline-block; font-family: var(--hand); font-size: 2.4rem; line-height: 1; color: var(--red); text-decoration: underline 3px var(--red); text-underline-offset: 6px; }
-  .result::after { content: "★"; position: absolute; right: 20px; top: 8px; font-size: 1.8rem; color: #f5b800; transform: rotate(14deg); }
+  /* ===== videos ===== */
+  .vid-list { display: grid; gap: 60px; }
+  .vid-item { display: grid; gap: 12px; }
+  .vid-item .cap { font-family: var(--hand); font-weight: 700; font-size: 2.2rem; line-height: 1.1; color: var(--ink); }
+  .vid-item .cap span { color: var(--red); }
+  .vid-item .prompt { font-size: 1.6rem; color: var(--pencil); }
 
-  /* ===== video: foto polaroid pegada con cinta ===== */
-  .video-box { grid-column: 1 / -1; justify-self: center; width: min(100%, 900px); position: relative; margin-top: 20px; padding: 18px 18px 14px; background: #fff; color: #2d3142; border-radius: 4px; box-shadow: 0 22px 44px rgba(0, 0, 0, .28); transform: rotate(-.9deg); transition: transform .4s; }
+  .video-box { justify-self: center; width: min(100%, 900px); position: relative; margin-top: 10px; padding: 18px 18px 14px; background: #fff; color: #2d3142; border-radius: 4px; box-shadow: 0 22px 44px rgba(0, 0, 0, .28); transform: rotate(-.7deg); transition: transform .4s; }
   .video-box:hover { transform: rotate(0) scale(1.01); }
   .video-box::before, .video-box::after { content: ""; position: absolute; top: -16px; width: 110px; height: 30px; background: rgba(255, 224, 120, .72); box-shadow: 0 1px 3px rgba(0, 0, 0, .2); }
   .video-box::before { left: 40px; transform: rotate(-6deg); } .video-box::after { right: 40px; transform: rotate(5deg); }
@@ -180,7 +177,7 @@
   .rec { width: 13px; height: 13px; border-radius: 50%; background: #ef4444; animation: blink 1.5s ease-in-out infinite; }
   @keyframes blink { 50% { opacity: .2; } }
   .video-box video { width: 100%; max-height: 72vh; display: block; background: #000; }
-  .video-box .placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 260px; padding: 30px 16px; text-align: center; color: #5b6070; font-size: 1.5rem; background: #f4f2ea; border: 2.5px dashed #b9b6a8; }
+  .video-box .placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 240px; padding: 30px 16px; text-align: center; color: #5b6070; font-size: 1.5rem; background: #f4f2ea; border: 2.5px dashed #b9b6a8; }
   .placeholder .ico { width: 64px; height: 64px; border: 3.5px solid var(--red); border-radius: 50%; position: relative; }
   .placeholder .ico::after { content: ""; position: absolute; left: 24px; top: 16px; border-left: 20px solid var(--red); border-top: 13px solid transparent; border-bottom: 13px solid transparent; }
   .fade-in { animation: fadeIn .5s ease both; }
@@ -200,6 +197,48 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   .hidden { display: none !important; }
 
+  .autor-banner { margin-bottom: 30px; padding: 12px 18px; border: 2.5px dashed var(--red); border-radius: 12px; background: color-mix(in srgb, var(--paper) 88%, transparent); font-size: 1.15rem; }
+  .autor-banner code { font-family: ui-monospace, monospace; font-size: .9em; }
+
+  /* ===== problemas resueltos ===== */
+  .post { counter-increment: post; position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 30px clamp(30px, 5vw, 90px); margin: 0 0 56px; padding-bottom: 60px; scroll-margin-top: 24px; }
+  .post::after { content: "✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"; position: absolute; left: 0; right: 0; bottom: 14px; overflow: hidden; white-space: nowrap; color: var(--pencil); opacity: .6; font-size: 1.3rem; }
+  .post-side, .post-main { min-width: 0; }
+  .post-side { align-self: start; }
+  .tag { display: inline-block; padding: 3px 20px; font-family: var(--hand); font-weight: 700; font-size: 1.65rem; color: var(--note-text); background: repeating-linear-gradient(115deg, #ffd6e0 0 10px, #ffeaf0 10px 20px); box-shadow: 0 3px 8px rgba(0, 0, 0, .15); transform: rotate(-2deg); }
+  .post h2 { display: flex; align-items: center; gap: 16px; margin: 18px 0 20px; font-family: var(--hand); font-weight: 700; font-size: clamp(2.5rem, 4.2vw, 3.6rem); line-height: 1; }
+  .post h2::before { content: counter(post, decimal-leading-zero); flex: none; display: inline-grid; place-items: center; width: 74px; height: 60px; font-size: 2.1rem; color: var(--red); border: 3.5px solid var(--red); border-radius: 255px 22px 225px 22px / 22px 225px 22px 255px; transform: rotate(-7deg); }
+  .post p { margin: 8px 0; }
+  .statement { position: relative; padding: 22px 24px 20px; color: var(--note-text); box-shadow: 0 10px 18px rgba(0, 0, 0, .16); font-size: 1.7rem; line-height: 1.7; background: #fff3a3; transform: rotate(-1.2deg); }
+  .statement::before { content: ""; position: absolute; top: -13px; left: 40px; width: 86px; height: 24px; transform: rotate(-4deg); background: rgba(255, 255, 255, .6); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); }
+  .statement .katex { color: #1c2a6b; }
+
+  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 14px 0 0; }
+  ol.steps li { counter-increment: s; position: relative; padding: 4px 0 26px 72px; margin: 0; font-size: 1.6rem; }
+  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 50px; height: 44px; display: grid; place-items: center; font-family: var(--hand); font-weight: 700; font-size: 2rem; line-height: 1; color: var(--red); border: 3px solid var(--red); border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px; transform: rotate(4deg); }
+  ol.steps li:nth-child(even)::before { transform: rotate(-5deg); }
+  .check { margin-top: 10px; font-size: 1.5rem; color: var(--ok); }
+  .katex { font-size: 1.15em; color: var(--ink); }
+  .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+
+  .result { position: relative; margin-top: 8px; padding: 18px 26px 16px; border: 4px solid var(--red); border-radius: 255px 24px 225px 24px / 24px 225px 24px 255px; transform: rotate(-.7deg); background: color-mix(in srgb, var(--red) 6%, transparent); }
+  .result strong:first-child { display: inline-block; font-family: var(--hand); font-size: 2.4rem; line-height: 1; color: var(--red); text-decoration: underline 3px var(--red); text-underline-offset: 6px; }
+  .result::after { content: "★"; position: absolute; right: 20px; top: 8px; font-size: 1.8rem; color: #f5b800; transform: rotate(14deg); }
+
+  /* ===== problemas propuestos ===== */
+  .prop { margin: 0 0 30px; }
+  .prop .statement { transform: none; }
+  .prop .lvl { display: inline-block; margin-bottom: 8px; font-family: var(--hand); font-weight: 700; font-size: 1.6rem; color: var(--red); }
+  details { margin-top: 12px; }
+  summary { cursor: pointer; width: max-content; font-family: var(--hand); font-weight: 700; font-size: 1.9rem; color: var(--blue); text-decoration: underline wavy var(--blue) 1.5px; text-underline-offset: 6px; }
+  details[open] summary { color: var(--red); text-decoration-color: var(--red); }
+  .ans { margin-top: 10px; padding: 14px 18px; background: #d3f5c9; color: #262b45; border-radius: 6px; box-shadow: 0 6px 12px rgba(0, 0, 0, .12); }
+  .ans p { margin: 4px 0; }
+
+  /* ===== fuentes ===== */
+  .sources li { margin: 0 0 14px; font-size: 1.6rem; }
+  .sources .fill { font-size: 1.5rem; }
+
   footer { margin-top: 10px; text-align: center; font-family: var(--hand); font-weight: 700; font-size: 1.8rem; color: var(--pencil); }
 
   /* aparición al hacer scroll */
@@ -207,8 +246,9 @@
   .js .reveal.in { opacity: 1; transform: none; }
 
   @media (max-width: 980px) {
-    .hero { grid-template-columns: 1fr; min-height: 0; }
+    .hero { grid-template-columns: 1fr; }
     .post { grid-template-columns: 1fr; }
+    .two { grid-template-columns: 1fr; }
     .post-side { position: static; }
   }
   @media (max-width: 700px) {
@@ -218,6 +258,8 @@
     .post h2::before { width: 58px; height: 48px; font-size: 1.7rem; }
     ol.steps li { padding-left: 56px; }
     .symbols span { opacity: .1; }
+    .cover { font-size: 1.6rem; }
+    table.liate { font-size: 1.3rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
@@ -239,8 +281,8 @@
   <span style="--x:15%;--y:68%;--s:6.5rem;--d:-1s"><i>∞</i></span>
   <span style="--x:46%;--y:6%;--s:3.8rem;--d:-3s"><i>dx</i></span>
   <span style="--x:91%;--y:82%;--s:6rem;--d:-5s"><i>√</i></span>
-  <span style="--x:31%;--y:38%;--s:4.4rem;--d:-6s"><i>θ</i></span>
-  <span style="--x:62%;--y:28%;--s:4.6rem;--d:-2.5s"><i>Δ</i></span>
+  <span style="--x:31%;--y:38%;--s:4.4rem;--d:-6s"><i>u</i></span>
+  <span style="--x:62%;--y:28%;--s:4.6rem;--d:-2.5s"><i>dv</i></span>
   <span style="--x:3%;--y:42%;--s:3.4rem;--d:-4.5s"><i>lím</i></span>
   <span style="--x:69%;--y:87%;--s:4.8rem;--d:-1.5s"><i>∂</i></span>
   <span style="--x:52%;--y:70%;--s:4rem;--d:-3.5s"><i>eˣ</i></span>
@@ -248,30 +290,36 @@
   <span style="--x:94%;--y:46%;--s:5rem;--d:-0.5s"><i>∮</i></span>
   <span style="--x:39%;--y:92%;--s:3.8rem;--d:-2.2s"><i>f(x)</i></span>
   <span style="--x:80%;--y:4%;--s:3.6rem;--d:-4.2s"><i>≈</i></span>
-  <span style="--x:57%;--y:48%;--s:3.4rem;--d:-6.5s"><i>dy/dx</i></span>
+  <span style="--x:57%;--y:48%;--s:3.4rem;--d:-6.5s"><i>ln</i></span>
 </div>
 
 <div class="container">
   <div class="topbar">
-    <div class="brand"><span class="logo">∫</span> Proyecto final · Cálculo 2</div>
+    <div class="brand"><span class="logo">∫</span> Proyecto final · Cálculo II</div>
     <button id="themeBtn" class="btn-ghost" type="button">🌙 Modo noche</button>
   </div>
 
-  <section class="hero">
+  <!-- ===================== A. CARÁTULA ===================== -->
+  <section class="hero" id="inicio">
     <div class="hero-text">
-      <p class="eyebrow">✎ ejercicios resueltos</p>
-      <h1>Cálculo 2,<br><span class="hl">paso a paso</span>
+      <p class="eyebrow">✎ minicurso · técnicas de integración</p>
+      <h1>Integración<br><span class="hl">por partes</span>
         <svg class="squiggle" viewBox="0 0 420 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 30 2, 50 24, 80 12 S 130 2, 160 14 S 210 24, 240 12 S 290 2, 320 14 S 380 22, 416 8"/></svg>
       </h1>
-      <p class="lede">Cada entrada trae el enunciado y la solución explicada con calma. Al final está el video donde resuelvo el ejercicio en voz alta.</p>
-      <div class="stats">
-        <span class="stat"><b id="statEj">4</b> ejercicios</span>
-        <span class="stat"><b id="statVid">0</b> videos</span>
-        <span class="stat">integrales y series</span>
+      <p class="lede">Un minicurso para aprender a integrar productos de funciones, paso a paso, con explicaciones propias, tres videos y problemas con respuesta.</p>
+      <div class="cover">
+        <p class="cover-title">Carátula del proyecto</p>
+        <dl>
+          <dt>Estudiante:</dt><dd><span class="fill">[Tu nombre completo]</span></dd>
+          <dt>Institución:</dt><dd>Universidad Mariano Gálvez de Guatemala · Facultad de Ingeniería en Sistemas de Información · Sede Portales</dd>
+          <dt>Curso:</dt><dd>Cálculo II</dd>
+          <dt>Sección:</dt><dd><span class="fill">[Tu sección]</span></dd>
+          <dt>Fecha de entrega:</dt><dd><span class="fill">[dd/mm/aaaa]</span></dd>
+        </dl>
       </div>
     </div>
 
-    <svg class="graph" viewBox="0 0 580 380" role="img" aria-label="Gráfica decorativa: área bajo una curva entre a y b">
+    <svg class="graph" viewBox="0 0 580 380" role="img" aria-label="Ilustración de elaboración propia: área bajo una curva entre a y b">
       <defs>
         <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="hatch-line" x1="0" y1="0" x2="0" y2="9"/></pattern>
         <clipPath id="ab"><rect x="150" y="0" width="260" height="310"/></clipPath>
@@ -286,117 +334,280 @@
       <text class="late" x="548" y="352" font-size="30">x</text>
       <text class="late" x="64" y="36" font-size="30">y</text>
       <text class="late" x="470" y="118" font-size="36" transform="rotate(-8 470 118)">f(x)</text>
-      <text class="late lbl-red" x="196" y="262" font-size="46">∫ f(x) dx</text>
-      <text class="late lbl-red" x="196" y="294" font-size="26">= área</text>
+      <text class="late lbl-red" x="196" y="262" font-size="46">∫ u dv</text>
+      <text class="late lbl-red" x="196" y="294" font-size="26">= uv − ∫ v du</text>
     </svg>
   </section>
 
-  <div class="hint"><span>elige un ejercicio</span>
-    <svg viewBox="0 0 46 46" aria-hidden="true"><path d="M8 6 C 6 24, 18 34, 36 36 M 28 28 L 37 36 L 26 40"/></svg>
-  </div>
-  <h2 class="section-title">Índice</h2>
-  <nav class="index reveal" aria-label="Índice de ejercicios">
-    <a href="#integracion-por-partes">Integración por partes</a>
-    <a href="#sustitucion-trigonometrica">Sustitución trigonométrica</a>
-    <a href="#fracciones-parciales">Fracciones parciales</a>
-    <a href="#criterio-de-la-razon">Criterio de la razón</a>
+  <p class="section-title" style="margin-bottom:10px;font-size:2rem">Índice</p>
+  <nav class="index reveal" aria-label="Índice del minicurso">
+    <a href="#introduccion">Introducción y objetivos</a>
+    <a href="#conceptos">Conceptos y fórmulas</a>
+    <a href="#videos">Tres videos</a>
+    <a href="#resueltos">Problemas resueltos</a>
+    <a href="#propuestos">Problemas propuestos</a>
+    <a href="#fuentes">Fuentes</a>
   </nav>
 
   <div id="autorBanner" class="autor-banner hidden">
-    ✏️ <strong>Modo autor activo.</strong> En cada entrada puedes subir el video del ejercicio (máx. 50 MB). Para salir, quita <code>?autor</code> de la dirección.
+    ✏️ <strong>Modo autor activo.</strong> Sube aquí cada video (máx. 50 MB). Para salir, quita <code>?autor</code> de la dirección.
   </div>
 
-  <!-- ===================== ENTRADAS =====================
-       Para añadir un ejercicio nuevo, copia un <article>, cambia el data-slug
-       (único, sin espacios ni acentos) y el contenido. El video se enlaza solo.
-       post-side = enunciado (izquierda) · post-main = solución (derecha) -->
+  <!-- ===================== B. INTRODUCCIÓN ===================== -->
+  <section class="sec reveal" id="introduccion">
+    <h2 class="section-title">1. Introducción y objetivos</h2>
+    <div class="two">
+      <div class="card yellow">
+        <h3>¿De qué trata?</h3>
+        <p>La integración por partes sale de la regla del producto para derivadas. Sirve para integrar productos de funciones de tipos distintos, por ejemplo una potencia de <em>x</em> multiplicada por una exponencial, una trigonométrica o un logaritmo. Es una de las técnicas más usadas en Cálculo II, y aparece después en series, ecuaciones diferenciales y aplicaciones de la integral.</p>
+      </div>
+      <div class="card blue">
+        <h3>Objetivos de aprendizaje</h3>
+        <ol>
+          <li>Identificar qué parte de un producto conviene llamar <em>u</em> y cuál <em>dv</em>.</li>
+          <li>Aplicar la fórmula de integración por partes y calcular integrales indefinidas y definidas.</li>
+          <li>Verificar un resultado derivándolo para comprobar que se obtiene el integrando.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="card green">
+      <h3>Conocimientos previos recomendados</h3>
+      <ul>
+        <li>Derivadas de funciones básicas, y la regla del producto.</li>
+        <li>Integrales inmediatas y la regla de sustitución.</li>
+        <li>Derivadas e integrales de <em>eˣ</em>, <em>sen x</em>, <em>cos x</em> y <em>ln x</em>.</li>
+      </ul>
+    </div>
+  </section>
 
-  <article class="post reveal" id="integracion-por-partes" data-slug="integracion-por-partes">
-    <div class="post-side">
-      <span class="tag">Técnicas de integración</span>
-      <h2>Integración por partes</h2>
-      <h3>Enunciado</h3>
-      <div class="statement">Calcula \( \displaystyle\int x\,e^{2x}\,dx \).</div>
-      <h3>Idea clave</h3>
-      <p class="key">\[ \int u\,dv = uv - \int v\,du \]</p>
-    </div>
-    <div class="post-main">
-      <h3>Solución</h3>
-      <ol class="steps">
-        <li>Elegimos \( u = x \) (se simplifica al derivar) y \( dv = e^{2x}\,dx \).</li>
-        <li>Entonces \( du = dx \) y \( v = \tfrac{1}{2}e^{2x} \).</li>
-        <li>Aplicamos la fórmula: \[ \int x e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{2}\int e^{2x}\,dx \]</li>
-        <li>Integramos lo que queda: \( \displaystyle\frac12\int e^{2x}dx = \frac14 e^{2x} \).</li>
-      </ol>
-      <div class="result"><strong>Resultado:</strong> \[ \int x e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{4}e^{2x} + C \]</div>
-    </div>
-    <div class="video-box"></div>
-  </article>
+  <!-- ===================== C. CONCEPTOS ===================== -->
+  <section class="sec reveal" id="conceptos">
+    <h2 class="section-title">2. Conceptos, definiciones y propiedades</h2>
 
-  <article class="post reveal" id="sustitucion-trigonometrica" data-slug="sustitucion-trigonometrica">
-    <div class="post-side">
-      <span class="tag">Técnicas de integración</span>
-      <h2>Sustitución trigonométrica</h2>
-      <h3>Enunciado</h3>
-      <div class="statement">Calcula \( \displaystyle\int \frac{dx}{x^2\sqrt{x^2+4}} \).</div>
+    <div class="card yellow">
+      <h3>Punto de partida: la regla del producto</h3>
+      <p>Si <em>u</em> y <em>v</em> son funciones derivables de <em>x</em>, la derivada de su producto es:</p>
+      <p>\[ \frac{d}{dx}(uv) = u\,\frac{dv}{dx} + v\,\frac{du}{dx} \]</p>
+      <p>Si integramos los dos lados y despejamos <em>∫ u dv</em>, obtenemos la fórmula de integración por partes.</p>
     </div>
-    <div class="post-main">
-      <h3>Solución</h3>
-      <ol class="steps">
-        <li>Aparece \( \sqrt{x^2+a^2} \) con \( a=2 \), así que usamos \( x = 2\tan\theta \). Entonces \( dx = 2\sec^2\theta\,d\theta \) y \( \sqrt{x^2+4} = 2\sec\theta \).</li>
-        <li>Sustituimos: \[ \int \frac{2\sec^2\theta}{4\tan^2\theta\cdot 2\sec\theta}\,d\theta = \frac14\int \frac{\sec\theta}{\tan^2\theta}\,d\theta \]</li>
-        <li>Como \( \dfrac{\sec\theta}{\tan^2\theta} = \dfrac{\cos\theta}{\sin^2\theta} \), la integral queda \( \dfrac14\displaystyle\int \dfrac{\cos\theta}{\sin^2\theta}\,d\theta \).</li>
-        <li>Con \( w = \sin\theta \), \( dw = \cos\theta\,d\theta \): \[ \frac14\int w^{-2}\,dw = -\frac{1}{4\sin\theta} + C \]</li>
-        <li>Volvemos a \( x \) con el triángulo: \( \tan\theta = \dfrac{x}{2} \), hipotenusa \( \sqrt{x^2+4} \), por lo que \( \sin\theta = \dfrac{x}{\sqrt{x^2+4}} \).</li>
-      </ol>
-      <div class="result"><strong>Resultado:</strong> \[ \int \frac{dx}{x^2\sqrt{x^2+4}} = -\frac{\sqrt{x^2+4}}{4x} + C \]</div>
-    </div>
-    <div class="video-box"></div>
-  </article>
 
-  <article class="post reveal" id="fracciones-parciales" data-slug="fracciones-parciales">
-    <div class="post-side">
-      <span class="tag">Técnicas de integración</span>
-      <h2>Fracciones parciales</h2>
-      <h3>Enunciado</h3>
-      <div class="statement">Calcula \( \displaystyle\int \frac{x+5}{x^2-x-2}\,dx \).</div>
+    <div class="card blue">
+      <h3>Fórmula</h3>
+      <p>Para funciones derivables <em>u(x)</em> y <em>v(x)</em>:</p>
+      <p>\[ \int u\,dv = uv - \int v\,du \]</p>
+      <p>Donde <em>du = u'(x)dx</em> y <em>dv = v'(x)dx</em>. Para integrales definidas se usa:</p>
+      <p>\[ \int_a^b u\,dv = \Big[uv\Big]_a^b - \int_a^b v\,du \]</p>
     </div>
-    <div class="post-main">
-      <h3>Solución</h3>
-      <ol class="steps">
-        <li>Factorizamos el denominador: \( x^2-x-2 = (x-2)(x+1) \).</li>
-        <li>Descomponemos: \[ \frac{x+5}{(x-2)(x+1)} = \frac{A}{x-2} + \frac{B}{x+1} \]</li>
-        <li>Multiplicamos por el denominador: \( x+5 = A(x+1) + B(x-2) \).</li>
-        <li>Si \( x=2 \): \( 7 = 3A \Rightarrow A = \tfrac{7}{3} \). Si \( x=-1 \): \( 4 = -3B \Rightarrow B = -\tfrac{4}{3} \).</li>
-        <li>Integramos cada fracción por separado: \[ \frac73\int\frac{dx}{x-2} - \frac43\int\frac{dx}{x+1} \]</li>
-      </ol>
-      <div class="result"><strong>Resultado:</strong> \[ \frac{7}{3}\ln|x-2| - \frac{4}{3}\ln|x+1| + C \]</div>
-    </div>
-    <div class="video-box"></div>
-  </article>
 
-  <article class="post reveal" id="criterio-de-la-razon" data-slug="criterio-de-la-razon">
-    <div class="post-side">
-      <span class="tag">Series</span>
-      <h2>Criterio de la razón</h2>
-      <h3>Enunciado</h3>
-      <div class="statement">Determina si la serie \( \displaystyle\sum_{n=1}^{\infty} \frac{n}{2^n} \) converge o diverge.</div>
-      <h3>Idea clave</h3>
-      <p class="key">Si \( L = \displaystyle\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right| \): converge si \( L<1 \), diverge si \( L>1 \) y no concluye si \( L=1 \).</p>
+    <div class="card green">
+      <h3>Condiciones de aplicación</h3>
+      <ul>
+        <li>Debemos poder derivar fácilmente <em>u</em> (su derivada <em>du</em> debe ser simple).</li>
+        <li>Debemos poder integrar <em>dv</em> para obtener <em>v</em>.</li>
+        <li>La integral nueva <em>∫ v du</em> debe ser más sencilla que la original. Si no lo es, conviene cambiar la elección de <em>u</em>.</li>
+      </ul>
     </div>
-    <div class="post-main">
-      <h3>Solución</h3>
-      <ol class="steps">
-        <li>Tomamos \( a_n = \dfrac{n}{2^n} \), entonces \( a_{n+1} = \dfrac{n+1}{2^{n+1}} \).</li>
-        <li>Calculamos el cociente: \[ \frac{a_{n+1}}{a_n} = \frac{n+1}{2^{n+1}}\cdot\frac{2^n}{n} = \frac{n+1}{2n} \]</li>
-        <li>Tomamos el límite: \[ L = \lim_{n\to\infty}\frac{n+1}{2n} = \frac12 \]</li>
-      </ol>
-      <div class="result"><strong>Conclusión:</strong> como \( L = \tfrac12 < 1 \), la serie <strong>converge</strong>.</div>
-    </div>
-    <div class="video-box"></div>
-  </article>
 
-  <footer>✎ fin de la hoja · Proyecto final · Cálculo 2</footer>
+    <h3>Cómo elegir <em>u</em>: la regla LIATE</h3>
+    <p class="sec-lede">Es una guía práctica, no un teorema. Se elige como <em>u</em> la función que aparezca primero en esta lista:</p>
+    <table class="liate">
+      <thead><tr><th>Letra</th><th>Tipo de función</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><b>L</b></td><td>Logarítmica</td><td>ln x</td></tr>
+        <tr><td><b>I</b></td><td>Trigonométrica inversa</td><td>arctan x</td></tr>
+        <tr><td><b>A</b></td><td>Algebraica (polinomios)</td><td>x²</td></tr>
+        <tr><td><b>T</b></td><td>Trigonométrica</td><td>sen x, cos x</td></tr>
+        <tr><td><b>E</b></td><td>Exponencial</td><td>eˣ</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Esquema del procedimiento</h3>
+    <div class="flow" aria-label="Esquema: separar u y dv, calcular du y v, aplicar la fórmula">
+      <span class="box">∫ f(x) dx</span><span class="arr">→</span>
+      <span class="box">separar <em>u</em> y <em>dv</em></span><span class="arr">→</span>
+      <span class="box">calcular <em>du</em> y <em>v</em></span><span class="arr">→</span>
+      <span class="box"><em>uv</em> − ∫ <em>v du</em></span><span class="arr">→</span>
+      <span class="box">integrar y verificar</span>
+    </div>
+  </section>
+
+  <!-- ===================== D. TRES VIDEOS ===================== -->
+  <section class="sec reveal" id="videos">
+    <h2 class="section-title">3. Tres videos explicativos</h2>
+    <p class="sec-lede">Cada video dura como máximo 1 minuto y resuelve un ejemplo distinto. En cada uno explico los pasos en voz alta.</p>
+    <div class="vid-list">
+      <article class="vid-item">
+        <p class="cap"><span>Video 1 ·</span> Calcular \( \displaystyle\int x\,e^{x}\,dx \)</p>
+        <p class="prompt">Se usa <em>u = x</em> porque al derivarla se simplifica, y <em>dv = eˣ dx</em>.</p>
+        <div class="video-box" data-slug="video-1"></div>
+      </article>
+      <article class="vid-item">
+        <p class="cap"><span>Video 2 ·</span> Calcular \( \displaystyle\int x\ln x\,dx \)</p>
+        <p class="prompt">Aquí el logaritmo va como <em>u</em>, porque su derivada es más simple.</p>
+        <div class="video-box" data-slug="video-2"></div>
+      </article>
+      <article class="vid-item">
+        <p class="cap"><span>Video 3 ·</span> Calcular \( \displaystyle\int x^{2}\operatorname{sen} x\,dx \)</p>
+        <p class="prompt">Dos aplicaciones seguidas de la fórmula: la potencia de <em>x</em> baja de grado en cada paso.</p>
+        <div class="video-box" data-slug="video-3"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== E. PROBLEMAS RESUELTOS ===================== -->
+  <section class="sec" id="resueltos">
+    <h2 class="section-title reveal">4. Problemas resueltos por escrito</h2>
+    <p class="sec-lede">Estos tres problemas son distintos a los de los videos.</p>
+
+    <article class="post reveal">
+      <div class="post-side">
+        <span class="tag">Trigonométrica</span>
+        <h2>Integral indefinida</h2>
+        <h3>Enunciado</h3>
+        <div class="statement">Calcula \( \displaystyle\int x\cos x\,dx \).</div>
+      </div>
+      <div class="post-main">
+        <h3>Solución</h3>
+        <ol class="steps">
+          <li>Elegimos \( u = x \) (su derivada es 1) y \( dv = \cos x\,dx \).</li>
+          <li>Entonces \( du = dx \) y \( v = \operatorname{sen} x \).</li>
+          <li>Aplicamos la fórmula: \[ \int x\cos x\,dx = x\operatorname{sen} x - \int \operatorname{sen} x\,dx \]</li>
+          <li>Integramos lo que queda: \( \int \operatorname{sen} x\,dx = -\cos x \), así que \( -\int \operatorname{sen} x\,dx = \cos x \).</li>
+        </ol>
+        <div class="result"><strong>Resultado:</strong> \[ \int x\cos x\,dx = x\operatorname{sen} x + \cos x + C \]</div>
+        <p class="check">✔ Comprobación: \( \frac{d}{dx}(x\operatorname{sen} x + \cos x) = \operatorname{sen} x + x\cos x - \operatorname{sen} x = x\cos x \).</p>
+      </div>
+    </article>
+
+    <article class="post reveal">
+      <div class="post-side">
+        <span class="tag">Logarítmica</span>
+        <h2>Una sola función</h2>
+        <h3>Enunciado</h3>
+        <div class="statement">Calcula \( \displaystyle\int \ln x\,dx \).</div>
+      </div>
+      <div class="post-main">
+        <h3>Solución</h3>
+        <ol class="steps">
+          <li>Elegimos \( u = \ln x \) y \( dv = dx \).</li>
+          <li>Entonces \( du = \dfrac{1}{x}\,dx \) y \( v = x \).</li>
+          <li>Aplicamos la fórmula: \[ \int \ln x\,dx = x\ln x - \int x\cdot\frac{1}{x}\,dx \]</li>
+          <li>Simplificamos: \( \displaystyle\int \dfrac{x}{x}\,dx = \int dx = x \).</li>
+        </ol>
+        <div class="result"><strong>Resultado:</strong> \[ \int \ln x\,dx = x\ln x - x + C \]</div>
+        <p class="check">✔ Comprobación: \( \frac{d}{dx}(x\ln x - x) = \ln x + 1 - 1 = \ln x \).</p>
+      </div>
+    </article>
+
+    <article class="post reveal">
+      <div class="post-side">
+        <span class="tag">Exponencial</span>
+        <h2>Integral definida</h2>
+        <h3>Enunciado</h3>
+        <div class="statement">Calcula \( \displaystyle\int_0^1 x\,e^{2x}\,dx \).</div>
+      </div>
+      <div class="post-main">
+        <h3>Solución</h3>
+        <ol class="steps">
+          <li>Elegimos \( u = x \) y \( dv = e^{2x}\,dx \). Entonces \( du = dx \) y \( v = \tfrac{1}{2}e^{2x} \).</li>
+          <li>Primero hallamos la primitiva: \[ \int x\,e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{2}\int e^{2x}\,dx = \frac{x}{2}e^{2x} - \frac{1}{4}e^{2x} \]</li>
+          <li>Evaluamos entre 0 y 1: \[ \left[\left(\tfrac{1}{2} - \tfrac{1}{4}\right)e^{2}\right] - \left[\left(0 - \tfrac{1}{4}\right)e^{0}\right] = \frac{e^{2}}{4} + \frac{1}{4} \]</li>
+        </ol>
+        <div class="result"><strong>Resultado:</strong> \[ \int_0^1 x\,e^{2x}\,dx = \frac{e^{2}+1}{4} \approx 2.097 \]</div>
+        <p class="check">✔ Comprobación: si \( F(x) = \big(\tfrac{x}{2}-\tfrac{1}{4}\big)e^{2x} \), entonces \( F'(x) = x\,e^{2x} \).</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===================== F. PROBLEMAS PROPUESTOS ===================== -->
+  <section class="sec reveal" id="propuestos">
+    <h2 class="section-title">5. Problemas propuestos</h2>
+    <p class="sec-lede">Intenta resolverlos tú antes de abrir la respuesta. Están ordenados de menor a mayor dificultad.</p>
+
+    <div class="card yellow prop">
+      <span class="lvl">Nivel 1 · fácil</span>
+      <div class="statement">Calcula \( \displaystyle\int x\,e^{3x}\,dx \).</div>
+      <details>
+        <summary>Ver respuesta</summary>
+        <div class="ans">
+          <p>\[ \int x\,e^{3x}\,dx = e^{3x}\left(\frac{x}{3} - \frac{1}{9}\right) + C \]</p>
+          <p>Verificación: derivando el resultado se obtiene \( x\,e^{3x} \).</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card blue prop">
+      <span class="lvl">Nivel 2 · fácil</span>
+      <div class="statement">Calcula \( \displaystyle\int x\cos 2x\,dx \).</div>
+      <details>
+        <summary>Ver respuesta</summary>
+        <div class="ans">
+          <p>\[ \int x\cos 2x\,dx = \frac{x}{2}\operatorname{sen} 2x + \frac{1}{4}\cos 2x + C \]</p>
+          <p>Pista: \( u = x \), \( dv = \cos 2x\,dx \), con \( v = \tfrac12\operatorname{sen} 2x \).</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card green prop">
+      <span class="lvl">Nivel 3 · medio</span>
+      <div class="statement">Calcula \( \displaystyle\int_1^{e} \ln x\,dx \).</div>
+      <details>
+        <summary>Ver respuesta</summary>
+        <div class="ans">
+          <p>Primitiva: \( x\ln x - x \). Entonces \( \big[x\ln x - x\big]_1^e = (e - e) - (0 - 1) = 1 \).</p>
+          <p><b>Respuesta final: 1</b></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card yellow prop">
+      <span class="lvl">Nivel 4 · medio</span>
+      <div class="statement">Calcula \( \displaystyle\int x^{2}\ln x\,dx \).</div>
+      <details>
+        <summary>Ver respuesta</summary>
+        <div class="ans">
+          <p>\[ \int x^{2}\ln x\,dx = \frac{x^{3}}{3}\ln x - \frac{x^{3}}{9} + C \]</p>
+          <p>Pista: \( u = \ln x \), \( dv = x^{2}\,dx \).</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card blue prop">
+      <span class="lvl">Nivel 5 · difícil</span>
+      <div class="statement">Calcula \( \displaystyle\int \arctan x\,dx \).</div>
+      <details>
+        <summary>Ver respuesta</summary>
+        <div class="ans">
+          <p>\[ \int \arctan x\,dx = x\arctan x - \frac{1}{2}\ln(1+x^{2}) + C \]</p>
+          <p>Pista: \( u = \arctan x \), \( dv = dx \). Para \( \int \frac{x}{1+x^{2}}\,dx \) usa la sustitución \( w = 1+x^{2} \).</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card green prop">
+      <span class="lvl">Nivel 6 · difícil (aparece dos veces)</span>
+      <div class="statement">Calcula \( \displaystyle\int e^{x}\operatorname{sen} x\,dx \).</div>
+      <details>
+        <summary>Ver respuesta</summary>
+        <div class="ans">
+          <p>\[ \int e^{x}\operatorname{sen} x\,dx = \frac{1}{2}e^{x}(\operatorname{sen} x - \cos x) + C \]</p>
+          <p>Pista: la integral aparece de nuevo al aplicar la fórmula dos veces. Pásala al lado izquierdo y despeja.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===================== G. FUENTES ===================== -->
+  <section class="sec reveal" id="fuentes">
+    <h2 class="section-title">6. Fuentes consultadas</h2>
+    <ul class="sources">
+      <li>[Autor], <em>[Título del libro o apunte]</em>, [editorial o institución], [año]. <span class="fill">[Completar con las fuentes que realmente consultaste]</span></li>
+      <li>[Autor o sitio web], “[Título de la página]”, [enlace], consultado el <span class="fill">[dd/mm/aaaa]</span>.</li>
+      <li>Imagen de la portada y gráfica de la carátula: ilustración de elaboración propia.</li>
+    </ul>
+  </section>
+
+  <footer>✎ fin de la hoja · Proyecto final · Cálculo II</footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -441,8 +652,8 @@
 
   if (AUTOR) $("autorBanner").classList.remove("hidden");
 
-  /* ---------- Videos: un recuadro por entrada ---------- */
-  // Los videos se guardan como "<slug>-<fecha>.<ext>"; se muestra el más reciente de cada entrada.
+  /* ---------- Videos: un recuadro por video (data-slug) ---------- */
+  // Los videos se guardan como "<slug>-<fecha>.<ext>"; se muestra el más reciente de cada video.
   async function fetchVideoNames() {
     if (!configured) return null;
     const { data, error } = await sb.storage.from(BUCKET).list("", {
@@ -473,7 +684,7 @@
     if (!name) {
       const p = document.createElement("div");
       p.className = "placeholder";
-      p.innerHTML = '<span class="ico"></span><span>El video de este ejercicio estará disponible pronto.</span>';
+      p.innerHTML = '<span class="ico"></span><span>El video estará disponible pronto.</span>';
       body.appendChild(p);
       return;
     }
@@ -485,8 +696,8 @@
   }
 
   async function loadAll() {
-    const boxes = [...document.querySelectorAll(".post")].map((post) => ({
-      slug: post.dataset.slug, box: post.querySelector(".video-box"),
+    const boxes = [...document.querySelectorAll(".video-box[data-slug]")].map((box) => ({
+      slug: box.dataset.slug, box,
     }));
     const bodies = boxes.map(({ slug, box }) => ({ slug, box, body: buildBox(box, slug) }));
     let names = [];
@@ -509,7 +720,6 @@
       if (n) conVideo++;
       showVideo(body, slug, n);
     });
-    $("statVid").textContent = conVideo;
   }
 
   /* ---------- Subida (solo modo autor) ---------- */
@@ -580,9 +790,7 @@
     return wrap;
   }
 
-  /* ---------- Estadísticas, progreso, símbolos y aparición al hacer scroll ---------- */
-  $("statEj").textContent = document.querySelectorAll(".post").length;
-
+  /* ---------- Progreso, símbolos y aparición al hacer scroll ---------- */
   const bar = $("progressBar");
   const syms = [...document.querySelectorAll("#symbols > span")];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -592,7 +800,6 @@
     const max = document.documentElement.scrollHeight - innerHeight;
     bar.style.width = (max > 0 ? Math.min(100, (scrollY / max) * 100) : 0) + "%";
     if (!reduced) {
-      // los símbolos "respiran" al hacer scroll, cada uno a su ritmo, sin salirse de la pantalla
       syms.forEach((el, i) => { el.style.translate = "0 " + Math.sin(scrollY / 420 + i * 1.3) * (18 + (i % 5) * 9) + "px"; });
     }
   }
