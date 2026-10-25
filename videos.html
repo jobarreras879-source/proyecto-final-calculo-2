@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tres videos explicativos · Aplicaciones de la integral definida</title>
+<meta name="description" content="Minicurso de Cálculo II: área bajo la curva, sólidos de revolución y valor promedio, con videos, problemas resueltos y problemas propuestos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="estilos.css">
+<script>document.documentElement.classList.add('js'); try { if (localStorage.getItem('hoja-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+</head>
+<body>
+<div class="margin-line"></div>
+<div class="hole"></div><div class="hole"></div><div class="hole"></div>
+
+<div class="symbols" aria-hidden="true">
+  <span style="--x:8%;--y:12%;--s:6.5rem">∫</span>
+  <span style="--x:88%;--y:16%;--s:5.5rem;--r:6deg">π</span>
+  <span style="--x:80%;--y:58%;--s:5rem">dx</span>
+  <span style="--x:14%;--y:70%;--s:5.5rem;--r:5deg">Σ</span>
+  <span style="--x:48%;--y:88%;--s:4rem">Δx</span>
+  <span style="--x:93%;--y:86%;--s:5rem;--r:8deg">√</span>
+</div>
+
+<div class="container">
+  <div class="topbar">
+    <a class="brand" href="index.html"><span class="logo">∫</span> Proyecto final · Cálculo II</a>
+    <button id="themeBtn" class="btn-ghost" type="button">🌙 Modo noche</button>
+  </div>
+
+  <nav class="menu" aria-label="Páginas del minicurso">
+    <a href="index.html">Inicio</a>
+    <a href="introduccion.html">Introducción</a>
+    <a href="conceptos.html">Conceptos</a>
+    <a href="videos.html" aria-current="page">Videos</a>
+    <a href="resueltos.html">Resueltos</a>
+    <a href="propuestos.html">Propuestos</a>
+    <a href="fuentes.html">Fuentes</a>
+  </nav>
+
+  <div id="autorBanner" class="autor-banner hidden">
+    ✏️ <strong>Modo autor activo.</strong> Puedes subir un video a los recuadros que no tengan YouTube (máx. 50 MB). Para salir, quita <code>?autor</code> de la dirección.
+  </div>
+
+  <main>
+  <section class="sec reveal" id="videos">
+    <h1 class="section-title">3. Tres videos explicativos</h1>
+    <p class="sec-lede">Cada video dura como máximo 1 minuto y resuelve un ejemplo distinto, uno por cada aplicación.</p>
+    <div class="vid-list">
+      <article class="vid-item">
+        <h2><span>Video 1 · Área bajo la curva:</span> área bajo \( f(x) = x^2 \) entre \( x = 0 \) y \( x = 3 \)</h2>
+        <p class="prompt">Planteo la integral, busco la antiderivada y la evalúo con el teorema fundamental.</p>
+        <div class="video-box" data-slug="video-1" data-youtube="PEGA_ID_VIDEO_1"></div>
+      </article>
+      <article class="vid-item">
+        <h2><span>Video 2 · Sólido de revolución:</span> volumen al girar \( y = \sqrt{x} \), \( 0 \le x \le 4 \), alrededor del eje \(x\)</h2>
+        <p class="prompt">Uso el método de discos: el radio de cada disco es \( \sqrt{x} \).</p>
+        <div class="video-box" data-slug="video-2" data-youtube="PEGA_ID_VIDEO_2"></div>
+      </article>
+      <article class="vid-item">
+        <h2><span>Video 3 · Valor promedio:</span> valor promedio de \( f(x) = 3x^2 \) en \([0, 2]\)</h2>
+        <p class="prompt">Calculo el promedio y encuentro el punto \(c\) donde la función toma ese valor.</p>
+        <div class="video-box" data-slug="video-3" data-youtube="PEGA_ID_VIDEO_3"></div>
+      </article>
+    </div>
+  </section>
+  </main>
+
+  <nav class="pager" aria-label="Anterior y siguiente">
+    <a class="prev" href="conceptos.html"><small>← Anterior</small>Conceptos y fórmulas</a>
+    <a class="next" href="resueltos.html"><small>Siguiente →</small>Problemas resueltos</a>
+  </nav>
+
+  <footer>✎ Proyecto final · Cálculo II · Aplicaciones de la integral definida</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+</body>
+</html>

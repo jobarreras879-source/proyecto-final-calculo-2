@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problemas propuestos · Aplicaciones de la integral definida</title>
+<meta name="description" content="Minicurso de Cálculo II: área bajo la curva, sólidos de revolución y valor promedio, con videos, problemas resueltos y problemas propuestos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="estilos.css">
+<script>document.documentElement.classList.add('js'); try { if (localStorage.getItem('hoja-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+</head>
+<body>
+<div class="margin-line"></div>
+<div class="hole"></div><div class="hole"></div><div class="hole"></div>
+
+<div class="symbols" aria-hidden="true">
+  <span style="--x:8%;--y:12%;--s:6.5rem">∫</span>
+  <span style="--x:88%;--y:16%;--s:5.5rem;--r:6deg">π</span>
+  <span style="--x:80%;--y:58%;--s:5rem">dx</span>
+  <span style="--x:14%;--y:70%;--s:5.5rem;--r:5deg">Σ</span>
+  <span style="--x:48%;--y:88%;--s:4rem">Δx</span>
+  <span style="--x:93%;--y:86%;--s:5rem;--r:8deg">√</span>
+</div>
+
+<div class="container">
+  <div class="topbar">
+    <a class="brand" href="index.html"><span class="logo">∫</span> Proyecto final · Cálculo II</a>
+    <button id="themeBtn" class="btn-ghost" type="button">🌙 Modo noche</button>
+  </div>
+
+  <nav class="menu" aria-label="Páginas del minicurso">
+    <a href="index.html">Inicio</a>
+    <a href="introduccion.html">Introducción</a>
+    <a href="conceptos.html">Conceptos</a>
+    <a href="videos.html">Videos</a>
+    <a href="resueltos.html">Resueltos</a>
+    <a href="propuestos.html" aria-current="page">Propuestos</a>
+    <a href="fuentes.html">Fuentes</a>
+  </nav>
+
+  <main>
+  <section class="sec reveal" id="propuestos">
+    <h1 class="section-title">5. Problemas propuestos</h1>
+    <p class="sec-lede">Resuélvelos antes de abrir la respuesta. Están ordenados de menor a mayor dificultad.</p>
+    <ol class="props">
+      <li><div class="card yellow">
+        <span class="lvl">fácil</span>
+        <p>Calcula el área bajo \( f(x) = 2x + 1 \) entre \( x = 0 \) y \( x = 2 \).</p>
+        <details><summary>Ver respuesta</summary><div class="ans">
+          <p>\( A = \left[ x^2 + x \right]_0^2 = 6\ u^2 \)</p>
+          <p>Verificación: la región es un trapecio de bases \( f(0) = 1 \) y \( f(2) = 5 \) y altura 2: \( \tfrac{1 + 5}{2}\cdot 2 = 6 \).</p>
+        </div></details>
+      </div></li>
+      <li><div class="card blue">
+        <span class="lvl">fácil</span>
+        <p>Calcula el área bajo \( f(x) = \operatorname{sen} x \) entre \( x = 0 \) y \( x = \pi \).</p>
+        <details><summary>Ver respuesta</summary><div class="ans">
+          <p>\( A = \left[ -\cos x \right]_0^{\pi} = 1 + 1 = 2\ u^2 \)</p>
+        </div></details>
+      </div></li>
+      <li><div class="card green">
+        <span class="lvl">medio</span>
+        <p>Calcula el volumen del sólido que se forma al girar \( y = x \), \( 0 \le x \le 3 \), alrededor del eje \(x\).</p>
+        <details><summary>Ver respuesta</summary><div class="ans">
+          <p>\( V = \pi\int_0^3 x^2\,dx = 9\pi \approx 28.27\ u^3 \)</p>
+          <p>Verificación: es un cono de radio 3 y altura 3: \( \tfrac13\pi(3)^2(3) = 9\pi \).</p>
+        </div></details>
+      </div></li>
+      <li><div class="card pink">
+        <span class="lvl">medio</span>
+        <p>Calcula el valor promedio de \( f(x) = \sqrt{x} \) en \([0, 4]\) y el valor de \(c\) donde \( f(c) = f_{\text{prom}} \).</p>
+        <details><summary>Ver respuesta</summary><div class="ans">
+          <p>\( f_{\text{prom}} = \tfrac14\int_0^4 x^{1/2}\,dx = \tfrac14\cdot\tfrac{16}{3} = \tfrac43 \approx 1.33 \)</p>
+          <p>\( \sqrt{c} = \tfrac43 \Rightarrow c = \tfrac{16}{9} \approx 1.78 \)</p>
+        </div></details>
+      </div></li>
+      <li><div class="card yellow">
+        <span class="lvl">difícil</span>
+        <p>Calcula el área <b>total</b> entre \( f(x) = x^3 \) y el eje \(x\) en \([-1, 2]\).</p>
+        <details><summary>Ver respuesta</summary><div class="ans">
+          <p>\( f \) es negativa en \([-1,0]\): \( A = \left|\int_{-1}^{0} x^3\,dx\right| + \int_0^2 x^3\,dx = \tfrac14 + 4 = \tfrac{17}{4} = 4.25\ u^2 \)</p>
+          <p>Ojo: \( \int_{-1}^{2} x^3\,dx = \tfrac{15}{4} \) no es el área, porque resta la parte negativa.</p>
+        </div></details>
+      </div></li>
+      <li><div class="card blue">
+        <span class="lvl">difícil</span>
+        <p>La región entre \( y = \sqrt{x} \) y \( y = x \) gira alrededor del eje \(x\). Calcula el volumen del sólido.</p>
+        <details><summary>Ver respuesta</summary><div class="ans">
+          <p>Cortes en \( x = 0 \) y \( x = 1 \); \( R(x) = \sqrt{x} \), \( r(x) = x \).</p>
+          <p>\( V = \pi\int_0^1 (x - x^2)\,dx = \pi\left(\tfrac12 - \tfrac13\right) = \tfrac{\pi}{6} \approx 0.524\ u^3 \)</p>
+        </div></details>
+      </div></li>
+    </ol>
+  </section>
+  </main>
+
+  <nav class="pager" aria-label="Anterior y siguiente">
+    <a class="prev" href="resueltos.html"><small>← Anterior</small>Problemas resueltos</a>
+    <a class="next" href="fuentes.html"><small>Siguiente →</small>Fuentes consultadas</a>
+  </nav>
+
+  <footer>✎ Proyecto final · Cálculo II · Aplicaciones de la integral definida</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conceptos, definiciones y propiedades · Aplicaciones de la integral definida</title>
+<meta name="description" content="Minicurso de Cálculo II: área bajo la curva, sólidos de revolución y valor promedio, con videos, problemas resueltos y problemas propuestos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="estilos.css">
+<script>document.documentElement.classList.add('js'); try { if (localStorage.getItem('hoja-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+</head>
+<body>
+<div class="margin-line"></div>
+<div class="hole"></div><div class="hole"></div><div class="hole"></div>
+
+<div class="symbols" aria-hidden="true">
+  <span style="--x:8%;--y:12%;--s:6.5rem">∫</span>
+  <span style="--x:88%;--y:16%;--s:5.5rem;--r:6deg">π</span>
+  <span style="--x:80%;--y:58%;--s:5rem">dx</span>
+  <span style="--x:14%;--y:70%;--s:5.5rem;--r:5deg">Σ</span>
+  <span style="--x:48%;--y:88%;--s:4rem">Δx</span>
+  <span style="--x:93%;--y:86%;--s:5rem;--r:8deg">√</span>
+</div>
+
+<div class="container">
+  <div class="topbar">
+    <a class="brand" href="index.html"><span class="logo">∫</span> Proyecto final · Cálculo II</a>
+    <button id="themeBtn" class="btn-ghost" type="button">🌙 Modo noche</button>
+  </div>
+
+  <nav class="menu" aria-label="Páginas del minicurso">
+    <a href="index.html">Inicio</a>
+    <a href="introduccion.html">Introducción</a>
+    <a href="conceptos.html" aria-current="page">Conceptos</a>
+    <a href="videos.html">Videos</a>
+    <a href="resueltos.html">Resueltos</a>
+    <a href="propuestos.html">Propuestos</a>
+    <a href="fuentes.html">Fuentes</a>
+  </nav>
+
+  <main>
+  <section class="sec reveal" id="conceptos">
+    <h1 class="section-title">2. Conceptos, definiciones y propiedades</h1>
+
+    <h2 class="sub"><span>2.1</span> La integral definida</h2>
+    <div class="two">
+      <div>
+        <div class="card yellow">
+          <h3>Definición</h3>
+          <p>Dividimos el intervalo \([a,b]\) en \(n\) partes iguales de ancho \( \Delta x = \frac{b-a}{n} \) y en cada parte levantamos un rectángulo de altura \( f(x_i^*) \). La integral definida es el límite de la suma de esas áreas cuando los rectángulos se hacen infinitamente delgados:</p>
+          <p>\[ \int_a^b f(x)\,dx = \lim_{n\to\infty} \sum_{i=1}^{n} f(x_i^*)\,\Delta x \]</p>
+        </div>
+        <div class="card blue">
+          <h3>Teorema fundamental del cálculo</h3>
+          <p>Si \(f\) es <b>continua</b> en \([a,b]\) y \(F\) es una antiderivada de \(f\) (es decir, \(F'(x) = f(x)\)), entonces:</p>
+          <p>\[ \int_a^b f(x)\,dx = F(b) - F(a) \]</p>
+          <p>Con este teorema ya no hace falta calcular el límite de las sumas: basta con encontrar \(F\) y restar.</p>
+        </div>
+      </div>
+      <figure class="figure">
+        <svg class="fig" viewBox="0 0 400 300" role="img" aria-label="Rectángulos de una suma de Riemann bajo una curva creciente entre a y b">
+          <rect class="riem" x="40" y="234.2" width="40" height="25.8"/>
+          <rect class="riem" x="80" y="228" width="40" height="32"/>
+          <rect class="riem" x="120" y="215.5" width="40" height="44.5"/>
+          <rect class="riem" x="160" y="196.7" width="40" height="63.3"/>
+          <rect class="riem" x="200" y="171.7" width="40" height="88.3"/>
+          <rect class="riem" x="240" y="140.5" width="40" height="119.5"/>
+          <rect class="riem" x="280" y="103" width="40" height="157"/>
+          <rect class="riem" x="320" y="59.2" width="40" height="200.8"/>
+          <polyline class="curve" points="40,235 60,234.2 80,231.9 100,228 120,222.5 140,215.5 160,206.9 180,196.7 200,185 220,171.7 240,156.9 260,140.5 280,122.5 300,103 320,81.9 340,59.2 360,35"/>
+          <path class="axis" d="M30 260 H 385 M 375 252 L 387 260 L 375 268"/>
+          <path class="axis" d="M40 270 V 20 M 32 32 L 40 18 L 48 32"/>
+          <text x="34" y="290" font-size="24">a</text>
+          <text x="354" y="290" font-size="24">b</text>
+          <path class="red" d="M200 274 H 240 M 200 268 V 280 M 240 268 V 280"/>
+          <text class="t-red" x="204" y="298" font-size="22">Δx</text>
+          <text x="250" y="70" font-size="26">y = f(x)</text>
+        </svg>
+        <figcaption><b>Figura 1.</b> Suma de Riemann: el área de los rectángulos se acerca al área bajo la curva cuando \(\Delta x \to 0\). Elaboración propia.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card pink">
+      <h3>Propiedades que usaremos</h3>
+      <ul>
+        <li>Linealidad: \( \int_a^b [c\,f(x) + g(x)]\,dx = c\int_a^b f(x)\,dx + \int_a^b g(x)\,dx \).</li>
+        <li>Aditividad: \( \int_a^c f(x)\,dx = \int_a^b f(x)\,dx + \int_b^c f(x)\,dx \), para \( a \le b \le c \).</li>
+        <li>Intervalo invertido: \( \int_b^a f(x)\,dx = -\int_a^b f(x)\,dx \).</li>
+      </ul>
+    </div>
+
+    <h2 class="sub"><span>2.2</span> Área bajo la curva</h2>
+    <div class="two">
+      <div class="card yellow">
+        <p>Si \(f\) es continua y \( f(x) \ge 0 \) en \([a,b]\), el área de la región limitada por la curva \( y = f(x) \), el eje \(x\) y las rectas \( x = a \) y \( x = b \) es:</p>
+        <p>\[ A = \int_a^b f(x)\,dx \]</p>
+        <p>El resultado se expresa en unidades cuadradas (\(u^2\)).</p>
+        <p class="warn"><b>Cuidado:</b> si \(f\) toma valores negativos, la integral resta esa parte (Figura 2). Para el área total se divide el intervalo en los puntos donde \( f(x) = 0 \) y se suma el valor absoluto de cada parte: \( A = \int_a^b |f(x)|\,dx \).</p>
+      </div>
+      <figure class="figure">
+        <svg class="fig" viewBox="0 0 380 260" role="img" aria-label="Curva con una parte sobre el eje x, de signo positivo, y otra parte debajo, de signo negativo">
+          <path class="pos" d="M40 130 C 70 30, 170 30, 200 130 Z"/>
+          <path class="neg" d="M200 130 C 225 210, 315 210, 340 130 Z"/>
+          <path class="curve" d="M40 130 C 70 30, 170 30, 200 130 C 225 210, 315 210, 340 130"/>
+          <path class="axis" d="M20 130 H 365 M 355 122 L 367 130 L 355 138"/>
+          <text x="104" y="104" font-size="30">A₁ (+)</text>
+          <text class="t-red" x="236" y="172" font-size="30">A₂ (−)</text>
+          <text x="34" y="154" font-size="22">a</text>
+          <text x="194" y="120" font-size="22">c</text>
+          <text x="334" y="122" font-size="22">b</text>
+        </svg>
+        <figcaption><b>Figura 2.</b> La integral de \(a\) a \(b\) da \(A_1 - A_2\); el área total es \(A_1 + A_2\). Elaboración propia.</figcaption>
+      </figure>
+    </div>
+
+    <h2 class="sub"><span>2.3</span> Sólidos de revolución</h2>
+    <div class="two">
+      <div>
+        <div class="card blue">
+          <p>Un <b>sólido de revolución</b> se forma al girar una región plana alrededor de una recta (el eje de giro). Si cortamos el sólido en rebanadas perpendiculares al eje, cada rebanada es un disco de radio \( f(x) \) y grosor \( dx \), con volumen \( \pi [f(x)]^2\,dx \). Sumando todos los discos:</p>
+          <p><b>Método de discos</b> (región bajo \( y = f(x) \ge 0 \), giro alrededor del eje \(x\)):</p>
+          <p>\[ V = \pi \int_a^b [f(x)]^2\,dx \]</p>
+          <p>El volumen se expresa en unidades cúbicas (\(u^3\)).</p>
+        </div>
+        <div class="card green">
+          <p><b>Método de arandelas:</b> si la región está entre una curva exterior \( y = R(x) \) y una interior \( y = r(x) \), con \( 0 \le r(x) \le R(x) \), cada rebanada es un disco con un hueco:</p>
+          <p>\[ V = \pi \int_a^b \left( [R(x)]^2 - [r(x)]^2 \right) dx \]</p>
+          <p class="warn"><b>Condición:</b> el eje de giro no debe atravesar la región. Primero se buscan los puntos de corte de las curvas para obtener \(a\) y \(b\).</p>
+        </div>
+      </div>
+      <figure class="figure">
+        <svg class="fig" viewBox="0 0 380 300" role="img" aria-label="Región bajo y igual a raíz de x girando alrededor del eje x; se muestra un disco de radio f(x) y grosor dx">
+          <path class="pos" d="M40 150 L 58.75 127.5 L 77.5 118.2 L 115 105 L 152.5 94.9 L 190 86.4 L 227.5 78.9 L 265 72.1 L 302.5 65.8 L 340 60 L 340 150 Z"/>
+          <polyline class="curve" points="40,150 45,138 58.75,127.5 77.5,118.2 115,105 152.5,94.9 190,86.4 227.5,78.9 265,72.1 302.5,65.8 340,60"/>
+          <polyline class="ghost" points="40,150 45,162 58.75,172.5 77.5,181.8 115,195 152.5,205.1 190,213.6 227.5,221.1 265,227.9 302.5,234.2 340,240"/>
+          <ellipse class="ghost" cx="340" cy="150" rx="20" ry="90"/>
+          <ellipse class="disc" cx="227.5" cy="150" rx="13" ry="71.1"/>
+          <path class="red" d="M227.5 150 V 78.9"/>
+          <circle class="dot" cx="227.5" cy="150" r="4"/>
+          <path class="axis" d="M20 150 H 370 M 360 142 L 372 150 L 360 158"/>
+          <text class="t-red" x="140" y="132" font-size="22">r = f(x)</text>
+          <text class="t-red" x="214" y="250" font-size="22">dx</text>
+          <text x="290" y="48" font-size="24">y = √x</text>
+          <text x="352" y="176" font-size="22">x</text>
+        </svg>
+        <figcaption><b>Figura 3.</b> Al girar la región alrededor del eje \(x\) se forma un sólido; cada rebanada es un disco de radio \(f(x)\). Elaboración propia.</figcaption>
+      </figure>
+    </div>
+
+    <h2 class="sub"><span>2.4</span> Valor promedio de una función</h2>
+    <div class="two">
+      <div class="card pink">
+        <p>El <b>valor promedio</b> de una función continua \(f\) en \([a,b]\) es la altura que debería tener un rectángulo de base \( b - a \) para encerrar la misma área que la curva:</p>
+        <p>\[ f_{\text{prom}} = \frac{1}{b-a}\int_a^b f(x)\,dx \]</p>
+        <p><b>Teorema del valor medio para integrales:</b> si \(f\) es continua en \([a,b]\), existe al menos un número \( c \) en \([a,b]\) tal que \( f(c) = f_{\text{prom}} \).</p>
+      </div>
+      <figure class="figure">
+        <svg class="fig" viewBox="0 0 380 300" role="img" aria-label="Curva creciente y un rectángulo de altura igual al valor promedio con la misma área">
+          <rect class="rect" x="40" y="188" width="300" height="72"/>
+          <polyline class="curve" points="40,260 77.5,256.6 115,246.5 152.5,229.6 190,206 227.5,175.6 265,138.5 302.5,94.6 340,44"/>
+          <path class="dash" d="M213.2 188 V 260"/>
+          <circle class="dot" cx="213.2" cy="188" r="5"/>
+          <path class="axis" d="M30 260 H 370 M 360 252 L 372 260 L 360 268"/>
+          <path class="axis" d="M40 270 V 20 M 32 32 L 40 18 L 48 32"/>
+          <text x="34" y="288" font-size="22">a</text>
+          <text x="334" y="288" font-size="22">b</text>
+          <text x="207" y="288" font-size="22">c</text>
+          <text class="t-red" x="60" y="180" font-size="24">f_prom</text>
+          <text x="250" y="60" font-size="24">y = f(x)</text>
+        </svg>
+        <figcaption><b>Figura 4.</b> El rectángulo amarillo tiene la misma área que la región bajo la curva; en \(x = c\) la función vale exactamente \(f_{\text{prom}}\). Elaboración propia.</figcaption>
+      </figure>
+    </div>
+
+    <h2 class="sub"><span>2.5</span> Resumen y procedimiento</h2>
+    <div class="table-wrap">
+      <table class="summary">
+        <thead><tr><th>Aplicación</th><th>Fórmula</th><th>Unidades</th><th>Condición</th></tr></thead>
+        <tbody>
+          <tr><td>Área bajo la curva</td><td>\( A = \int_a^b f(x)\,dx \)</td><td>\(u^2\)</td><td>\( f(x) \ge 0 \) en \([a,b]\)</td></tr>
+          <tr><td>Volumen (discos)</td><td>\( V = \pi\int_a^b [f(x)]^2\,dx \)</td><td>\(u^3\)</td><td>giro alrededor del eje \(x\)</td></tr>
+          <tr><td>Volumen (arandelas)</td><td>\( V = \pi\int_a^b \left([R(x)]^2 - [r(x)]^2\right) dx \)</td><td>\(u^3\)</td><td>\( 0 \le r(x) \le R(x) \)</td></tr>
+          <tr><td>Valor promedio</td><td>\( f_{\text{prom}} = \frac{1}{b-a}\int_a^b f(x)\,dx \)</td><td>las de \(f\)</td><td>\(f\) continua en \([a,b]\)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ol class="flow" aria-label="Pasos para resolver un problema">
+      <li>Dibujar la región</li>
+      <li>Encontrar \(a\), \(b\) y la función o el radio</li>
+      <li>Plantear la integral</li>
+      <li>Calcularla con el teorema fundamental</li>
+      <li>Escribir unidades y comprobar</li>
+    </ol>
+  </section>
+  </main>
+
+  <nav class="pager" aria-label="Anterior y siguiente">
+    <a class="prev" href="introduccion.html"><small>← Anterior</small>Introducción y objetivos</a>
+    <a class="next" href="videos.html"><small>Siguiente →</small>Tres videos</a>
+  </nav>
+
+  <footer>✎ Proyecto final · Cálculo II · Aplicaciones de la integral definida</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

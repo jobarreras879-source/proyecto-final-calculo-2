@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problemas resueltos por escrito · Aplicaciones de la integral definida</title>
+<meta name="description" content="Minicurso de Cálculo II: área bajo la curva, sólidos de revolución y valor promedio, con videos, problemas resueltos y problemas propuestos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="estilos.css">
+<script>document.documentElement.classList.add('js'); try { if (localStorage.getItem('hoja-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+</head>
+<body>
+<div class="margin-line"></div>
+<div class="hole"></div><div class="hole"></div><div class="hole"></div>
+
+<div class="symbols" aria-hidden="true">
+  <span style="--x:8%;--y:12%;--s:6.5rem">∫</span>
+  <span style="--x:88%;--y:16%;--s:5.5rem;--r:6deg">π</span>
+  <span style="--x:80%;--y:58%;--s:5rem">dx</span>
+  <span style="--x:14%;--y:70%;--s:5.5rem;--r:5deg">Σ</span>
+  <span style="--x:48%;--y:88%;--s:4rem">Δx</span>
+  <span style="--x:93%;--y:86%;--s:5rem;--r:8deg">√</span>
+</div>
+
+<div class="container">
+  <div class="topbar">
+    <a class="brand" href="index.html"><span class="logo">∫</span> Proyecto final · Cálculo II</a>
+    <button id="themeBtn" class="btn-ghost" type="button">🌙 Modo noche</button>
+  </div>
+
+  <nav class="menu" aria-label="Páginas del minicurso">
+    <a href="index.html">Inicio</a>
+    <a href="introduccion.html">Introducción</a>
+    <a href="conceptos.html">Conceptos</a>
+    <a href="videos.html">Videos</a>
+    <a href="resueltos.html" aria-current="page">Resueltos</a>
+    <a href="propuestos.html">Propuestos</a>
+    <a href="fuentes.html">Fuentes</a>
+  </nav>
+
+  <main>
+  <section class="sec" id="resueltos">
+    <h1 class="section-title reveal">4. Problemas resueltos por escrito</h1>
+    <p class="sec-lede reveal">Son distintos a los ejemplos de los videos. Cada uno termina con una comprobación.</p>
+
+    <article class="post reveal">
+      <div class="post-side">
+        <span class="tag">Área bajo la curva</span>
+        <h2 class="ptitle">Área bajo una parábola</h2>
+        <h3>Enunciado</h3>
+        <div class="statement">Calcula el área de la región limitada por \( f(x) = 4 - x^2 \) y el eje \(x\).</div>
+      </div>
+      <div class="post-main">
+        <h3>Solución</h3>
+        <ol class="steps">
+          <li>Buscamos dónde la curva corta el eje \(x\): \( 4 - x^2 = 0 \Rightarrow x = -2 \) y \( x = 2 \). Entre esos puntos \( f(x) \ge 0 \) (por ejemplo, \( f(0) = 4 \)), así que podemos usar \( A = \int_a^b f(x)\,dx \).</li>
+          <li>Planteamos: \[ A = \int_{-2}^{2} (4 - x^2)\,dx \]</li>
+          <li>Antiderivada: \( F(x) = 4x - \dfrac{x^3}{3} \).</li>
+          <li>Evaluamos: \( F(2) = 8 - \tfrac{8}{3} = \tfrac{16}{3} \) y \( F(-2) = -8 + \tfrac{8}{3} = -\tfrac{16}{3} \). Entonces \( A = \tfrac{16}{3} - \left(-\tfrac{16}{3}\right) = \tfrac{32}{3} \).</li>
+        </ol>
+        <div class="result"><strong>Resultado:</strong> \( A = \dfrac{32}{3} \approx 10.67\ u^2 \)</div>
+        <p class="check"><strong>✔ Comprobación:</strong> Arquímedes demostró que el área de un segmento de parábola es \( \tfrac{2}{3} \) del rectángulo que lo contiene. El rectángulo mide \( 4 \times 4 = 16 \), y \( \tfrac{2}{3}(16) = \tfrac{32}{3} \).</p>
+      </div>
+    </article>
+
+    <article class="post reveal">
+      <div class="post-side">
+        <span class="tag">Sólido de revolución · discos</span>
+        <h2 class="ptitle">Volumen de una esfera</h2>
+        <h3>Enunciado</h3>
+        <div class="statement">Demuestra que el volumen de una esfera de radio \(r\) es \( \tfrac{4}{3}\pi r^3 \), girando el semicírculo \( y = \sqrt{r^2 - x^2} \), \( -r \le x \le r \), alrededor del eje \(x\).</div>
+      </div>
+      <div class="post-main">
+        <h3>Solución</h3>
+        <ol class="steps">
+          <li>Cada rebanada es un disco de radio \( f(x) = \sqrt{r^2 - x^2} \), así que \( [f(x)]^2 = r^2 - x^2 \).</li>
+          <li>Planteamos con el método de discos: \[ V = \pi \int_{-r}^{r} (r^2 - x^2)\,dx \]</li>
+          <li>Antiderivada (\(r\) es constante): \( F(x) = r^2 x - \dfrac{x^3}{3} \).</li>
+          <li>Evaluamos: \( F(r) = r^3 - \tfrac{r^3}{3} = \tfrac{2r^3}{3} \) y \( F(-r) = -\tfrac{2r^3}{3} \). Entonces \( V = \pi\left(\tfrac{2r^3}{3} + \tfrac{2r^3}{3}\right) = \tfrac{4}{3}\pi r^3 \).</li>
+        </ol>
+        <div class="result"><strong>Resultado:</strong> \( V = \dfrac{4}{3}\pi r^3\ u^3 \)</div>
+        <p class="check"><strong>✔ Comprobación:</strong> es la fórmula del volumen de la esfera que conocemos de geometría. Por ejemplo, con \( r = 3 \): \( V = 36\pi \approx 113.10\ u^3 \).</p>
+      </div>
+    </article>
+
+    <article class="post reveal">
+      <div class="post-side">
+        <span class="tag">Sólido de revolución · arandelas</span>
+        <h2 class="ptitle">Sólido con hueco</h2>
+        <h3>Enunciado</h3>
+        <div class="statement">La región entre \( y = x \) y \( y = x^2 \) gira alrededor del eje \(x\). Calcula el volumen del sólido.</div>
+      </div>
+      <div class="post-main">
+        <h3>Solución</h3>
+        <ol class="steps">
+          <li>Puntos de corte: \( x = x^2 \Rightarrow x(x - 1) = 0 \Rightarrow x = 0 \) y \( x = 1 \).</li>
+          <li>En \([0,1]\) la recta está arriba (por ejemplo, en \( x = \tfrac12 \): \( \tfrac12 > \tfrac14 \)). Radio exterior \( R(x) = x \) y radio interior \( r(x) = x^2 \).</li>
+          <li>Planteamos con arandelas: \[ V = \pi \int_0^1 \left( x^2 - x^4 \right) dx \]</li>
+          <li>Integramos: \( \pi\left[ \dfrac{x^3}{3} - \dfrac{x^5}{5} \right]_0^1 = \pi\left( \dfrac13 - \dfrac15 \right) = \dfrac{2\pi}{15} \).</li>
+        </ol>
+        <div class="result"><strong>Resultado:</strong> \( V = \dfrac{2\pi}{15} \approx 0.419\ u^3 \)</div>
+        <p class="check"><strong>✔ Comprobación:</strong> el sólido exterior es un cono de radio 1 y altura 1, con volumen \( \tfrac13\pi(1)^2(1) = \tfrac{\pi}{3} \). Al quitarle el sólido interior, \( \pi\int_0^1 x^4\,dx = \tfrac{\pi}{5} \), queda \( \tfrac{\pi}{3} - \tfrac{\pi}{5} = \tfrac{2\pi}{15} \).</p>
+      </div>
+    </article>
+
+    <article class="post reveal">
+      <div class="post-side">
+        <span class="tag">Valor promedio</span>
+        <h2 class="ptitle">Velocidad promedio</h2>
+        <h3>Enunciado</h3>
+        <div class="statement">La velocidad de un carrito es \( v(t) = t^2 + 1 \) m/s, para \( 0 \le t \le 3 \) segundos. ¿Cuál es su velocidad promedio?</div>
+      </div>
+      <div class="post-main">
+        <h3>Solución</h3>
+        <ol class="steps">
+          <li>Usamos la fórmula del valor promedio con \( a = 0 \) y \( b = 3 \): \[ v_{\text{prom}} = \frac{1}{3 - 0}\int_0^3 (t^2 + 1)\,dt \]</li>
+          <li>Integramos: \( \left[ \dfrac{t^3}{3} + t \right]_0^3 = (9 + 3) - 0 = 12 \).</li>
+          <li>Dividimos entre la longitud del intervalo: \( v_{\text{prom}} = \dfrac{12}{3} = 4 \).</li>
+        </ol>
+        <div class="result"><strong>Resultado:</strong> \( v_{\text{prom}} = 4 \) m/s</div>
+        <p class="check"><strong>✔ Comprobación:</strong> por el teorema del valor medio debe existir \(c\) en \([0,3]\) con \( v(c) = 4 \): \( c^2 + 1 = 4 \Rightarrow c = \sqrt{3} \approx 1.73 \) s, que sí está en el intervalo. Además, la integral (12 m) es la distancia recorrida, y \( 4 \text{ m/s} \times 3 \text{ s} = 12 \) m.</p>
+      </div>
+    </article>
+  </section>
+  </main>
+
+  <nav class="pager" aria-label="Anterior y siguiente">
+    <a class="prev" href="videos.html"><small>← Anterior</small>Tres videos</a>
+    <a class="next" href="propuestos.html"><small>Siguiente →</small>Problemas propuestos</a>
+  </nav>
+
+  <footer>✎ Proyecto final · Cálculo II · Aplicaciones de la integral definida</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
