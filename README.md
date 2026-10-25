@@ -1,6 +1,6 @@
 # Proyecto final · Cálculo 2
 
-Minicurso de una sola página (`index.html`, HTML, CSS y JavaScript puro, sin frameworks) sobre **Integración por partes**, tema de Cálculo II. Incluye tres videos explicativos de máximo 1 minuto, guardados en **Supabase Storage**, además de problemas resueltos y propuestos.
+Minicurso de una sola página (`index.html`, HTML, CSS y JavaScript puro, sin frameworks) sobre **Aplicaciones de la integral definida**, tema de Cálculo II: área bajo la curva, sólidos de revolución y valor promedio de una función. Incluye tres videos explicativos de máximo 1 minuto (incrustados desde YouTube), problemas resueltos y problemas propuestos.
 
 🔗 **Web:** https://jobarreras879-source.github.io/proyecto-final-calculo-2/
 
@@ -10,24 +10,26 @@ Estructura pedida en la guía del proyecto:
 
 1. **Carátula**: título, estudiante, institución, curso, sección y fecha de entrega.
 2. **Introducción y objetivos** de aprendizaje, con conocimientos previos.
-3. **Conceptos y fórmulas**: regla del producto, fórmula de integración por partes, condiciones y regla LIATE, con un esquema.
-4. **Tres videos** de máximo 1 minuto, cada uno con un ejemplo distinto.
-5. **Tres problemas resueltos por escrito**, distintos a los de los videos, con comprobación.
+3. **Conceptos y fórmulas**: integral definida, teorema fundamental del cálculo, propiedades, área bajo la curva, métodos de discos y arandelas y valor promedio, con cuatro gráficas propias y una tabla resumen.
+4. **Tres videos** de máximo 1 minuto, uno por cada aplicación.
+5. **Cuatro problemas resueltos por escrito**, distintos a los de los videos, cada uno con comprobación.
 6. **Seis problemas propuestos** ordenados de menor a mayor dificultad, con respuestas en desplegable.
 7. **Fuentes consultadas**.
 
 Otros detalles:
 
 - Diseño de **hoja de cuaderno cuadriculado**, con modo noche opcional (botón de arriba a la derecha).
+- Menú fijo arriba para ir a cada sección; decoración y animaciones reducidas, como pide la guía.
 - Fórmulas escritas con [KaTeX](https://katex.org/).
 - Diseño responsive y animaciones que respetan la opción "reducir movimiento" del sistema.
 
 ## Editar el contenido
 
-- Los datos de la carátula y las fuentes están marcados con `<span class="fill">[...]</span>`: reemplázalos con tus datos reales.
+- Lo que falta completar está marcado con `<span class="fill">[...]</span>` (la sección en la carátula y los apuntes del curso en las fuentes).
 - Cada video es un `<div class="video-box" data-slug="video-1" data-youtube="PEGA_ID_VIDEO_1">` (también `video-2` y `video-3`).
 - **Videos de YouTube (recomendado):** sube cada video a YouTube como **No listado** y pega en `data-youtube` el ID de 11 caracteres de su enlace (`https://youtu.be/ID` o `https://www.youtube.com/watch?v=ID`). Si el atributo no tiene un ID válido, la web usa el video subido a Supabase, y si tampoco hay, muestra "disponible pronto".
-- Los problemas resueltos son `<article class="post">` y los propuestos son `<div class="card prop">` con su `<details>` para la respuesta.
+- Los problemas resueltos son `<article class="post">` y los propuestos son elementos de `<ol class="props">`, cada uno con su `<details>` para la respuesta.
+- Las gráficas son SVG escritos a mano dentro de `index.html` (Figuras 1 a 4).
 
 Las fórmulas se escriben con `\( ... \)` (en línea) y `\[ ... \]` (en bloque).
 
