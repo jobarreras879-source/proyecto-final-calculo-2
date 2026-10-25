@@ -177,6 +177,7 @@
   .rec { width: 13px; height: 13px; border-radius: 50%; background: #ef4444; animation: blink 1.5s ease-in-out infinite; }
   @keyframes blink { 50% { opacity: .2; } }
   .video-box video { width: 100%; max-height: 72vh; display: block; background: #000; }
+  .video-box iframe.yt { width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; display: block; background: #000; }
   .video-box .placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 240px; padding: 30px 16px; text-align: center; color: #5b6070; font-size: 1.5rem; background: #f4f2ea; border: 2.5px dashed #b9b6a8; }
   .placeholder .ico { width: 64px; height: 64px; border: 3.5px solid var(--red); border-radius: 50%; position: relative; }
   .placeholder .ico::after { content: ""; position: absolute; left: 24px; top: 16px; border-left: 20px solid var(--red); border-top: 13px solid transparent; border-bottom: 13px solid transparent; }
@@ -439,17 +440,17 @@
       <article class="vid-item">
         <p class="cap"><span>Video 1 ·</span> Calcular \( \displaystyle\int x\,e^{x}\,dx \)</p>
         <p class="prompt">Se usa <em>u = x</em> porque al derivarla se simplifica, y <em>dv = eˣ dx</em>.</p>
-        <div class="video-box" data-slug="video-1"></div>
+        <div class="video-box" data-slug="video-1" data-youtube="PEGA_ID_VIDEO_1"></div>
       </article>
       <article class="vid-item">
         <p class="cap"><span>Video 2 ·</span> Calcular \( \displaystyle\int x\ln x\,dx \)</p>
         <p class="prompt">Aquí el logaritmo va como <em>u</em>, porque su derivada es más simple.</p>
-        <div class="video-box" data-slug="video-2"></div>
+        <div class="video-box" data-slug="video-2" data-youtube="PEGA_ID_VIDEO_2"></div>
       </article>
       <article class="vid-item">
         <p class="cap"><span>Video 3 ·</span> Calcular \( \displaystyle\int x^{2}\operatorname{sen} x\,dx \)</p>
         <p class="prompt">Dos aplicaciones seguidas de la fórmula: la potencia de <em>x</em> baja de grado en cada paso.</p>
-        <div class="video-box" data-slug="video-3"></div>
+        <div class="video-box" data-slug="video-3" data-youtube="PEGA_ID_VIDEO_3"></div>
       </article>
     </div>
   </section>
@@ -668,6 +669,24 @@
     return names.find((n) => re.test(n)) || null; // names ya viene ordenado: el más nuevo primero
   }
 
+  // Si el recuadro tiene data-youtube="ID" (11 caracteres de la URL de YouTube), se incrusta ese video.
+  function youtubeId(box) {
+    const id = (box.dataset.youtube || "").trim();
+    return /^[A-Za-z0-9_-]{11}$/.test(id) ? id : null;
+  }
+
+  function showYouTube(body, id) {
+    body.innerHTML = "";
+    const f = document.createElement("iframe");
+    f.className = "yt";
+    f.src = `https://www.youtube-nocookie.com/embed/${id}`;
+    f.title = "Video explicativo";
+    f.allow = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    f.allowFullscreen = true;
+    f.loading = "lazy";
+    body.appendChild(f);
+  }
+
   function buildBox(box, slug) {
     box.innerHTML = "";
     const head = document.createElement("header");
@@ -675,7 +694,7 @@
     const body = document.createElement("div");
     body.className = "vb-body";
     box.append(head, body);
-    if (AUTOR) box.appendChild(buildUploader(box, slug));
+    if (AUTOR && !youtubeId(box)) box.appendChild(buildUploader(box, slug));
     return body;
   }
 
@@ -699,13 +718,17 @@
     const boxes = [...document.querySelectorAll(".video-box[data-slug]")].map((box) => ({
       slug: box.dataset.slug, box,
     }));
-    const bodies = boxes.map(({ slug, box }) => ({ slug, box, body: buildBox(box, slug) }));
+    const bodies = boxes.map(({ slug, box }) => ({ slug, box, yt: youtubeId(box), body: buildBox(box, slug) }));
+    // Primero los videos de YouTube (no necesitan Supabase)
+    bodies.filter((b) => b.yt).forEach((b) => showYouTube(b.body, b.yt));
+    const pending = bodies.filter((b) => !b.yt);
+    if (!pending.length) return;
     let names = [];
     try {
       names = await fetchVideoNames();
       if (names === null) throw new Error("Falta configurar Supabase en index.html.");
     } catch (e) {
-      bodies.forEach(({ body }) => {
+      pending.forEach(({ body }) => {
         body.innerHTML = "";
         const p = document.createElement("div");
         p.className = "placeholder";
@@ -714,12 +737,7 @@
       });
       return;
     }
-    let conVideo = 0;
-    bodies.forEach(({ slug, body }) => {
-      const n = latestFor(slug, names);
-      if (n) conVideo++;
-      showVideo(body, slug, n);
-    });
+    pending.forEach(({ slug, body }) => showVideo(body, slug, latestFor(slug, names)));
   }
 
   /* ---------- Subida (solo modo autor) ---------- */

@@ -25,19 +25,20 @@ Otros detalles:
 ## Editar el contenido
 
 - Los datos de la carátula y las fuentes están marcados con `<span class="fill">[...]</span>`: reemplázalos con tus datos reales.
-- Cada video es un `<div class="video-box" data-slug="video-1">` (también `video-2` y `video-3`). Esa clave es la que usa la subida; no la cambies sin cambiar también los archivos ya subidos.
+- Cada video es un `<div class="video-box" data-slug="video-1" data-youtube="PEGA_ID_VIDEO_1">` (también `video-2` y `video-3`).
+- **Videos de YouTube (recomendado):** sube cada video a YouTube como **No listado** y pega en `data-youtube` el ID de 11 caracteres de su enlace (`https://youtu.be/ID` o `https://www.youtube.com/watch?v=ID`). Si el atributo no tiene un ID válido, la web usa el video subido a Supabase, y si tampoco hay, muestra "disponible pronto".
 - Los problemas resueltos son `<article class="post">` y los propuestos son `<div class="card prop">` con su `<details>` para la respuesta.
 
 Las fórmulas se escriben con `\( ... \)` (en línea) y `\[ ... \]` (en bloque).
 
-## Subir los videos (modo autor)
+## Subir los videos a Supabase (alternativa, modo autor)
 
 1. Abre la web con `?autor` al final de la dirección:
    `https://jobarreras879-source.github.io/proyecto-final-calculo-2/?autor`
 2. En cada entrada aparece una zona para arrastrar tu video y el botón **Subir**.
 3. Se guarda en Supabase como `<slug>-<fecha>.<ext>` y la web muestra siempre el más reciente de cada video.
 
-Los visitantes sin `?autor` solo ven los videos.
+Los visitantes sin `?autor` solo ven los videos. Los recuadros con `data-youtube` no muestran el formulario.
 
 **Límites:** solo archivos de video y máximo **50 MB**. Es el tope del plan gratuito de Supabase. Si un video pesa más, conviene comprimirlo (por ejemplo con HandBrake o `ffmpeg`) o grabarlo en 720p.
 
