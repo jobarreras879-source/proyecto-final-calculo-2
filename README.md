@@ -2,7 +2,7 @@
 
 Blog de una sola página (`index.html`, HTML, CSS y JavaScript puro, sin frameworks) con ejercicios de Cálculo 2 resueltos paso a paso. Al final de cada entrada hay un recuadro con el **video** donde se explica el ejercicio, guardado en **Supabase Storage**.
 
-🔗 **Web:** https://jobarreras879-source.github.io/supabase-video-uploader/
+🔗 **Web:** https://jobarreras879-source.github.io/proyecto-final-calculo-2/
 
 ## Qué incluye
 
@@ -27,7 +27,7 @@ Las fórmulas se escriben con `\( ... \)` (en línea) y `\[ ... \]` (en bloque).
 ## Subir los videos (modo autor)
 
 1. Abre la web con `?autor` al final de la dirección:
-   `https://jobarreras879-source.github.io/supabase-video-uploader/?autor`
+   `https://jobarreras879-source.github.io/proyecto-final-calculo-2/?autor`
 2. En cada entrada aparece una zona para arrastrar tu video y el botón **Subir**.
 3. Se guarda en Supabase como `<slug>-<fecha>.<ext>` y la web muestra siempre el más reciente de cada ejercicio.
 
