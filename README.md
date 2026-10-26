@@ -41,7 +41,6 @@ Para cambiar el menú o los botones de anterior/siguiente hay que editarlos en c
 
 ## Editar el contenido
 
-- Lo que falta completar está marcado con `<span class="fill">[...]</span>` (la sección en la carátula y los apuntes del curso en las fuentes).
 - Cada video es un `<div class="video-box" data-slug="video-1" data-youtube="PEGA_ID_VIDEO_1">` (también `video-2` y `video-3`), en `videos.html`.
 - **Videos de YouTube (recomendado):** sube cada video a YouTube como **No listado** y pega en `data-youtube` el ID de 11 caracteres de su enlace (`https://youtu.be/ID` o `https://www.youtube.com/watch?v=ID`). Si el atributo no tiene un ID válido, la web usa el video subido a Supabase, y si tampoco hay, muestra "disponible pronto".
 - Los problemas resueltos son `<article class="post">` y los propuestos son elementos de `<ol class="props">`, cada uno con su `<details>` para la respuesta.
