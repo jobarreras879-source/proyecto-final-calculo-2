@@ -98,6 +98,9 @@
         <p>Si \(f\) es continua y \( f(x) \ge 0 \) en \([a,b]\), el área de la región limitada por la curva \( y = f(x) \), el eje \(x\) y las rectas \( x = a \) y \( x = b \) es:</p>
         <p>\[ A = \int_a^b f(x)\,dx \]</p>
         <p>El resultado se expresa en unidades cuadradas (\(u^2\)).</p>
+        <p><b>Área entre dos curvas:</b> si \( f(x) \ge g(x) \) en \([a,b]\), el área de la región entre ellas es</p>
+        <p>\[ A = \int_a^b \left[ f(x) - g(x) \right] dx \]</p>
+        <p>Los límites \(a\) y \(b\) suelen ser los puntos de corte, que se obtienen resolviendo \( f(x) = g(x) \).</p>
         <p class="warn"><b>Cuidado:</b> si \(f\) toma valores negativos, la integral resta esa parte (Figura 2). Para el área total se divide el intervalo en los puntos donde \( f(x) = 0 \) y se suma el valor absoluto de cada parte: \( A = \int_a^b |f(x)|\,dx \).</p>
       </div>
       <figure class="figure">
@@ -181,6 +184,7 @@
         <thead><tr><th>Aplicación</th><th>Fórmula</th><th>Unidades</th><th>Condición</th></tr></thead>
         <tbody>
           <tr><td>Área bajo la curva</td><td>\( A = \int_a^b f(x)\,dx \)</td><td>\(u^2\)</td><td>\( f(x) \ge 0 \) en \([a,b]\)</td></tr>
+          <tr><td>Área entre curvas</td><td>\( A = \int_a^b [f(x) - g(x)]\,dx \)</td><td>\(u^2\)</td><td>\( f(x) \ge g(x) \) en \([a,b]\)</td></tr>
           <tr><td>Volumen (discos)</td><td>\( V = \pi\int_a^b [f(x)]^2\,dx \)</td><td>\(u^3\)</td><td>giro alrededor del eje \(x\)</td></tr>
           <tr><td>Volumen (arandelas)</td><td>\( V = \pi\int_a^b \left([R(x)]^2 - [r(x)]^2\right) dx \)</td><td>\(u^3\)</td><td>\( 0 \le r(x) \le R(x) \)</td></tr>
           <tr><td>Valor promedio</td><td>\( f_{\text{prom}} = \frac{1}{b-a}\int_a^b f(x)\,dx \)</td><td>las de \(f\)</td><td>\(f\) continua en \([a,b]\)</td></tr>

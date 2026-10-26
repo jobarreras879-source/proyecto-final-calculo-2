@@ -111,17 +111,17 @@
         <span class="tag">Valor promedio</span>
         <h2 class="ptitle">Velocidad promedio</h2>
         <h3>Enunciado</h3>
-        <div class="statement">La velocidad de un carrito es \( v(t) = t^2 + 1 \) m/s, para \( 0 \le t \le 3 \) segundos. ¿Cuál es su velocidad promedio?</div>
+        <div class="statement">Un carrito arranca y se detiene con velocidad \( v(t) = 6t - t^2 \) m/s, para \( 0 \le t \le 6 \) segundos. ¿Cuál es su velocidad promedio?</div>
       </div>
       <div class="post-main">
         <h3>Solución</h3>
         <ol class="steps">
-          <li>Usamos la fórmula del valor promedio con \( a = 0 \) y \( b = 3 \): \[ v_{\text{prom}} = \frac{1}{3 - 0}\int_0^3 (t^2 + 1)\,dt \]</li>
-          <li>Integramos: \( \left[ \dfrac{t^3}{3} + t \right]_0^3 = (9 + 3) - 0 = 12 \).</li>
-          <li>Dividimos entre la longitud del intervalo: \( v_{\text{prom}} = \dfrac{12}{3} = 4 \).</li>
+          <li>Usamos la fórmula del valor promedio con \( a = 0 \) y \( b = 6 \): \[ v_{\text{prom}} = \frac{1}{6 - 0}\int_0^6 (6t - t^2)\,dt \]</li>
+          <li>Integramos: \( \left[ 3t^2 - \dfrac{t^3}{3} \right]_0^6 = (108 - 72) - 0 = 36 \).</li>
+          <li>Dividimos entre la longitud del intervalo: \( v_{\text{prom}} = \dfrac{36}{6} = 6 \).</li>
         </ol>
-        <div class="result"><strong>Resultado:</strong> \( v_{\text{prom}} = 4 \) m/s</div>
-        <p class="check"><strong>✔ Comprobación:</strong> por el teorema del valor medio debe existir \(c\) en \([0,3]\) con \( v(c) = 4 \): \( c^2 + 1 = 4 \Rightarrow c = \sqrt{3} \approx 1.73 \) s, que sí está en el intervalo. Además, la integral (12 m) es la distancia recorrida, y \( 4 \text{ m/s} \times 3 \text{ s} = 12 \) m.</p>
+        <div class="result"><strong>Resultado:</strong> \( v_{\text{prom}} = 6 \) m/s</div>
+        <p class="check"><strong>✔ Comprobación:</strong> por el teorema del valor medio debe existir \(c\) en \([0,6]\) con \( v(c) = 6 \): \( 6c - c^2 = 6 \Rightarrow c^2 - 6c + 6 = 0 \Rightarrow c = 3 \pm \sqrt{3} \), es decir \( c \approx 1.27 \) s (al acelerar) y \( c \approx 4.73 \) s (al frenar); los dos están en el intervalo. Además, como \( v(t) \ge 0 \), la integral (36 m) es la distancia recorrida, y \( 6 \text{ m/s} \times 6 \text{ s} = 36 \) m.</p>
       </div>
     </article>
   </section>
